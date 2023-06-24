@@ -1,0 +1,10 @@
+fastapi[all]==0.95.2
+pyyaml==6.0
+uvicorn[standard]
+gunicorn
+
+
+pytest
+pytest-aio
+pytest-asyncio
+testfixtures
