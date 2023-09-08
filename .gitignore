@@ -140,3 +140,5 @@ cython_debug/
 
 # Custom files
 README_HIDE.md
+.python-version
+.DS_Store
