@@ -1,16 +1,31 @@
 import asyncio
-import nest_asyncio
-import sys
+import threading
 
 
-# TODO: Fix event loop
-nest_asyncio.apply()
-# TODO: Does we support Python <= 3.7.0? Check tests
-if sys.version_info >= (3, 7, 0):
-    get_running_loop = asyncio.get_running_loop
-else:
-    def get_running_loop() -> asyncio.AbstractEventLoop:
-        loop = asyncio.get_event_loop()
-        if not loop.is_running():
-            raise RuntimeError('no running event loop')
-        return loop
+class RunThreadCoro(threading.Thread):
+    def __init__(self, async_func, args, kwargs):
+        self.async_func = async_func
+        self.args = args
+        self.kwargs = kwargs
+        self.result = None
+        super().__init__()
+
+    def run(self):
+        self.result = asyncio.run(self.async_func(*self.args, **self.kwargs))
+
+
+def run_async(func, *args, **kwargs):
+    # If loop is running, asyncio.run raise:
+    # RuntimeError: asyncio.run() cannot be called from a running event loop
+    # https://stackoverflow.com/questions/55409641/asyncio-run-cannot-be-called-from-a-running-event-loop-when-using-jupyter-no
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+    if loop and loop.is_running():
+        thread = RunThreadCoro(func, args, kwargs)
+        thread.start()
+        thread.join()
+        return thread.result
+    else:
+        return asyncio.run(func(*args, **kwargs))

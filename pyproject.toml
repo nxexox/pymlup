@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymlup"
+description = "MLup framework, fast ml to production, easy to learn, easy to use."
+requires-python = ">=3.7"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+  { name="Deys Timofey", email="nxexox@gmail.com" },
+]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Framework :: FastAPI",
+    "Framework :: Pydantic",
+    "Framework :: Pydantic :: 1",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP",
+]
+dependencies = [
+    "fastapi[all]>=0.95.2,<0.100.0",
+    "pyyaml>=6.0.0,<7.0.0",
+    "numpy>=1.0.0,<2.0.0",
+
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/nxexox/pymlup"
+Documentation = "https://github.com/nxexox/pymlup/docs"
+Repository = "https://github.com/nxexox/pymlup"
+
+[project.optional-dependencies]
+scikit-learn = ["scikit-learn>=1.2.0,<1.3.0"]
+lightgbm = ["lightgbm>=4.0.0,<5.0.0"]
+tensorflow = ["tensorflow>=2.0.0,<3.0.0"]
+torch = ["torch>=2.0.0,<3.0.0"]
+onnx = [
+    "onnx>=1.0.0,<2.0.0",
+    "onnxruntime>=1.0.0,<2.0.0",
+]
+tests = [
+    # Tests
+    "pytest>=7.0.0,<8.0.0",
+    "pytest-asyncio==0.21.0",
+
+    # Tests models
+    "joblib>=1.2.0,<1.3.0",
+    "pandas>=2.0.0,<3.0.0",
+    "scikit-learn>=1.2.0,<1.3.0",
+    "tensorflow>=2.0.0,<3.0.0",
+    "lightgbm>=4.0.0,<5.0.0",
+    "torch>=2.0.0,<3.0.0",
+    "onnx>=1.0.0,<2.0.0",
+    "onnxruntime>=1.0.0,<2.0.0",
+    "tf2onnx>=1.0.0,<2.0.0",
+    "skl2onnx>=1.0.0,<2.0.0",
+
+    # Tests jupyter
+    "requests>=2.0.0,<3.0.0",
+    "jupyter==1.0.0",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "mlup.__version__"}
+
+[project.scripts]
+mlup = "mlup.console_scripts.command:main"
+
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+include = ["mlup*"]  # ["*"] by default
+exclude = ["test*", "*__pycache__*",]  # empty by default

@@ -1,38 +1,43 @@
-import logging
-
-from mlup.ml_model.model import MLupModel
-
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('MLup')
+import mlup
+from mlup import constants
 
 
 if __name__ == "__main__":
-    mlup_model = MLupModel(
-        name='MyName',
-        version='MyVersion',
-        columns=[
-            {'name': 'col1', 'type': 'float'},
-            {'name': 'col2', 'type': 'int', 'required': False, 'default': 10},
-        ],
-        auto_detect_predict_params=True,
-        path_to_binary='/mldata/models/binary_cls_model.pckl',
-        use_thread_loop=False,
+    up = mlup.UP(
+        conf=mlup.Config(
+            name='MyName',
+            version='MyVersion',
+            columns=[
+                {'name': 'MinTemp', 'type': 'float', 'required': False, 'default': 1.4},
+                {'name': 'MaxTemp', 'type': 'float'},
+                {'name': 'Humidity9am', 'type': 'float'},
+                {'name': 'Humidity3pm', 'type': 'float'},
+                {'name': 'Pressure9am', 'type': 'float'},
+                {'name': 'Pressure3pm', 'type': 'float'},
+                {'name': 'Temp9am', 'type': 'float'},
+                {'name': 'Temp3pm', 'type': 'float'},
+            ],
+            auto_detect_predict_params=True,
+            storage_type=constants.StorageType.disk,
+            storage_kwargs={
+                'path_to_files': '../mldata/models/scikit-learn-binary_cls_model.pckl',
+                'files_mask': 'scikit-learn-binary_cls_model.pckl',
+            },
+            use_thread_loop=False,
+        )
     )
-    mlup_model.load()
+    up.ml.load()
+    up.to_yaml('example-config.yaml')
+    up.to_json('example-config.json')
 
     # Load configs from config file
-    mlup_model = MLupModel()
-    # or mlup_model.config.load_from_json
-    mlup_model.config.load_from_yaml("/Users/t.deys/Projects/MLup/mlup-ws/conf/hello_world.yaml")
-    mlup_model.load()
+    new_up = mlup.UP.load_from_yaml('example-config.yaml', load_model=True)
 
     # Save configs to file
-    # or mlup_model.config.save_to_json
-    mlup_model.config.save_to_yaml("/Users/t.deys/Projects/MLup/mlup-ws/conf/example_save_config.yaml")
+    # or up.config_provider.save_to_yaml
+    up.to_yaml('example-save-config.yaml')
 
     # You can load config and then change it
-    mlup_model.config.load_from_yaml("/Users/t.deys/Projects/MLup/mlup-ws/conf/hello_world.yaml")
-    mlup_model.name = 'NewName'
-    mlup_model.load()
-    mlup_model.config.save_to_yaml("/Users/t.deys/Projects/MLup/mlup-ws/conf/example_save_config.yaml")
+    up_for_change = up.load_from_yaml('example-config.yaml', load_model=True)
+    up_for_change.name = 'NewName'
+    up_for_change.to_yaml('example-changed-config.yaml')

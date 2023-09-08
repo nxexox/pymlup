@@ -1,9 +1,7 @@
-import logging
 import time
 from typing import Optional
 
-
-logger = logging.getLogger('MLup')
+from mlup.config import logger
 
 
 class TimeProfiler:
