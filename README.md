@@ -52,11 +52,11 @@ pip install pymlup
 
 You will also can install with ml backend library:
 ```bash
-pip install pymlup[scikit-learn]  # For scikit-learn
-pip install pymlup[lightgbm]      # For microsoft lightgbm
-pip install pymlup[tensorflow]    # For tensorflow
-pip install pymlup[torch]         # For torch
-pip install pymlup[onnx]          # For onnx models: torch, tensorflow, sklearn, etc...
+pip install "pymlup[scikit-learn]"  # For scikit-learn
+pip install "pymlup[lightgbm]"      # For microsoft lightgbm
+pip install "pymlup[tensorflow]"    # For tensorflow
+pip install "pymlup[torch]"         # For torch
+pip install "pymlup[onnx]"          # For onnx models: torch, tensorflow, sklearn, etc...
 ```
 
 ## Examples
@@ -600,8 +600,9 @@ up = mlup.UP(
 ## TODO
 
 * Full docs by all pymlup library.
-* Support multi models pipelines. Now support is only single file model and single model predict method.
-* Auto search params by model and test data.
+* Added length inner array validation.
 * Modern mlup validate-config command.
+* Auto search params by model and test data.
+* Support multi models pipelines. Now support is only single file model and single model predict method.
 * Add C++ implementation this application by config or model. Support everything that is possible according to the mlup config.
 * Add hub for save configs.

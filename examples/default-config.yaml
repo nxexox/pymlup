@@ -1,0 +1,34 @@
+version: '1'
+ml:
+  auto_detect_predict_params: true
+  binarization_type: auto
+  columns: null
+  data_transformer_for_predict: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  data_transformer_for_predicted: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  dtype_for_predict: null
+  max_thread_loop_workers: null
+  name: MyFirstMLupModel
+  predict_method_name: predict
+  storage_type: mlup.ml.storage.memory.MemoryStorage
+  type: sklearn
+  use_thread_loop: true
+  version: 1.0.0.0
+web:
+  batch_worker_timeout: 1.0
+  column_validation: false
+  debug: false
+  host: 0.0.0.0
+  is_long_predict: false
+  item_id_col_name: mlup_item_id
+  max_queue_size: 100
+  min_batch_len: 10
+  mode: mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture
+  port: 8009
+  show_docs: true
+  throttling_max_request_len: null
+  throttling_max_requests: null
+  timeout_for_shutdown_daemon: 3.0
+  ttl_client_wait: 30.0
+  ttl_predicted_data: 60
+  uvicorn_kwargs: {}
+  web_app_version: 1.0.0.0
