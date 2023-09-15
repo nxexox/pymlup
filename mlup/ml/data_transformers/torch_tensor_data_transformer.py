@@ -13,7 +13,7 @@ logger = logging.getLogger('mlup')
 class TorchTensorDataTransformer(BaseDataTransformer):
     """Class for transformers data for predict to pytorch.tensor format and back."""
     dtype: Optional[torch.dtype] = None
-    DATA_TYPE: ModelDataTransformerType = ModelDataTransformerType.TENSORFLOW_TENSOR
+    DATA_TYPE: ModelDataTransformerType = ModelDataTransformerType.TORCH_TENSOR
 
     def get_dtype(self) -> torch.dtype:
         return getattr(torch, self.dtype_name)

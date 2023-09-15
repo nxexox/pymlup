@@ -17,7 +17,7 @@ from mlup.constants import (
     ModelLibraryType,
     BinarizationType,
     IS_X,
-    StorageType, THERE_IS_ARGS,
+    StorageType, THERE_IS_ARGS, LoadedFile,
 )
 from mlup.ml.data_transformers.base import BaseDataTransformer
 from mlup.errors import ModelLoadError, PredictError, PredictTransformDataError
@@ -244,20 +244,14 @@ class MLupModel(ModelConfig):
 
     # Work model interface
     def _get_data_transformer_for_predict(self) -> BaseDataTransformer:
-        if isinstance(self._data_transformer_for_predict, BaseDataTransformer):
-            return self._data_transformer_for_predict
-        self._data_transformer_for_predict = get_class_by_path(self.conf.data_transformer_for_predict)(
+        return get_class_by_path(self.conf.data_transformer_for_predict)(
             dtype_name=self.conf.dtype_for_predict
         )
-        return self._data_transformer_for_predict
 
     def _get_data_transformer_for_predicted(self) -> BaseDataTransformer:
-        if isinstance(self._data_transformer_for_predicted, BaseDataTransformer):
-            return self._data_transformer_for_predicted
-        self._data_transformer_for_predicted = get_class_by_path(self.conf.data_transformer_for_predicted)(
+        return get_class_by_path(self.conf.data_transformer_for_predicted)(
             dtype_name=self.conf.dtype_for_predict
         )
-        return self._data_transformer_for_predicted
 
     def _transform_data_for_predict(self, src_data: List[Union[Dict, List]]):
         logger.debug(f'Transform data {len(src_data)} rows to model format.')
@@ -338,18 +332,18 @@ class MLupModel(ModelConfig):
 
         with TimeProfiler('Time to load binary model to memory:'):
             try:
-                models = storage.load()
+                loaded_files: list[LoadedFile] = storage.load()
             except Exception as e:
                 raise ModelLoadError(str(e))
 
-        logger.debug(f'Size raw models binary data: {sys.getsizeof(models, default=-1)}')
+        logger.debug(f'Size raw models loaded data: {sys.getsizeof(loaded_files, default=-1)}')
 
         if StorageType(self.conf.storage_type) == StorageType.memory:
-            self._model_obj = models[0].raw_data
+            self._model_obj = loaded_files[0].raw_data
         else:
             logger.debug(f'Search binarizer: "{self.conf.binarization_type}".')
             if self.conf.binarization_type == 'auto':
-                binarization_type = auto_search_binarization_type(models[0])
+                binarization_type = auto_search_binarization_type(loaded_files[0])
                 if binarization_type is not None:
                     self.conf.binarization_type = binarization_type
                 else:
@@ -357,11 +351,11 @@ class MLupModel(ModelConfig):
                         'Binarizer with auto mode not found. Set binarizer manual or change your models.'
                     )
             binarization_class = get_class_by_path(self.conf.binarization_type)
-            self._model_obj = binarization_class.deserialize(models[0])
+            self._model_obj = binarization_class.deserialize(loaded_files[0])
 
         logger.info(f'Size deserializing models: {sys.getsizeof(self._model_obj, default=-1)}')
 
-        del models
+        del loaded_files
         gc.collect()
         self.load_model_settings()
 

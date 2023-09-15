@@ -7,7 +7,7 @@ from mlup.constants import LoadedFile
 class BaseStorage(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def load_bytes_single_file(self, path_to_file: str) -> Union[str, bytes, Callable]:
+    def load_bytes_single_file(self, *args, **kwargs) -> Union[str, bytes, Callable]:
         pass
 
     @abc.abstractmethod

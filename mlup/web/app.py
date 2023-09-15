@@ -124,7 +124,7 @@ class WebAppConfig:
         It's min batch size for call batch predict.
         Default is 10.
 
-    batch_worker_timeout (float): # Max time for pending before run batching.
+    batch_worker_timeout (float): Max time for pending before run batching.
         Batching is regulated by two parameters: the batch accumulation time and the size of the accumulated batch.
         If one of the parameters has reached its limit, then the batch predictor is launched.
         It's max time waiting batch for call batch predict.
@@ -157,7 +157,7 @@ class WebAppConfig:
     uvicorn_kwargs (Dict): Uvicorn server kwargs arguments.
         Default is {}
 
-    item_id_col_name (str); Column name for unique item_id.
+    item_id_col_name (str): Column name for unique item_id.
         Use in batching and worker. It need for marks requests in worker by request id.
         Added this key for predicted data, but not thrown into model predict.
         Default is mlup.constants.ITEM_ID_COL_NAME - 'mlup_item_id'
