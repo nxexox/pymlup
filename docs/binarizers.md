@@ -87,9 +87,9 @@ if 'file.pickle'.endswith('.pckl') or 'file.pickle'.endswith('.pkl'):
     is_pickle_file_confidence += 0.05
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ### mlup.ml.binarization.joblib.JoblibBinarizer
 
@@ -142,9 +142,9 @@ if 'file.txt'.endswith('.txt'):
     is_pickle_file_confidence += 0.05
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ### mlup.ml.binarization.torch.TorchBinarizer
 
@@ -187,9 +187,9 @@ if 'file.pth'.endswith('.pth'):
     is_pickle_file_confidence += 0.3
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ### mlup.ml.binarization.torch.TorchJITBinarizer
 
@@ -209,9 +209,9 @@ model.eval()
 
 This binarizer is not involved in the automatic selection of a binarizer, because we were unable to find distinctive features of this format.
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and add it._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and add it.
+---
 
 ### mlup.ml.binarization.tensorflow.TensorFlowBinarizer
 
@@ -252,9 +252,9 @@ if 'file.h5'.endswith('.keras') or 'file.h5'.endswith('.h5'):
     is_pickle_file_confidence += 0.3
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ### mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer
 
@@ -280,9 +280,9 @@ if 'file.pth'.endswith('.pb'):
     is_pickle_file_confidence = 0.3
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ### mlup.ml.binarization.onnx.InferenceSessionBinarizer
 
@@ -384,9 +384,9 @@ if 'model.onnx'.endswith('.onnx'):
     is_pickle_file_confidence += 0.05
 ```
 
----
+_Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
-Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.
+---
 
 ## Custom binarizer
 
