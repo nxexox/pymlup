@@ -25,6 +25,12 @@ Support and tested with machine learning libraries:
 * [skl2onnx>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
 * [jupyter==1.0.0](tests/integration_tests/test_jupyter_notebook.py)
 
+**The easiest way to poke:**
+```bash
+pip install pymlup
+mlup run -m /path/to/my/model.onnx
+```
+
 ## Useful links
 * [Docs](docs) under development;
 * [Examples](examples);
