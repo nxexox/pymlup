@@ -15,7 +15,7 @@ logger = logging.getLogger('mlup')
 class TorchBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization torch data.')
+        logger.info('Run deserialization torch data.')
         with TimeProfiler('Time to deserialization torch data:'):
             try:
                 _data = data.raw_data
@@ -64,7 +64,7 @@ class TorchBinarizer(BaseBinarizer):
 class TorchJITBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization torch JIT data.')
+        logger.info('Run deserialization torch JIT data.')
         with TimeProfiler('Time to deserialization torch JIT data:'):
             try:
                 _data = data.raw_data

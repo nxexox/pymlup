@@ -7,6 +7,7 @@ from pandas.testing import assert_frame_equal
 
 from mlup.constants import ModelDataTransformerType
 from mlup.ml.data_transformers.src_data_transformer import SrcDataTransformer
+from mlup.utils.interspection import get_class_by_path
 
 
 logger = logging.getLogger('mlup.test')
@@ -32,6 +33,7 @@ try:
 except (ImportError, AttributeError) as e:
     logger.info(f'tensorflow not installed. Skip tests. {e}')
     tensorflow, TFTensorDataTransformer = None, None
+
     def assert_tf_tensors(a, b, msg):
         assert False
 
@@ -42,10 +44,9 @@ try:
 except (ImportError, AttributeError) as e:
     logger.info(f'PyTorch not installed. Skip tests. {e}')
     torch, TorchTensorDataTransformer = None, None
+
     def is_equal_torch_tensors(a, b):
         return False
-
-from mlup.utils.interspection import get_class_by_path
 
 
 @pytest.mark.parametrize(
@@ -127,7 +128,7 @@ class TestSrcDataTransformer:
 
         # Check order by first item
         reversed_data = data.copy()
-        reversed_data[0] = {k: v for k, v in reversed(reversed_data[0].items())}
+        reversed_data[0] = {k: v for k, v in reversed(list(reversed_data[0].items()))}
         pred_d = self.transformer_class().transform_to_model_format(reversed_data)
         assert pred_d == reversed_data
 
@@ -276,7 +277,7 @@ class TestNumpyDataFrameTransformer:
 
         # Check order by first item
         reversed_data = data.copy()
-        reversed_data[0] = {k: v for k, v in reversed(reversed_data[0].items())}
+        reversed_data[0] = {k: v for k, v in reversed(list(reversed_data[0].items()))}
         pred_d = self.transformer_class().transform_to_model_format(reversed_data)
         assert np.array_equal(pred_d, np.array([list(v.values())[::-1] for v in data]))
 
@@ -369,7 +370,7 @@ class TestTensorFlowTensorDataTransformer:
 
         # Check order by first item
         reversed_data = data.copy()
-        reversed_data[0] = {k: v for k, v in reversed(reversed_data[0].items())}
+        reversed_data[0] = {k: v for k, v in reversed(list(reversed_data[0].items()))}
         pred_d = self.transformer_class().transform_to_model_format(reversed_data)
         assert_tf_tensors(pred_d, tensorflow.convert_to_tensor([list(v.values())[::-1] for v in data]))
 
@@ -464,7 +465,7 @@ class TestTorchTensorDataTransformer:
 
         # Check order by first item
         reversed_data = data.copy()
-        reversed_data[0] = {k: v for k, v in reversed(reversed_data[0].items())}
+        reversed_data[0] = {k: v for k, v in reversed(list(reversed_data[0].items()))}
         pred_d = self.transformer_class().transform_to_model_format(reversed_data)
         assert is_equal_torch_tensors(pred_d, torch.tensor([list(v.values())[::-1] for v in data]))
 

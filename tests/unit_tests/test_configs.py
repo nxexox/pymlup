@@ -116,12 +116,13 @@ class ForExample:
     @dataclass
     class _ML:
         conf = _Conf()
+
     @dataclass
     class _WEB:
         conf = _Conf()
 
-    ml: _ML = _ML()
-    web: _WEB = _WEB()
+    ml: _ML = field(default_factory=_ML)
+    web: _WEB = field(default_factory=_WEB)
 
 
 class TestConfigProvider:
@@ -131,12 +132,13 @@ class TestConfigProvider:
             @dataclass
             class _ML:
                 conf = new_config
+
             @dataclass
             class _WEB:
                 conf = new_config
-            ml: _ML = _ML()
-            web: _WEB = _WEB()
-        return NewForExample
+            ml: _ML = field(default_factory=_ML)
+            web: _WEB = field(default_factory=_WEB)
+        return NewForExample()
 
     def test_get_config_dict(self):
         obj = ForExample()

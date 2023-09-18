@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from mlup.constants import ModelDataTransformerType, ITEM_ID_COL_NAME, WebAppArchitecture
 from mlup.errors import WebAppLoadError
 from mlup.ml.model import MLupModel, ModelConfig
-from mlup.utils.loop import run_async
+from mlup.utils.loop import run_async, create_async_task
 from mlup.web.app import MLupWebApp, WebAppConfig
 
 
@@ -114,11 +114,11 @@ def test_web_app_attribute(print_model):
     [
         (
             {'is_long_predict': False, 'mode': WebAppArchitecture.directly_to_predict},
-            {'/predict': {'POST',}, '/info': {'GET',}}
+            {'/predict': {'POST', }, '/info': {'GET', }}
         ),
         (
             {'is_long_predict': True, 'mode': WebAppArchitecture.worker_and_queue},
-            {'/predict': {'POST',}, '/info': {'GET',}, '/get-predict/{predict_id}': {'GET',}}
+            {'/predict': {'POST', }, '/info': {'GET', }, '/get-predict/{predict_id}': {'GET', }}
         ),
     ],
     ids=['is_long_predict=False', 'is_long_predict=True']
@@ -441,7 +441,7 @@ async def test_predict_max_requests_throttling(web_app_test_client, print_sleep_
     mlup_model.model_obj.sleep = 0.2
     mlup_web_app.load()
     with web_app_test_client(mlup_web_app) as api_test_client:
-        first_request_task = asyncio.create_task(
+        first_request_task = create_async_task(
             api_test_client.post("/predict", json={'X': [[1, 2, 3]]}),
             name='test_predict_max_requests_throttling'
         )

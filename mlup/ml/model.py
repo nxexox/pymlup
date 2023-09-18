@@ -29,7 +29,7 @@ set_logging_settings(LOGGING_CONFIG)
 logger = logging.getLogger('mlup')
 
 
-@dataclass(kw_only=True)
+@dataclass
 class ModelConfig:
     """
     MlupModel config class. This class have settings for model.
@@ -149,7 +149,7 @@ class ModelConfig:
         return '\n'.join(res)
 
 
-@dataclass(kw_only=True, repr=True)
+@dataclass(repr=True)
 class MLupModel(ModelConfig):
     """This is main UP model class.
     Create object UP with your ML model, set your settings and run your app.
@@ -274,7 +274,7 @@ class MLupModel(ModelConfig):
             try:
                 processing_data = self._data_transformer_for_predicted.transform_to_json_format(predicted_data)
             except Exception as e:
-                logger.exception(f'Fail transform predicted data to response format.')
+                logger.exception('Fail transform predicted data to response format.')
                 raise PredictTransformDataError(str(e))
             finally:
                 logger.debug('Finish transform predicted data to response format.')
@@ -302,7 +302,7 @@ class MLupModel(ModelConfig):
                             *_predict_args
                         )
                 else:
-                    logger.debug(f'Running sync predict.')
+                    logger.debug('Running sync predict.')
                     with self._lock:
                         result = self._prepare_predict_method(**other_predict_args)(*_predict_args)
             except Exception as e:
@@ -423,4 +423,3 @@ class MLupModel(ModelConfig):
             raise
         except Exception as e:
             raise PredictError(e)
-

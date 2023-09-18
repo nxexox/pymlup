@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import threading
 
 
@@ -29,3 +30,10 @@ def run_async(func, *args, **kwargs):
         return thread.result
     else:
         return asyncio.run(func(*args, **kwargs))
+
+
+def create_async_task(coro, *, name=None):
+    task_kwargs = {}
+    if sys.version_info.minor >= 8:
+        task_kwargs['name'] = name
+    return asyncio.create_task(coro, **task_kwargs)

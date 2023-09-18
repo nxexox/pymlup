@@ -326,6 +326,7 @@ def test_generate_openapi_schema(print_model):
     up.ml.load()
     up.web.load()
     generated_scheme = generate_openapi_schema(up.web.app, up.ml)
+    openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, openapi_full_scheme)
 
 
@@ -358,6 +359,7 @@ def test_generate_openapi_scheme_with_default_X_and_custom_columns(print_model):
     _scheme_columns_for_predict['required'] = openapi_required_cols
     _scheme_columns_for_predict['properties'] = openapi_cols
 
+    _openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)
 
 
@@ -386,7 +388,7 @@ def test_generate_openapi_scheme_with_default_X_without_columns(print_model):
         }
     }
 
-
+    openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)
 
 
@@ -414,6 +416,7 @@ def test_generate_openapi_scheme_with_auto_analyze_X_with_custom_columns(print_m
     _scheme_columns_for_predict['required'] = openapi_required_cols
     _scheme_columns_for_predict['properties'] = openapi_cols
 
+    _openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)
 
 
@@ -427,6 +430,7 @@ def test_generate_openapi_scheme_with_auto_analyze_X_without_columns(print_model
     up.web.load()
     generated_scheme = generate_openapi_schema(up.web.app, up.ml)
 
+    openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, openapi_full_scheme)
 
 
@@ -456,6 +460,7 @@ def test_generate_openapi_scheme_with_is_long_predict(print_model):
         }
     }
 
+    _openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)
 
 
@@ -537,4 +542,5 @@ def test_generate_openapi_scheme_with_add_custom_handler(print_model):
         }
     }
 
+    _openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)

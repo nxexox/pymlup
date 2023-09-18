@@ -361,7 +361,7 @@ def scikit_learn_binary_cls_model_onnx(models_datadir):
     try:
         import onnxruntime as onnxrt
         from mlup.ml.binarization.onnx import _InferenceSessionWithPredict
-        model = _InferenceSessionWithPredict(models_datadir / 'scikit-learn-binary_cls_model.onnx')
+        model = _InferenceSessionWithPredict(str(models_datadir / 'scikit-learn-binary_cls_model.onnx'))
         return ModelAndPath(
             models_datadir / 'scikit-learn-binary_cls_model.onnx',
             model,
@@ -480,7 +480,7 @@ def pytorch_binary_cls_model_onnx(models_datadir):
     try:
         import onnxruntime as onnxrt
         from mlup.ml.binarization.onnx import _InferenceSessionWithPredict
-        model = _InferenceSessionWithPredict(models_datadir / 'pytorch-binary_cls_model.onnx')
+        model = _InferenceSessionWithPredict(str(models_datadir / 'pytorch-binary_cls_model.onnx'))
         return ModelAndPath(
             models_datadir / 'pytorch-binary_cls_model.onnx',
             model,

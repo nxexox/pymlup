@@ -34,7 +34,7 @@ def test_run_from_config_not_exists_conf(config_path, config_type):
 
 def test_run_from_config_not_exists_conf_type(tmp_path_factory):
     file_path = tmp_path_factory.getbasetemp() / 'test_run_from_config_not_exists_conf_type' / \
-                f'test_run_from_config_not_exists_conf_type.json'
+                'test_run_from_config_not_exists_conf_type.json'
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, 'w') as f:
         f.write('Not valid config\n\nBut is valid multirows string.')
@@ -116,7 +116,7 @@ def test_run_from_up_bin_not_exists_bin(binary_path, binary_type):
 
 def test_run_from_up_bin_not_exists_binary_type(tmp_path_factory):
     file_path = tmp_path_factory.getbasetemp() / 'test_run_from_up_bin_not_exists_binary_type' / \
-                f'test_run_from_up_bin_not_exists_binary_type.pckl'
+                'test_run_from_up_bin_not_exists_binary_type.pckl'
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, 'w') as f:
         f.write('Not valid binary\n\nBut is valid multirows string.')
@@ -206,12 +206,12 @@ def test_run_from_model_not_exists_model():
         run_from_model('not_exists_model.pckl')
         pytest.fail('Not raised error')
     except ModelLoadError as e:
-        assert str(e) == f"[Errno 2] No such file or directory: 'not_exists_model.pckl'"
+        assert str(e) == "[Errno 2] No such file or directory: 'not_exists_model.pckl'"
 
 
 def test_run_from_model_not_valid_model(tmp_path_factory):
     file_path = tmp_path_factory.getbasetemp() / 'test_run_from_model_not_valid_model' / \
-                f'test_run_from_model_not_valid_model.pckl'
+                'test_run_from_model_not_valid_model.pckl'
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, 'w') as f:
         f.write('Not valid model\n\nBut is valid multirows string.')

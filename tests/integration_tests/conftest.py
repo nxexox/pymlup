@@ -52,7 +52,7 @@ class JupyterNotebookTestServer:
                 ip=self.ip, port=self.port, token=self.token, notebooks_folder=self.notebooks_folder,
             ).split()
         )
-        logger.info(f'Waiting start jupyter notebooks server 5 seconds')
+        logger.info('Waiting start jupyter notebooks server 5 seconds')
         sleep(5)
 
     def copy_notebook_to_work_folder(self, notebook_name: str):

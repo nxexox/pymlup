@@ -99,7 +99,7 @@ class BatchingSingleProcessArchitecture(BaseWebAppArchitecture):
                 local_result = []
 
     async def _predict(self):
-        logger.debug(f'Run predict for batch')
+        logger.debug('Run predict for batch')
         predicted_data = self.batch_queue
         error = None
         try:
@@ -112,7 +112,7 @@ class BatchingSingleProcessArchitecture(BaseWebAppArchitecture):
         self._save_predicted_data_from_batch(predicted_data, error)
         self.batch_queue.clear()
         self.batch_predict_ids.clear()
-        logger.debug(f'End predict for batch')
+        logger.debug('End predict for batch')
 
     async def _start_worker(self, sleep_time: float = 0.1):
         self._running = True

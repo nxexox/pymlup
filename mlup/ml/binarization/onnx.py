@@ -27,7 +27,7 @@ class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
 class InferenceSessionBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization onnxruntime data.')
+        logger.info('Run deserialization onnxruntime data.')
         with TimeProfiler('Time to deserialization onnxruntime data:'):
             try:
                 _data = data.raw_data

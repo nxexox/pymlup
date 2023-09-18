@@ -120,7 +120,7 @@ class ConfigProvider:
         return config
 
     def load_from_dict(self, conf: Dict):
-        logger.info(f'Load config from dict')
+        logger.info('Load config from dict')
         self.set_config_from_dict(conf)
 
     def load_from_json(self, file_path: Union[str, Path]):

@@ -16,7 +16,7 @@ logger = logging.getLogger('mlup')
 class TensorFlowBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization tensorflow data.')
+        logger.info('Run deserialization tensorflow data.')
         with TimeProfiler('Time to deserialization tensorflow data:'):
             try:
                 _data = data.raw_data
@@ -63,7 +63,7 @@ class TensorFlowBinarizer(BaseBinarizer):
 class TensorFlowSavedBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization tensorflow SavedModel data.')
+        logger.info('Run deserialization tensorflow SavedModel data.')
         with TimeProfiler('Time to deserialization tensorflow SavedModel data:'):
             try:
                 _data = data.raw_data
