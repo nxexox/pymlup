@@ -21,6 +21,7 @@ from mlup.constants import (
 )
 from mlup.ml.data_transformers.base import BaseDataTransformer
 from mlup.errors import ModelLoadError, PredictError, PredictTransformDataError
+from mlup.utils.loop import shutdown_pool_executor
 from mlup.utils.profiling import TimeProfiler
 from mlup.utils.interspection import analyze_method_params, get_class_by_path, auto_search_binarization_type
 
@@ -188,7 +189,7 @@ class MLupModel(ModelConfig):
     def __del__(self):
         """Remove ThreadPoolExecutor workers"""
         if self._pool_workers is not None:
-            self._pool_workers.shutdown(wait=False, cancel_futures=False)
+            shutdown_pool_executor(self._pool_workers, wait=False, cancel_futures=False)
 
     def __getstate__(self):
         """Before pickle object"""

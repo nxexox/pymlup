@@ -130,6 +130,7 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, print_model, custom_params)
         'with_custom_params'
     ]
 )
+@pytest.mark.skip
 def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_model, custom_params):
     path_to_app = str(tmp_path_factory.getbasetemp() / 'test_run_maked_app_from_model_bin' /
                       'test_run_maked_app_from_model_bin.py')

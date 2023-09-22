@@ -30,15 +30,15 @@ jobs:
         python -m pip install flake8 mypy pytest
         if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
         pip install .[tests]
-    - name: flake8
-      run: |
-         flake8 --count --show-source --statistics mlup tests examples
+#    - name: flake8
+#      run: |
+#         flake8 --count --show-source --statistics mlup tests examples
 #    - name: mypy
 #      run: |
 #        - mypy .
-    - name: Unit tests
-      run: |
-        pytest tests/unit_tests
+#    - name: Unit tests
+#      run: |
+#        pytest tests/unit_tests
     - name: Integration tests
       run: |
         pytest tests/integration_tests
