@@ -42,7 +42,7 @@ class InferenceSessionBinarizer(BaseBinarizer):
                     f.seek(0)
                     data.path = f.name
                     _data = f.name
-                return _InferenceSessionWithPredict(_data)
+                return _InferenceSessionWithPredict(str(_data))
             except Exception as e:
                 raise ModelBinarizationError(f'Error with deserialize model: {e}')
 

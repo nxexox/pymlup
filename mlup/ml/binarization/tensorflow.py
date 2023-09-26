@@ -31,7 +31,9 @@ class TensorFlowBinarizer(BaseBinarizer):
                     f.seek(0)
                     data.path = f.name
                     _data = f.name
-                return tensorflow.keras.models.load_model(str(_data))
+                model = tensorflow.keras.models.load_model(str(_data), compile=False)
+                model.compile()
+                return model
             except Exception as e:
                 raise ModelBinarizationError(f'Error with deserialize model: {e}')
 

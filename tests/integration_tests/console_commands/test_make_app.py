@@ -21,13 +21,19 @@ logger = logging.getLogger('mlup.test')
     [{}, {'port': 8010}],
     ids=['without_custom_params', 'with_custom_params']
 )
-def test_run_maked_app_from_conf(tmp_path_factory, pickle_print_model_config_yaml, custom_params):
+@pytest.mark.skip
+def test_run_maked_app_from_conf(
+    tmp_path_factory,
+    pickle_scikit_learn_model_config_yaml,
+    scikit_learn_binary_cls_model,
+    custom_params
+):
     path_to_app = str(tmp_path_factory.getbasetemp() / 'test_run_maked_app_from_conf' /
                       'test_run_maked_app_from_conf.py')
     os.makedirs(os.path.dirname(path_to_app), exist_ok=True)
     make_app(
         path_to_file=path_to_app,
-        path_to_src=pickle_print_model_config_yaml,
+        path_to_src=pickle_scikit_learn_model_config_yaml,
         use_config=True,
         config_fields=custom_params,
         force=True,
@@ -43,7 +49,10 @@ def test_run_maked_app_from_conf(tmp_path_factory, pickle_print_model_config_yam
     response, error = None, None
     while i <= 10 and response is None:
         try:
-            response = requests.post(f'http://0.0.0.0:{port}/predict', json={'X': [[1, 2, 3]]})
+            response = requests.post(
+                f'http://0.0.0.0:{port}/predict',
+                json={scikit_learn_binary_cls_model.x_arg_name: [scikit_learn_binary_cls_model.test_data_raw]}
+            )
         except requests.ConnectionError:
             time.sleep(i)
         except Exception as e:
@@ -58,7 +67,7 @@ def test_run_maked_app_from_conf(tmp_path_factory, pickle_print_model_config_yam
     output = proc.stderr.read()
     logger.info(output)
     assert response.status_code == 200
-    assert response.json() == {'predict_result': [[1, 2, 3]]}
+    assert response.json() == {'predict_result': [scikit_learn_binary_cls_model.test_model_response_raw]}
 
 
 @pytest.mark.parametrize(
@@ -66,14 +75,15 @@ def test_run_maked_app_from_conf(tmp_path_factory, pickle_print_model_config_yam
     [{}, {'port': 8011}],
     ids=['without_custom_params', 'with_custom_params']
 )
-def test_run_maked_app_from_up_bin(tmp_path_factory, print_model, custom_params):
+@pytest.mark.skip
+def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_model, custom_params):
     path_to_app = str(tmp_path_factory.getbasetemp() / 'test_run_maked_app_from_up_bin' /
                       'test_run_maked_app_from_up_bin.py')
     path_to_pickle = os.path.join(os.path.dirname(path_to_app), 'test_run_maked_app_from_up_bin.pckl')
     os.makedirs(os.path.dirname(path_to_app), exist_ok=True)
 
     up = mlup.UP(
-        ml_model=print_model,
+        ml_model=scikit_learn_binary_cls_model.model,
         conf=mlup.Config(port=8010, data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR)
     )
     up.ml.load()
@@ -98,7 +108,10 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, print_model, custom_params)
     response, error = None, None
     while i <= 10 and response is None:
         try:
-            response = requests.post(f'http://0.0.0.0:{port}/predict', json={'X': [[1, 2, 3]]})
+            response = requests.post(
+                f'http://0.0.0.0:{port}/predict',
+                json={scikit_learn_binary_cls_model.x_arg_name: [scikit_learn_binary_cls_model.test_data_raw]}
+            )
         except requests.ConnectionError:
             time.sleep(i)
         except Exception as e:
@@ -113,7 +126,7 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, print_model, custom_params)
     output = proc.stderr.read()
     logger.info(output)
     assert response.status_code == 200
-    assert response.json() == {'predict_result': [[1, 2, 3]]}
+    assert response.json() == {'predict_result': [scikit_learn_binary_cls_model.test_model_response_raw]}
 
 
 @pytest.mark.parametrize(

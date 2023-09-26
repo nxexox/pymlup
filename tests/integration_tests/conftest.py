@@ -161,4 +161,5 @@ def jupyter_notebook_server(root_dir):
         server.start_server()
         yield server
     finally:
-        server.stop_server()
+        output = server.stop_server()
+        logger.info(str(output))

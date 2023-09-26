@@ -1,10 +1,14 @@
 import json
 import logging
+import os
+import shutil
 import socket
+import sys
 from dataclasses import dataclass, field
 import pickle
 import time
 from itertools import cycle
+from pathlib import Path
 from typing import List, Type, Any, Dict
 
 import httpx
@@ -245,22 +249,6 @@ def pickle_print_model(tmp_path_factory):
 
 
 @pytest.fixture(scope="session")
-def pickle_print_model_config_yaml(tmp_path_factory, pickle_print_model):
-    f_path = tmp_path_factory.getbasetemp()
-    config_name = 'pickle_print_model_conf.yaml'
-    logger.info(f'Create {f_path}/{config_name} fixture.')
-    up = mlup.UP(
-        conf=mlup.Config(
-            storage_type=StorageType.disk,
-            storage_kwargs={'path_to_files': str(pickle_print_model)},
-            data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR,
-        )
-    )
-    up.to_yaml(f_path / config_name)
-    return f_path / config_name
-
-
-@pytest.fixture(scope="session")
 def pickle_print_sleep_model(tmp_path_factory):
     model = PrintSleepModel(sleep=1)
     f_path = tmp_path_factory.getbasetemp()
@@ -357,6 +345,22 @@ def scikit_learn_binary_cls_model(models_datadir):
 
 
 @pytest.fixture(scope="session")
+def pickle_scikit_learn_model_config_yaml(tmp_path_factory, scikit_learn_binary_cls_model):
+    f_path = tmp_path_factory.getbasetemp()
+    config_name = 'pickle_scikit_learn_model_conf.yaml'
+    logger.info(f'Create {f_path}/{config_name} fixture.')
+    up = mlup.UP(
+        conf=mlup.Config(
+            storage_type=StorageType.disk,
+            storage_kwargs={'path_to_files': str(scikit_learn_binary_cls_model.path)},
+            data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR,
+        )
+    )
+    up.to_yaml(f_path / config_name)
+    return f_path / config_name
+
+
+@pytest.fixture(scope="session")
 def scikit_learn_binary_cls_model_onnx(models_datadir):
     try:
         import onnxruntime as onnxrt
@@ -406,25 +410,43 @@ def lightgbm_binary_cls_model_txt(models_datadir):
 def tensorflow_binary_cls_model(models_datadir):
     try:
         import tensorflow
-        with open(models_datadir / 'tensorflow-binary_cls_model.pckl', 'rb') as f:
+        model_name = 'tensorflow-binary_cls_model.pckl'
+        model_result = 0.5144115686416626
+        # For python 3.7
+        if sys.version_info.minor == 7:
+            model_name = 'tensorflow-binary_cls_model37.pckl'
+            model_result = 0.6405760645866394
+
+        with open(models_datadir / model_name, 'rb') as f:
             return ModelAndPath(
-                models_datadir / 'tensorflow-binary_cls_model.pckl',
+                models_datadir / model_name,
                 pickle.load(f),
-                test_model_response_raw=0.5144115686416626,
+                test_model_response_raw=model_result,
             )
     except ImportError:
         return None
 
 
 @pytest.fixture(scope="session")
-def tensorflow_binary_cls_model_keras(models_datadir):
+def tensorflow_binary_cls_model_keras(models_datadir, tmp_path_factory):
     try:
         import tensorflow
+        model_name = 'tensorflow-binary_cls_model.keras'
+        model_result = 0.5144115686416626
+        # For python 3.7
+        if sys.version_info.minor == 7:
+            model_name = 'tensorflow-binary_cls_model37.keras'
+            model_result = 0.6405760645866394
+
+        path_to_model = models_datadir / model_name
+        model = tensorflow.keras.models.load_model(str(path_to_model), compile=False)
+        model.compile()
+
         return ModelAndPath(
-            models_datadir / 'tensorflow-binary_cls_model.keras',
-            model=tensorflow.keras.models.load_model(str(models_datadir / 'tensorflow-binary_cls_model.keras')),
-            test_model_response_raw=0.5144115686416626,
-            file_mask=r'(\w.-_)*.keras',
+            path_to_model,
+            model=model,
+            test_model_response_raw=model_result,
+            file_mask=Path(path_to_model).name,
         )
     except ImportError:
         return None
@@ -434,10 +456,21 @@ def tensorflow_binary_cls_model_keras(models_datadir):
 def tensorflow_binary_cls_model_h5(models_datadir):
     try:
         import tensorflow
+        model_name = 'tensorflow-binary_cls_model.h5'
+        model_result = 0.5144115686416626
+        # For python 3.7
+        if sys.version_info.minor == 7:
+            model_name = 'tensorflow-binary_cls_model37.h5'
+            model_result = 0.6405760645866394
+
+        path_to_model = models_datadir / model_name
+        model = tensorflow.keras.models.load_model(path_to_model, compile=False)
+        model.compile()
+
         return ModelAndPath(
-            models_datadir / 'tensorflow-binary_cls_model.h5',
-            model=tensorflow.keras.models.load_model(models_datadir / 'tensorflow-binary_cls_model.h5'),
-            test_model_response_raw=0.5144115686416626,
+            path_to_model,
+            model=model,
+            test_model_response_raw=model_result,
             file_mask=r'(\w.-_)*.h5',
         )
     except ImportError:
@@ -448,6 +481,7 @@ def tensorflow_binary_cls_model_h5(models_datadir):
 def tensorflow_binary_cls_model_zip(models_datadir):
     try:
         import tensorflow
+        # Only python3.8+
         return ModelAndPath(
             models_datadir,
             model=tensorflow.saved_model.load(models_datadir / 'tensorflow-binary_cls_model.savedmodel'),
