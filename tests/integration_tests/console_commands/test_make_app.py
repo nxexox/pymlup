@@ -3,6 +3,7 @@ import os
 import pickle
 import signal
 import subprocess
+import sys
 import time
 
 import pytest
@@ -39,7 +40,7 @@ def test_run_maked_app_from_conf(
         force=True,
     )
     proc = subprocess.Popen(
-        'python ' + path_to_app,
+        sys.executable + ' ' + path_to_app,
         shell=True,
         stderr=subprocess.PIPE,
         universal_newlines=True,
@@ -53,14 +54,20 @@ def test_run_maked_app_from_conf(
                 f'http://0.0.0.0:{port}/predict',
                 json={scikit_learn_binary_cls_model.x_arg_name: [scikit_learn_binary_cls_model.test_data_raw]}
             )
-        except requests.ConnectionError:
+        except requests.ConnectionError as e:
+            logger.error(f'Attempt number {i}. Request error {e}.')
             time.sleep(i)
         except Exception as e:
+            logger.error(f'Attempt number {i}. Exception {e}.')
             error = e
+        else:
+            if response.status_code != 200:
+                logger.error(response.status_code)
+                logger.error(response.text)
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGINT)
+    os.kill(proc.pid, signal.SIGKILL)
     if error:
         raise error
 
@@ -98,7 +105,7 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_mod
         force=True,
     )
     proc = subprocess.Popen(
-        'python ' + path_to_app,
+        sys.executable + ' ' + path_to_app,
         shell=True,
         stderr=subprocess.PIPE,
         universal_newlines=True,
@@ -112,14 +119,19 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_mod
                 f'http://0.0.0.0:{port}/predict',
                 json={scikit_learn_binary_cls_model.x_arg_name: [scikit_learn_binary_cls_model.test_data_raw]}
             )
-        except requests.ConnectionError:
+        except requests.ConnectionError as e:
+            logger.error(f'Attempt number {i}. Request error {e}.')
             time.sleep(i)
         except Exception as e:
             error = e
+        else:
+            if response.status_code != 200:
+                logger.error(response.status_code)
+                logger.error(response.text)
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGINT)
+    os.kill(proc.pid, signal.SIGKILL)
     if error:
         raise error
 
@@ -157,7 +169,7 @@ def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_
         force=True,
     )
     proc = subprocess.Popen(
-        'python ' + path_to_app,
+        sys.executable + ' ' + path_to_app,
         shell=True,
         stderr=subprocess.PIPE,
         universal_newlines=True,
@@ -175,14 +187,19 @@ def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_
                 f'http://0.0.0.0:{port}/predict',
                 json={scikit_learn_binary_cls_model.x_arg_name: [test_data_raw]}
             )
-        except requests.ConnectionError:
+        except requests.ConnectionError as e:
+            logger.error(f'Attempt number {i}. Request error {e}.')
             time.sleep(i)
         except Exception as e:
             error = e
+        else:
+            if response.status_code != 200:
+                logger.error(response.status_code)
+                logger.error(response.text)
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGINT)
+    os.kill(proc.pid, signal.SIGKILL)
     if error:
         raise error
 
