@@ -3,4 +3,4 @@ from mlup.ml.model import MLupModel, ModelConfig
 from mlup.web.app import MLupWebApp, WebAppConfig
 
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"

@@ -4,7 +4,7 @@ Library for easy run your ML models in production.
 
 * \+ [Quickstart](quickstart.md)
 * \+ [Description of the configuration file](config_file.md)
-* \+ [Description of the application life cycle](life_cycle.md) - Need 3 image
+* \+ [Description of the application life cycle](life_cycle.md)
 * \+ [Storages](storages.md)
 * \+ [Binarizers](binarizers.md)
 * \+ [Data Transformers](data_transformers.md)
