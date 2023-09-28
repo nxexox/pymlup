@@ -17,10 +17,7 @@ logger = logging.getLogger('mlup')
 class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
     def predict(self, input_data):
         input_name = self.get_inputs()[0].name
-        # Return model predict response in first item and all classes in second item
         res = self.run(None, {input_name: input_data})
-        if len(res) > 1:
-            return res[0]
         return res
 
 

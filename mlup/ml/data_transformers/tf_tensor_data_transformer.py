@@ -50,5 +50,7 @@ class TFTensorDataTransformer(BaseDataTransformer):
         logger.debug(f'Create tensorflow.Tensor {len(result)} success.')
         return tf.convert_to_tensor(result, dtype=self.dtype)
 
-    def transform_to_json_format(cls, data: tf.Tensor):
+    def transform_to_json_format(cls, data: Union[List, tf.Tensor]):
+        if isinstance(data, List):
+            return [d.numpy().tolist() for d in data]
         return data.numpy().tolist()

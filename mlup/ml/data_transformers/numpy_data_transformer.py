@@ -50,5 +50,7 @@ class NumpyDataTransformer(BaseDataTransformer):
         logger.debug(f'Create numpy.ndarray {len(result)} success.')
         return np.array(result, dtype=self.dtype)
 
-    def transform_to_json_format(self, data: np.ndarray):
+    def transform_to_json_format(self, data: Union[List, np.ndarray]):
+        if isinstance(data, List):
+            return [d.tolist() for d in data]
         return data.tolist()

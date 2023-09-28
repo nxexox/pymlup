@@ -50,5 +50,7 @@ class TorchTensorDataTransformer(BaseDataTransformer):
         logger.debug(f'Create tensorflow.Tensor {len(result)} success.')
         return torch.tensor(result, dtype=self.dtype)
 
-    def transform_to_json_format(self, data: torch.Tensor):
+    def transform_to_json_format(self, data: Union[List, torch.Tensor]):
+        if isinstance(data, List):
+            return [d.tolist() for d in data]
         return data.tolist()

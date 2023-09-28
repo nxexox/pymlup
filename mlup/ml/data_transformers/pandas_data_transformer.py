@@ -43,5 +43,7 @@ class PandasDataFrameTransformer(BaseDataTransformer):
         logger.debug(f'Create pandas.DataFrame {df.shape} success.')
         return df
 
-    def transform_to_json_format(self, data: DataFrame):
+    def transform_to_json_format(self, data: Union[List, DataFrame]):
+        if isinstance(data, List):
+            return [d.to_dict('records') for d in data]
         return data.to_dict('records')
