@@ -11,7 +11,7 @@ import pytest
 from mlup.constants import ModelDataTransformerType, DEFAULT_X_ARG_NAME, StorageType, BinarizationType
 from mlup.errors import ModelLoadError, PredictTransformDataError
 from mlup.ml.model import MLupModel, ModelConfig
-
+from mlup.utils.loop import create_async_task
 
 logger = logging.getLogger('mlup.test')
 
@@ -605,7 +605,7 @@ class TestMLupModelPublicMethods:
         mlup_model.load()
         try:
             await mlup_model.predict(X=data)
-            pytest.fail(f'Not raised TransformDataError')
+            pytest.fail('Not raised TransformDataError')
         except PredictTransformDataError as e:
             assert str(e) == error_msg
 
@@ -762,9 +762,9 @@ class TestMLupModelPublicMethods:
         start = time.monotonic()
         for i in range(3):
             tasks.append(
-                asyncio.create_task(
+                create_async_task(
                     call_predict(mlup_model, {'X': [[1, 2, 3]]}),
-                    name=f'test_predict_lock-not_sleep_{i}'
+                    name=f'test_predict_lock-not_sleep_{i}',
                 )
             )
         await asyncio.gather(*tasks)
@@ -778,7 +778,7 @@ class TestMLupModelPublicMethods:
         start = time.monotonic()
         for i in range(3):
             tasks.append(
-                asyncio.create_task(
+                create_async_task(
                     call_predict(mlup_model, {'X': [[1, 2, 3]]}),
                     name=f'test_predict_lock-with_sleep_{i}'
                 )

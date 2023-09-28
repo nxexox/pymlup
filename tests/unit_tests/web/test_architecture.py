@@ -1,4 +1,5 @@
 import asyncio
+from asyncio import InvalidStateError
 import random
 import time
 
@@ -10,6 +11,7 @@ from mlup.errors import ModelLoadError, PredictError, WebAppLoadError, PredictWa
 from mlup.ml.model import MLupModel, ModelConfig
 from mlup.utils.collections import TTLOrderedDict
 from mlup.utils.interspection import get_class_by_path
+from mlup.utils.loop import create_async_task
 from mlup.web.architecture.directly_to_predict import DirectlyToPredictArchitecture
 from mlup.web.architecture.worker_and_queue import WorkerAndQueueArchitecture
 from mlup.web.architecture.batching import BatchingSingleProcessArchitecture
@@ -367,9 +369,9 @@ class TestWorkerAndQueueArchitecture:
             assert pred_result_2 == [[1, 2, 3]]
 
             # Not found results
-            task = asyncio.create_task(
+            task = create_async_task(
                 archi.get_predict_result(pred_id_1["predict_id"]),
-                name='test_predict_with_little_ttl_predicted_data'
+                name='test_predict_with_little_ttl_predicted_data',
             )
             await asyncio.sleep(0.2)
             if task.cancelled():
@@ -377,7 +379,7 @@ class TestWorkerAndQueueArchitecture:
             task.cancel()
             task.result()
             pytest.fail('Not raised error')
-        except asyncio.exceptions.InvalidStateError as e:
+        except InvalidStateError as e:
             assert str(e) == 'Result is not set.'
         finally:
             await archi.stop()
@@ -843,7 +845,7 @@ class TestBatchingSingleProcessArchitecture:
             assert pred_result_2 == [[1, 2, 3]]
 
             # Not found results
-            task = asyncio.create_task(
+            task = create_async_task(
                 archi.get_predict_result(pred_id_1["predict_id"]),
                 name='test_predict_with_little_ttl_predicted_data'
             )
@@ -853,7 +855,7 @@ class TestBatchingSingleProcessArchitecture:
             task.cancel()
             task.result()
             pytest.fail('Not raised error')
-        except asyncio.exceptions.InvalidStateError as e:
+        except InvalidStateError as e:
             assert str(e) == 'Result is not set.'
         finally:
             await archi.stop()

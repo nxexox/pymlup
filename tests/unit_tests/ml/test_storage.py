@@ -1,6 +1,7 @@
 import logging
 import os
 import pickle
+import shutil
 
 import pytest
 
@@ -119,22 +120,30 @@ class TestDiskStorage:
     def test_load_many_file_by_not_default_mask(
         self, pickle_with_x_model, pickle_print_model, joblib_print_model, joblib_print_sleep_model
     ):
+        path_to_folder = os.path.join(os.path.dirname(joblib_print_model), 'test_load_many_file_by_not_default_mask')
+        os.makedirs(path_to_folder)
+        joblib_print_model_new_path = os.path.join(path_to_folder, os.path.basename(joblib_print_model))
+        joblib_print_sleep_model_new_path = os.path.join(path_to_folder, os.path.basename(joblib_print_sleep_model))
+        shutil.copyfile(joblib_print_model, joblib_print_model_new_path)
+        shutil.copyfile(joblib_print_sleep_model, joblib_print_sleep_model_new_path)
+        shutil.copyfile(pickle_with_x_model, os.path.join(path_to_folder, os.path.basename(pickle_with_x_model)))
+        shutil.copyfile(pickle_print_model, os.path.join(path_to_folder, os.path.basename(pickle_print_model)))
+
         storage = DiskStorage(
-            path_to_files=os.path.dirname(joblib_print_model),
+            path_to_files=path_to_folder,
             files_mask=r'(\w.-_)*.joblib',
             need_load_file=True,
         )
         models_bin = storage.load()
-        # assert len(models_bin) == 2
-        with open(joblib_print_model, 'rb') as f:
+        assert len(models_bin) == 2
+        with open(joblib_print_model_new_path, 'rb') as f:
             print_model_data = f.read()
-        with open(joblib_print_sleep_model, 'rb') as f:
+        with open(joblib_print_sleep_model_new_path, 'rb') as f:
             print_sleep_model_data = f.read()
         # Order in folder
-        assert str(models_bin[0].path) == str(joblib_print_model)
-        assert models_bin[0].raw_data == print_model_data
-        assert str(models_bin[1].path) == str(joblib_print_sleep_model)
-        assert models_bin[1].raw_data == print_sleep_model_data
+        for m in models_bin:
+            assert str(m.path) in (str(joblib_print_model_new_path), str(joblib_print_sleep_model_new_path))
+            assert m.raw_data in (print_model_data, print_sleep_model_data)
 
     # Folder, file
     @pytest.mark.parametrize(

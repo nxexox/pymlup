@@ -1,10 +1,12 @@
 import asyncio
+from asyncio import InvalidStateError
 import pickle
 
 import pytest
 
 from mlup.constants import ModelDataTransformerType, BinarizationType, StorageType, WebAppArchitecture
 from mlup.up import UP, Config
+from mlup.utils.loop import create_async_task
 
 try:
     import lightgbm as lgb
@@ -146,13 +148,13 @@ class TestLightGBMModel:
 
                 # Not found results. Long client wait response
                 pred_id_1 = pred_resp_1.json()["predict_result"]["predict_id"]
-                task = asyncio.create_task(api_test_client.get("/get-predict/" + pred_id_1))
+                task = create_async_task(api_test_client.get("/get-predict/" + pred_id_1))
                 await asyncio.sleep(0.2)
                 if task.cancelled():
                     pytest.fail('Tasks could not have status cancelled.')
                 task.cancel()
                 task.result()
-            except asyncio.exceptions.InvalidStateError as e:
+            except InvalidStateError as e:
                 assert str(e) == 'Result is not set.'
             finally:
                 await asyncio.sleep(1)

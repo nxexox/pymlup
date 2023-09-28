@@ -13,7 +13,7 @@ This component contains all the code for working with your model, including all 
 When you create a `mlup.UP` object and pass a model `mlup.UP(ml_model=your_model)` into it, mlup does nothing.
 At this point, you have simply created a class. This is done in order to avoid starting the processes of loading and analyzing the model, which can be lengthy, without explicit instructions.
 
-TODO: HERE IS A PICTURE DIAGRAM WITH METHODS AND APPLICATION LIFE CYCLE
+![mlup load process](assets/img/mlup-load-scheme.jpg)
 
 #### up.ml.load()
 
@@ -155,14 +155,14 @@ Behind it lies a process of several stages:
 * If the prediction caused an error, a [PredictError](https://github.com/nxexox/pymlup/blob/main/mlup/errors.py) exception will be thrown.
 * And if the prediction is successful, the prediction results will be sent to the data transformer from the `data_transformer_for_predicted` configuration parameter for conversion to a valid JSON format and returned from the method. Called `up.ml._transform_predicted_data`.
 
-TODO: HERE IS A PICTURE DIAGRAM WITH PROCESS MLUP CALL PREDICT
+![mlup load process](assets/img/mlup-predict-scheme.png)
 
 ## Web application work
 
 After launching the web application, it is ready to accept requests from users. When a developer independently writes a web application with a model, he has full control and knowledge of how the request processing process occurs.
 mlup takes care of this, so the entire request processing process is described here.
 
-TODO: HERE IS A PICTURE DIAGRAM WITH METHODS AND WEB APPLICATION REQUEST PROCESSED
+![mlup load process](assets/img/mlup-request-processed.png)
 
 The process looks like this:
 * A request has been received from a user.

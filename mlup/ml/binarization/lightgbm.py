@@ -14,7 +14,7 @@ logger = logging.getLogger('mlup')
 class LightGBMBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization lightgbm data.')
+        logger.info('Run deserialization lightgbm data.')
         with TimeProfiler('Time to deserialization lightgbm data:'):
             try:
                 if data.path:

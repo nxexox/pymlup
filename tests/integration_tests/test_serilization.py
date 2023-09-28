@@ -2,7 +2,11 @@ import logging
 import os
 import pickle
 
+import pytest
+
 from mlup.up import UP, Config
+from mlup.constants import ModelDataTransformerType, StorageType, BinarizationType, WebAppArchitecture
+from mlup.ml.model import MLupModel, ModelConfig
 
 logger = logging.getLogger('mlup.test')
 try:
@@ -10,11 +14,6 @@ try:
 except (ModuleNotFoundError, AttributeError) as e:
     logger.info(f'joblib library not installed. Skip test. {e}')
     joblib = None
-
-import pytest
-
-from mlup.constants import ModelDataTransformerType, StorageType, BinarizationType, WebAppArchitecture
-from mlup.ml.model import MLupModel, ModelConfig
 
 
 @pytest.mark.asyncio

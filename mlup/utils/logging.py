@@ -21,7 +21,9 @@ class SwitchFormatter(DefaultFormatter, metaclass=MetaSingleton):
     def set_fmt(self, fmt_name: str = 'default'):
         fmt = self._fmts[fmt_name]
         self._style = logging.PercentStyle(fmt)
-        self._style.validate()
+        # This "if" for python3.7-
+        if hasattr(self._style, 'validate'):
+            self._style.validate()
         self._fmt = self._style._fmt
 
 

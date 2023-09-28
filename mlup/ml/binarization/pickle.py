@@ -15,7 +15,7 @@ logger = logging.getLogger('mlup')
 class PickleBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization pickle data.')
+        logger.info('Run deserialization pickle data.')
         with TimeProfiler('Time to deserialization pickle data:'):
             try:
                 if isinstance(data.raw_data, BufferedIOBase):

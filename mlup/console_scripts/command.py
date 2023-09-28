@@ -17,14 +17,14 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  
+
 {AVAILABLE_COMMANDS}
 """
 
 
 def run_command(args: List[str]):
     try:
-        command, command_args = args[0], args[1:]
+        command, _ = args[0], args[1:]
     except IndexError:
         print(HELP)
         sys.exit(1)
@@ -37,7 +37,7 @@ def run_command(args: List[str]):
 
     try:
         module = importlib.import_module(f'mlup.console_scripts.{command}')
-    except ModuleNotFoundError as e:
+    except ModuleNotFoundError:
         print(f'Invalid command {command} - mlup.console_scripts.{command}.')
         print(AVAILABLE_COMMANDS)
         sys.exit(1)

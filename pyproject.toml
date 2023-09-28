@@ -55,13 +55,19 @@ Documentation = "https://github.com/nxexox/pymlup/docs"
 Repository = "https://github.com/nxexox/pymlup"
 
 [project.optional-dependencies]
-scikit-learn = ["scikit-learn>=1.2.0,<1.3.0"]
+scikit-learn = [
+    "scikit-learn>=1.2.0,<1.3.0;python_version>='3.8'",
+    "scikit-learn;python_version<'3.8'",
+]
 lightgbm = ["lightgbm>=4.0.0,<5.0.0"]
 tensorflow = ["tensorflow>=2.0.0,<3.0.0"]
-torch = ["torch>=2.0.0,<3.0.0"]
+torch = [
+    "torch>=2.0.0,<3.0.0;python_version>='3.8'",
+    "torch;python_version<'3.8'",
+]
 onnx = [
     "onnx>=1.0.0,<2.0.0",
-    "onnxruntime>=1.0.0,<2.0.0",
+    "onnxruntime<1.16",
 ]
 tests = [
     # Tests
@@ -70,13 +76,17 @@ tests = [
 
     # Tests models
     "joblib>=1.2.0,<1.3.0",
-    "pandas>=2.0.0,<3.0.0",
-    "scikit-learn>=1.2.0,<1.3.0",
-    "tensorflow>=2.0.0,<3.0.0",
+    "pandas>=2.0.0,<3.0.0;python_version>='3.8'",
+    "pandas;python_version<'3.8'",
+    "scikit-learn>=1.2.0,<1.3.0;python_version>='3.8'",
+    "scikit-learn;python_version<'3.8'",
+    "tensorflow>=2.0.0,<2.14.0;python_version>='3.8'",
+    "tensorflow;python_version<'3.8'",
     "lightgbm>=4.0.0,<5.0.0",
-    "torch>=2.0.0,<3.0.0",
+    "torch>=2.0.0,<3.0.0;python_version>='3.8'",
+    "torch;python_version<'3.8'",
     "onnx>=1.0.0,<2.0.0",
-    "onnxruntime>=1.0.0,<2.0.0",
+    "onnxruntime<1.16",
     "tf2onnx>=1.0.0,<2.0.0",
     "skl2onnx>=1.0.0,<2.0.0",
 

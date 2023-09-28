@@ -19,7 +19,7 @@ logger = logging.getLogger('mlup')
 class JoblibBinarizer(PickleBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization joblib data.')
+        logger.info('Run deserialization joblib data.')
         if joblib is None:
             logger.error('For use joblib, please install it. pip install joblib.')
             raise ModelBinarizationError('For use joblib, please install it. pip install joblib.')

@@ -19,7 +19,7 @@ def test_validate_config_not_exists_conf(config_path, config_type):
 
 
 def test_validate_config_not_exists_conf_type(tmp_path_factory):
-    file_path = tmp_path_factory.getbasetemp() / f'test_validate_config_not_exists_conf_type.json'
+    file_path = tmp_path_factory.getbasetemp() / 'test_validate_config_not_exists_conf_type.json'
     with open(file_path, 'w') as f:
         f.write('Not valid config\n\nBut is valid multirows string.')
 

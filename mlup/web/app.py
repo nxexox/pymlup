@@ -71,7 +71,7 @@ def _set_predict_id_to_response_headers(func):
     return wrap
 
 
-@dataclass(kw_only=True)
+@dataclass
 class WebAppConfig:
     """
     WebAppConfig config class. This class have settings for web app.
@@ -227,7 +227,7 @@ class WebAppConfig:
         return '\n'.join(res)
 
 
-@dataclass(kw_only=True, repr=True)
+@dataclass(repr=True)
 class MLupWebApp:
     """This is main UP web app class.
     Create object UP with your ML model, set your settings and run your web app.

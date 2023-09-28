@@ -1,4 +1,5 @@
 from typing import List
+import sys
 
 import pytest
 
@@ -8,9 +9,14 @@ from mlup.utils.interspection import analyze_method_params, auto_search_binariza
 
 def pred_func_with_X_List(wt, x: List, b: bool = False): pass
 def pred_func_with_X_List_of_str(wt, x: List[str], b: bool = False): pass
-def pred_func_with_list(wt, x: list, b: bool = False): pass
-def pred_func_with_list_of_int(wt, x: list[int], b: bool = False): pass
 def pred_func_without_x(wt, y: List, b: bool = False): pass
+def pred_func_with_list(wt, x: list, b: bool = False): pass
+
+
+if sys.version_info.minor >= 9:
+    def pred_func_with_list_of_int(wt, x: list[int], b: bool = False): pass
+else:
+    def pred_func_with_list_of_int(wt, x: List[int], b: bool = False): pass
 
 
 pred_func_args_without_auto_detect_predict_params = [

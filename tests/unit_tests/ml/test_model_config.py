@@ -1,4 +1,4 @@
-from mlup.constants import ModelLibraryType, StorageType, BinarizationType, ModelDataTransformerType
+from mlup.constants import ModelLibraryType, StorageType, ModelDataTransformerType
 from mlup.ml.model import ModelConfig
 
 

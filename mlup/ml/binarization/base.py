@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from mlup.constants import LoadedFile
 
 
-@dataclass(kw_only=True)
+@dataclass
 class BaseBinarizer(metaclass=abc.ABCMeta):
     @classmethod
     @abc.abstractmethod

@@ -24,12 +24,12 @@ def generate_default_config(path_to_file: Optional[str] = None) -> Optional[Dict
         up.to_yaml(path_to_file)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class Config(ModelConfig, WebAppConfig):
     pass
 
 
-@dataclass(kw_only=True, repr=False)
+@dataclass(repr=False)
 class UP:
     """This is main UP class.
     Create object UP with your ML model, set your settings and run your web app.

@@ -2,11 +2,13 @@ import logging
 from io import BytesIO
 
 import pytest
-logger = logging.getLogger('mlup.test')
 
 from mlup.constants import BinarizationType, LoadedFile
 from mlup.ml.binarization.memory import MemoryBinarizer
 from mlup.ml.binarization.pickle import PickleBinarizer
+from mlup.utils.interspection import get_class_by_path
+
+logger = logging.getLogger('mlup.test')
 try:
     from mlup.ml.binarization.joblib import JoblibBinarizer
 except (ModuleNotFoundError, AttributeError) as e:
@@ -32,8 +34,6 @@ try:
 except (ModuleNotFoundError, AttributeError) as e:
     logger.info(f'pytorch library not installed. Skip test. {e}')
     TorchBinarizer, TorchJITBinarizer = None, None
-
-from mlup.utils.interspection import get_class_by_path
 
 
 @pytest.fixture(scope="session")
@@ -75,7 +75,8 @@ def test_single_file_pickle_binarization_deserialize(pickle_print_model):
             id='bytes'
         ),
         pytest.param(
-            BytesIO(b'\x80\x04\x95$\x00\x00\x00\x00\x00\x00\x00\x8c\x0etests.conftest\x94\x8c\nPrintModel\x94\x93\x94)\x81\x94.'),
+            BytesIO(b'\x80\x04\x95$\x00\x00\x00\x00\x00\x00\x00\x8c\x0etests.conftest\x94\x8c\nPrintModel\x94\x93\x94)'
+                    b'\x81\x94.'),
             id='BufferedReader'
         )
     ]

@@ -16,7 +16,7 @@ logger = logging.getLogger('mlup')
 class TensorFlowBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization tensorflow data.')
+        logger.info('Run deserialization tensorflow data.')
         with TimeProfiler('Time to deserialization tensorflow data:'):
             try:
                 _data = data.raw_data
@@ -31,7 +31,9 @@ class TensorFlowBinarizer(BaseBinarizer):
                     f.seek(0)
                     data.path = f.name
                     _data = f.name
-                return tensorflow.keras.models.load_model(str(_data))
+                model = tensorflow.keras.models.load_model(str(_data), compile=False)
+                model.compile()
+                return model
             except Exception as e:
                 raise ModelBinarizationError(f'Error with deserialize model: {e}')
 
@@ -63,7 +65,7 @@ class TensorFlowBinarizer(BaseBinarizer):
 class TensorFlowSavedBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization tensorflow SavedModel data.')
+        logger.info('Run deserialization tensorflow SavedModel data.')
         with TimeProfiler('Time to deserialization tensorflow SavedModel data:'):
             try:
                 _data = data.raw_data

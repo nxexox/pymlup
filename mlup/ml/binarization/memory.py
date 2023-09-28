@@ -9,5 +9,5 @@ logger = logging.getLogger('mlup')
 class MemoryBinarizer(BaseBinarizer):
     @classmethod
     def deserialize(cls, data: LoadedFile):
-        logger.info(f'Run deserialization memory data.')
+        logger.info('Run deserialization memory data.')
         return data.raw_data

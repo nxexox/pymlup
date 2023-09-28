@@ -7,6 +7,7 @@ from typing import Callable, Any, Union, Optional, Type
 from mlup.constants import IS_X, THERE_IS_ARGS, DEFAULT_X_ARG_NAME, BinarizationType, LoadedFile
 from mlup.utils.profiling import TimeProfiler
 
+
 logger = logging.getLogger('mlup')
 
 
@@ -107,7 +108,7 @@ def analyze_method_params(func: Callable, auto_detect_predict_params: bool = Tru
                 param_data['type'] = types[type(param_obj.default)]
 
         if param_name.lower().strip() == 'x' and auto_detect_predict_params:
-            logger.info(f'Found X param in model params. Set List type')
+            logger.info('Found X param in model params. Set List type')
             param_data['type'] = 'List'
             param_data[IS_X] = True
             _found_X = True
@@ -145,7 +146,7 @@ def auto_search_binarization_type(loaded_file: LoadedFile) -> Optional[Type[Bina
     :rtype: Optional[Type[BinarizationType]]
 
     """
-    logger.info(f'Run auto search binarizer.')
+    logger.info('Run auto search binarizer.')
     probabilities = []
     with TimeProfiler('Time to auto search binarizer:', log_level='info'):
         for binarizer_path in BinarizationType:

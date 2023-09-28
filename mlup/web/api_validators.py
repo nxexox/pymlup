@@ -1,7 +1,7 @@
 import logging
 from typing import List, Any, Dict, Tuple, Optional, Type
 
-from pydantic import BaseModel, validator, create_model, Field
+from pydantic import BaseModel, create_model, Field
 
 from mlup.constants import IS_X, DEFAULT_X_ARG_NAME
 from mlup.ml.model import MLupModel

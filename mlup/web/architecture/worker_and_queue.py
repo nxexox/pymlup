@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from mlup.errors import WebAppLoadError, PredictError, PredictWaitResultError
 from mlup.ml.model import MLupModel
 from mlup.utils.collections import TTLOrderedDict
+from mlup.utils.loop import create_async_task
 from mlup.web.architecture.base import BaseWebAppArchitecture
 from mlup.constants import WebAppArchitecture
 
@@ -102,7 +103,7 @@ class WorkerAndQueueArchitecture(BaseWebAppArchitecture):
         logger.info('Run model in worker')
         if self.results_storage is None or self.queries_queue is None:
             raise WebAppLoadError('Not called .load() in web.load()')
-        self.worker_process = asyncio.create_task(self._start_worker())
+        self.worker_process = create_async_task(self._start_worker())
 
     @property
     def is_running(self) -> bool:
