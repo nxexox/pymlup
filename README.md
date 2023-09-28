@@ -1,5 +1,9 @@
 # PyMLup
 
+[![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
+
+## Introduction
+
 It's library for easy run ML in production. 
 
 All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃
