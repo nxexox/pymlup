@@ -26,8 +26,6 @@ DEFAULT_API_INFO_METHOD_DATA = {
     },
     'web_app_info': {
         'version': '1.0.0.0',
-        'column_validation': False,
-        'debug': False
     },
 }
 
@@ -226,7 +224,6 @@ async def test_web_app_api_method_info(web_app_test_client, print_model, debug, 
     with web_app_test_client(mlup_web_app) as api_test_client:
         response = await api_test_client.get("/info")
         assert response.status_code == 200
-        expected_json['web_app_info']['debug'] = debug
         assert response.json() == expected_json
         assertDictEqual(response.json(), expected_json)
 
