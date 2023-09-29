@@ -39,6 +39,7 @@ class BinarizationType(Enum):
     TORCH = 'mlup.ml.binarization.torch.TorchBinarizer'
     TORCH_JIT = 'mlup.ml.binarization.torch.TorchJITBinarizer'
     ONNX_INFERENCE_SESSION = 'mlup.ml.binarization.onnx.InferenceSessionBinarizer'
+    ONNX_INFERENCE_SESSION_FULL_RETURN = 'mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer'
 
 
 class ModelDataTransformerType(Enum):

@@ -198,6 +198,19 @@ class TestPandasDataFrameTransformer:
 
         assert trans_data == data
 
+    def test_transform_to_json_format_from_list(self):
+        data = [
+            [{'col1': 11, 'col2': 21, 'col3': 31, 'colstr': 'colstr', 'colbool': True}],
+            [{'col1': 12, 'col2': 22, 'col3': 32, 'colstr': 'colstr', 'colbool': True}],
+            [{'col1': 13, 'col2': 23, 'col3': 33, 'colstr': 'colstr', 'colbool': False}],
+            [{'col1': 14, 'col2': 24, 'col3': 34, 'colstr': 'colstr', 'colbool': True}],
+            [{'col1': 15, 'col2': 25, 'col3': 35, 'colstr': 'colstr', 'colbool': True}],
+        ]
+        dfs = [pd.DataFrame(data=d) for d in data]
+        trans_data = self.transformer_class().transform_to_json_format(dfs)
+
+        assert trans_data == data
+
     @pytest.mark.parametrize(
         'dtype_name, dtype',
         [
@@ -294,6 +307,19 @@ class TestNumpyDataFrameTransformer:
         pred_d = self.transformer_class().transform_to_json_format(arr)
         assert pred_d == data
 
+    def test_transform_to_json_format_from_list(self):
+        data = [
+            [[11, 21, 31, 41, 51]],
+            [[12, 22, 32, 42, 52]],
+            [[13, 23, 33, 43, 53]],
+            [[14, 24, 34, 44, 54]],
+            [[15, 25, 35, 45, 55]],
+        ]
+        arrs = [np.array(d) for d in data]
+
+        pred_d = self.transformer_class().transform_to_json_format(arrs)
+        assert pred_d == data
+
     @pytest.mark.parametrize(
         'dtype_name, dtype',
         [
@@ -385,6 +411,19 @@ class TestTensorFlowTensorDataTransformer:
         arr = tensorflow.convert_to_tensor(data)
 
         pred_d = self.transformer_class().transform_to_json_format(arr)
+        assert pred_d == data
+
+    def test_transform_to_json_format_from_list(self):
+        data = [
+            [[11, 21, 31, 41, 51]],
+            [[12, 22, 32, 42, 52]],
+            [[13, 23, 33, 43, 53]],
+            [[14, 24, 34, 44, 54]],
+            [[15, 25, 35, 45, 55]],
+        ]
+        arrs = [tensorflow.convert_to_tensor(d) for d in data]
+
+        pred_d = self.transformer_class().transform_to_json_format(arrs)
         assert pred_d == data
 
     @pytest.mark.parametrize(
@@ -480,6 +519,19 @@ class TestTorchTensorDataTransformer:
         arr = torch.tensor(data)
 
         pred_d = self.transformer_class().transform_to_json_format(arr)
+        assert pred_d == data
+
+    def test_transform_to_json_format_from_list(self):
+        data = [
+            [[11, 21, 31, 41, 51]],
+            [[12, 22, 32, 42, 52]],
+            [[13, 23, 33, 43, 53]],
+            [[14, 24, 34, 44, 54]],
+            [[15, 25, 35, 45, 55]],
+        ]
+        arrs = [torch.tensor(d) for d in data]
+
+        pred_d = self.transformer_class().transform_to_json_format(arrs)
         assert pred_d == data
 
     @pytest.mark.parametrize(
