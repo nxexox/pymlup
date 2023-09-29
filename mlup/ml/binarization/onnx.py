@@ -1,6 +1,6 @@
 import logging
 import tempfile
-from typing import Union
+from typing import Union, List
 
 import onnx
 import onnxruntime
@@ -15,13 +15,25 @@ logger = logging.getLogger('mlup')
 
 
 class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
+    def format_predict(self, predict_result: List):
+        if len(predict_result) > 1:
+            return predict_result[:-1]
+        return predict_result
+
     def predict(self, input_data):
         input_name = self.get_inputs()[0].name
         res = self.run(None, {input_name: input_data})
-        return res
+        return self.format_predict(res)
+
+
+class _InferenceSessionWithPredictFullReturn(_InferenceSessionWithPredict):
+    def format_predict(self, predict_result: List):
+        return predict_result
 
 
 class InferenceSessionBinarizer(BaseBinarizer):
+    inference_class = _InferenceSessionWithPredict
+
     @classmethod
     def deserialize(cls, data: LoadedFile):
         logger.info('Run deserialization onnxruntime data.')
@@ -39,7 +51,7 @@ class InferenceSessionBinarizer(BaseBinarizer):
                     f.seek(0)
                     data.path = f.name
                     _data = f.name
-                return _InferenceSessionWithPredict(str(_data))
+                return cls.inference_class(str(_data))
             except Exception as e:
                 raise ModelBinarizationError(f'Error with deserialize model: {e}')
 
@@ -65,3 +77,7 @@ class InferenceSessionBinarizer(BaseBinarizer):
             if str(loaded_file.path).endswith('.onnx'):
                 probability += 0.05
         return probability
+
+
+class InferenceSessionFullReturnBinarizer(InferenceSessionBinarizer):
+    inference_class = _InferenceSessionWithPredictFullReturn

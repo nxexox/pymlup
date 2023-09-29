@@ -20,7 +20,7 @@ except (ModuleNotFoundError, AttributeError) as e:
     logger.info(f'lightgbm library not installed. Skip test. {e}')
     LightGBMBinarizer = None
 try:
-    from mlup.ml.binarization.onnx import InferenceSessionBinarizer
+    from mlup.ml.binarization.onnx import InferenceSessionBinarizer, InferenceSessionFullReturnBinarizer
 except (ModuleNotFoundError, AttributeError) as e:
     logger.info(f'onnxruntime library not installed. Skip test. {e}')
     InferenceSessionBinarizer = None
@@ -101,12 +101,31 @@ def test_single_file_sklearn_onnx_binarization_deserialize(scikit_learn_binary_c
     with open(scikit_learn_binary_cls_model_onnx.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(f.read(), scikit_learn_binary_cls_model_onnx.path))
         pred_d = model.predict(test_data_raw)
-        assert pred_d == scikit_learn_binary_cls_model_onnx.test_model_response_raw
+        assert pred_d[0][0] == scikit_learn_binary_cls_model_onnx.test_model_response_raw
 
     with open(scikit_learn_binary_cls_model_onnx.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), scikit_learn_binary_cls_model_onnx.path))
         pred_d = model.predict(test_data_raw)
-        assert pred_d == scikit_learn_binary_cls_model_onnx.test_model_response_raw
+        assert pred_d[0][0] == scikit_learn_binary_cls_model_onnx.test_model_response_raw
+
+
+@pytest.mark.skipif(InferenceSessionBinarizer is None, reason='sklearn, onnxruntime libraries not installed.')
+def test_single_file_sklearn_onnx_full_return_binarization_deserialize(scikit_learn_binary_cls_model_onnx):
+    import numpy as np
+    binarizer = InferenceSessionFullReturnBinarizer
+    test_data_raw = np.array([list(scikit_learn_binary_cls_model_onnx.test_data_raw.values())], dtype=np.float32)
+
+    with open(scikit_learn_binary_cls_model_onnx.path, 'rb') as f:
+        model = binarizer.deserialize(LoadedFile(f.read(), scikit_learn_binary_cls_model_onnx.path))
+        pred_d = model.predict(test_data_raw)
+        assert pred_d[0][0] == scikit_learn_binary_cls_model_onnx.test_model_response_raw
+        assert pred_d[1] == [{'No': 1.0, 'Yes': 0.0}]
+
+    with open(scikit_learn_binary_cls_model_onnx.path, 'rb') as f:
+        model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), scikit_learn_binary_cls_model_onnx.path))
+        pred_d = model.predict(test_data_raw)
+        assert pred_d[0][0] == scikit_learn_binary_cls_model_onnx.test_model_response_raw
+        assert pred_d[1] == [{'No': 1.0, 'Yes': 0.0}]
 
 
 @pytest.mark.skipif(LightGBMBinarizer is None, reason='lightgbm library not installed.')
@@ -212,6 +231,8 @@ def test_single_file_torch_onnx_binarization_deserialize(pytorch_binary_cls_mode
         (BinarizationType.TORCH_JIT.value, TorchJITBinarizer),
         (BinarizationType.ONNX_INFERENCE_SESSION, InferenceSessionBinarizer),
         (BinarizationType.ONNX_INFERENCE_SESSION.value, InferenceSessionBinarizer),
+        (BinarizationType.ONNX_INFERENCE_SESSION_FULL_RETURN, InferenceSessionFullReturnBinarizer),
+        (BinarizationType.ONNX_INFERENCE_SESSION_FULL_RETURN.value, InferenceSessionFullReturnBinarizer),
         ('mlup.constants.BinarizationType', BinarizationType),
     ]
 )

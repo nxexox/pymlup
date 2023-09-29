@@ -37,6 +37,7 @@ Not all binarizers participate in the automatic binarizer search, but only:
 * [mlup.ml.binarization.tensorflow.TensorFlowBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py)
 * [mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py)
 * [mlup.ml.binarization.onnx.InferenceSessionBinarize](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py)
+* [mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py)
 
 If the model is not already loaded into memory, binarizers do not load it into memory for analysis.
 Instead, they can read up to 100 bytes from the beginning of the file and up to 100 bytes from the end of the file.
@@ -306,13 +307,15 @@ import onnxruntime
 
 
 class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
+    def format_predict(self, predict_result):
+        if len(predict_result) > 1:
+            return predict_result[:-1]
+        return predict_result
+        
     def predict(self, input_data):
         input_name = self.get_inputs()[0].name
-        # Return model predict response in first item and all classes in second item
         res = self.run(None, {input_name: input_data})
-        if len(res) > 1:
-            return res[0]
-        return res
+        return self.format_predict(res)
 ```
 
 The current mlup interface does not allow adding support for multiple inputs to the onnx model. This is due to the difference in incoming data.
@@ -340,19 +343,28 @@ If you add code based on known mlup data transformers, then onnx models become l
 
 **Be careful! If you have multiple inputs, you can add these transformations to your first neural network layer.**
 
+However, there can be any number of outputs from the model. They are all serialized and returned in the response mlup.
+
+**Be careful! This binarizer always truncates the last element of the response if the response has more than 1 element. 
+This is because these models like to return all the classes and other side information on the predictor that the client may have in the last element. 
+If you don't need to trim the last element, use `mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer`.**
+
 The final code for loading onnx models is similar to this:
 ```python
 import onnxruntime
 
 
 class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
+    def format_predict(self, predict_result):
+        # Return model predict response in first items and all classes in last item
+        if len(predict_result) > 1:
+            return predict_result[:-1]
+        return predict_result
+
     def predict(self, input_data):
         input_name = self.get_inputs()[0].name
-        # Return model predict response in first item and all classes in second item
         res = self.run(None, {input_name: input_data})
-        if len(res) > 1:
-            return res[0]
-        return res
+        return self.format_predict(res)
 
 model = _InferenceSessionWithPredict("/path/to/my/model.onnx")
 ```
@@ -387,6 +399,10 @@ if 'model.onnx'.endswith('.onnx'):
 _Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code._
 
 ---
+
+## mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer
+
+This binarization differs from `mlup.ml.binarization.onnx.InferenceSessionBinarizer` only in that it returns the complete response from the onnx model. Doesn't trim the last element.
 
 ## Custom binarizer
 
