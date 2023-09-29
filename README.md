@@ -1,6 +1,7 @@
 # PyMLup
 
 [![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
+[![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
 
 ## Introduction
 
@@ -606,6 +607,14 @@ up = mlup.UP(
     )
 )
 ```
+
+## Metrics
+
+MlUp PyPI download statistics: https://pepy.tech/project/pymlup
+
+[![Downloads](https://static.pepy.tech/badge/pymlup)](https://pepy.tech/project/pymlup)
+[![Downloads](https://static.pepy.tech/badge/pymlup/month)](https://pepy.tech/project/pymlup)
+[![Downloads](https://static.pepy.tech/badge/pymlup/week)](https://pepy.tech/project/pymlup)
 
 ## TODO
 
