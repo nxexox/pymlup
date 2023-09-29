@@ -498,8 +498,6 @@ class MLupWebApp:
             },
             "web_app_info": {
                 "version": self.conf.web_app_version,
-                "column_validation": self.conf.column_validation,
-                "debug": self.conf.debug,
             },
         }
 

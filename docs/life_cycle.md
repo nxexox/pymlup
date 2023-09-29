@@ -13,7 +13,7 @@ This component contains all the code for working with your model, including all 
 When you create a `mlup.UP` object and pass a model `mlup.UP(ml_model=your_model)` into it, mlup does nothing.
 At this point, you have simply created a class. This is done in order to avoid starting the processes of loading and analyzing the model, which can be lengthy, without explicit instructions.
 
-![mlup load process](assets/img/mlup-load-scheme.jpg)
+![mlup load process](assets/img/mlup-load-scheme.png)
 
 #### up.ml.load()
 
