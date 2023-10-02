@@ -155,14 +155,14 @@ Behind it lies a process of several stages:
 * If the prediction caused an error, a [PredictError](https://github.com/nxexox/pymlup/blob/main/mlup/errors.py) exception will be thrown.
 * And if the prediction is successful, the prediction results will be sent to the data transformer from the `data_transformer_for_predicted` configuration parameter for conversion to a valid JSON format and returned from the method. Called `up.ml._transform_predicted_data`.
 
-![mlup load process](assets/img/mlup-predict-scheme.png)
+![mlup predict process](assets/img/mlup-predict-scheme.png)
 
 ## Web application work
 
 After launching the web application, it is ready to accept requests from users. When a developer independently writes a web application with a model, he has full control and knowledge of how the request processing process occurs.
 mlup takes care of this, so the entire request processing process is described here.
 
-![mlup load process](assets/img/mlup-request-processed.png)
+![mlup web application work process](assets/img/mlup-request-processed.png)
 
 The process looks like this:
 * A request has been received from a user.

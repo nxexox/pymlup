@@ -78,7 +78,7 @@ This can lead to various problems:
 
 This architecture is well suited for fast models that can process multiple requests per second.
 
-TODO: HERE IS A PICTURE DIAGRAM WITH ARCHITECTURE
+![mlup architecture directly to predict](assets/img/archi_directly_to_predict.png)
 
 ### Initialization of the architecture
 
@@ -118,7 +118,7 @@ To configure queue sizes and response prediction lifetimes, there are configurat
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
   See "[Web app API](web_app_api.md)".
 
-TODO: HERE IS A PICTURE DIAGRAM WITH ARCHITECTURE
+![mlup architecture worker and queue](assets/img/archi_worker_and_queue.png)
 
 ### Initialization of the architecture
 
@@ -208,7 +208,7 @@ In addition to the `batch_worker_timeout` and `min_batch_len` batching parameter
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
   See "[Web app API](web_app_api.md)".
 
-TODO: HERE IS A PICTURE DIAGRAM WITH ARCHITECTURE
+![mlup architecture batching](assets/img/archi_batching.png)
 
 ### Initialization of the architecture
 
