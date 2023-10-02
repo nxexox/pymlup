@@ -5,11 +5,11 @@
 This command allows you to validate your config file for correctness.
 
 ```bash
-$ mlup validate-config /path/to/your/config/file.yaml
+ mlup validate-config /path/to/your/config/file.yaml
 Load config from /path/to/your/config/file.yaml
 Config is valid
-$
-$ mlup validate-config --type json /path/to/your/config/file.json
+
+ mlup validate-config --type json /path/to/your/config/file.json
 Load config from /path/to/your/config/file.json
 Config is valid
 ```
@@ -25,7 +25,7 @@ If the config is not valid, this command will exit with exit code 1.
 Perhaps the most interesting command, which allows you to run the application directly according to the model without a config.
 
 ```bash
-$ mlup run -m /path/to/my/model.onnx
+ mlup run -m /path/to/my/model.onnx
 ```
 
 But this team is much broader. It can run the application:
@@ -35,7 +35,7 @@ But this team is much broader. It can run the application:
 
 Also, you can replace any config value on the fly, directly in the arguments.
 ```bash
-$ mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
+ mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
 ```
 
 The order of using the config in this case:
@@ -45,7 +45,7 @@ The order of using the config in this case:
 
 Examples for different data types:
 ```bash
-$ mlup run -m /path/tomy/model.onnx \
+ mlup run -m /path/tomy/model.onnx \
   --up.port=8011 \
   --up.batch_worker_timeout=10.0 \
   --up.predict_method_name=\"__call__\" \
@@ -56,7 +56,7 @@ $ mlup run -m /path/tomy/model.onnx \
 
 You can specify `--verbose` to get full logging with debug loggers for debugging.
 ```bash
-$ mlup run -m /path/to/my/model.onnx --verbose
+ mlup run -m /path/to/my/model.onnx --verbose
 ```
 
 ## mlup make-app
@@ -65,7 +65,7 @@ If the `mlup run` command is not enough for you, you can create a `.py` file wit
 In which you can add any of your Python code. For example: add your own API handlers for a web application.
 
 ```bash
-$ mlup make-app /path/to/your/app.py
+ mlup make-app /path/to/your/app.py
 App success created: /path/to/your/app.py
 ```
 
@@ -129,7 +129,7 @@ If the file `/path/to/your/app.py` already exists, you can specify `--force` to 
 
 Just like in `mlup run`, you can specify your own configuration options via the `--up.<conf_name>` argument.
 ```bash
-$ mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py --up.port=8010 --up.use_thread_loop=False`
+ mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py --up.port=8010 --up.use_thread_loop=False`
 ```
 
 Will create the following file:
@@ -163,5 +163,5 @@ if __name__ == '__main__':
 
 You can launch the application through the created file with one command:
 ```bash
-$ python /path/to/your/app.py
+ python /path/to/your/app.py
 ```
