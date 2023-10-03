@@ -69,7 +69,9 @@ def run(
     verbose: bool = False,
 ):
     if verbose:
-        logger.setLevel(logging.DEBUG)
+        logging.basicConfig()
+        logging.getLogger('mlup').setLevel(logging.DEBUG)
+        # logger.setLevel(logging.DEBUG)
         logger.debug('Run in verbose mode')
 
     if any(((use_conf and use_bin), (use_conf and use_model), (use_bin and use_model))):

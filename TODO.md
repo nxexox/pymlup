@@ -1,6 +1,7 @@
 # TODO
 
 * [x] Full docs by all pymlup library.
+* [x] Fix debug logger in mlup run command.
 * [ ] Added length inner array validation.
 * [ ] Modern mlup validate-config command.
 * [ ] Auto search params by model and test data.
