@@ -78,7 +78,7 @@ This can lead to various problems:
 
 This architecture is well suited for fast models that can process multiple requests per second.
 
-![mlup architecture directly to predict](https://github.com/nxexox/pymlup/tree/main/docs/assets/img/archi_directly_to_predict.png)
+![mlup architecture directly to predict](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_directly_to_predict.png?raw=true)
 
 ### Initialization of the architecture
 
@@ -118,7 +118,7 @@ To configure queue sizes and response prediction lifetimes, there are configurat
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
   See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
 
-![mlup architecture worker and queue](https://github.com/nxexox/pymlup/tree/main/docs/assets/img/archi_worker_and_queue.png)
+![mlup architecture worker and queue](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_worker_and_queue.png?raw=true)
 
 ### Initialization of the architecture
 
@@ -208,7 +208,7 @@ In addition to the `batch_worker_timeout` and `min_batch_len` batching parameter
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
   See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
 
-![mlup architecture batching](https://github.com/nxexox/pymlup/tree/main/docs/assets/img/archi_batching.png)
+![mlup architecture batching](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_batching.png?raw=true)
 
 ### Initialization of the architecture
 
