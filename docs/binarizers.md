@@ -337,7 +337,7 @@ print(for_mlup_model)
 ```
 
 When working with a Python List, turning `for_mlup_model` into `for_onnx_model` is easy.
-But when the data arrives at the model, it has already been processed by the data transformer (See [Data Transformers](data_transformers.md)).
+But when the data arrives at the model, it has already been processed by the data transformer (See [Data Transformers](https://github.com/nxexox/pymlup/tree/main/docs/data_transformers.md)).
 Including a custom data transformer. Therefore, you cannot add generic code here to convert `for_mlup_model` to `for_onnx_model`.
 If you add code based on known mlup data transformers, then onnx models become limited to using these data transformers.
 

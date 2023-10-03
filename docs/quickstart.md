@@ -40,12 +40,12 @@ up.run_web_app(daemon=True)
 up.stop_web_app()
 ```
 
-You can read about all the settings at [description of the configuration file](config_file.md).
+You can read about all the settings at [description of the configuration file](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md).
 
 You can check how the data is processed, the model makes a prediction, and the response is processed without launching the web application.
 There are methods for this:
 * `UP.predict` - Method that is called by the web application with the data received in the request.
-If the `auto_detect_predict_params=True` flag is set in the config (See [Config: auto_detect_predict_params](config_file.md)), the arguments of this method are the same as the arguments of the model's predict method.
+If the `auto_detect_predict_params=True` flag is set in the config (See [Config: auto_detect_predict_params](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md#model-load-settings)), the arguments of this method are the same as the arguments of the model's predict method.
 If the `auto_detect_predict_params=False` flag is set in the config, the data is passed in the `data_for_predict` argument.
 * `UP.async_predict` - Asynchronous version of `UP.predict`.
 * `UP.predict_from` - Same as `UP.predict`, but does not call the data transformer before calling the model predictor.
@@ -96,7 +96,7 @@ up = mlup.UP(ml_model=EmptyModel(), conf=mlup.Config(predict_method_name="__call
 
 Also, models can be binarized in different ways: `pickle`, `joblib`, `onnx`, etc.
 By default, mlup tries the pickle binarizer ([mlup.ml.binarization.pickle.PickleBinarizer](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/pickle)).
-This behavior can be changed by specifying the `binarization_type` parameter. You can specify one of the [mlup binarizers](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/) or specify your own (See [Binarizers](binarizers.md)).
+This behavior can be changed by specifying the `binarization_type` parameter. You can specify one of the [mlup binarizers](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/) or specify your own (See [Binarizers](https://github.com/nxexox/pymlup/tree/main/docs/binarizers.md)).
 
 ## Launch on servers
 

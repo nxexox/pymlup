@@ -1,6 +1,6 @@
 # Data transformers
 
-As described in [Description of the application life cycle](life_cycle.md#ml-predict-process), data transformers are needed to convert data from JSON format to model format and back.
+As described in [Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md#ml-predict-process), data transformers are needed to convert data from JSON format to model format and back.
 For example, from python list to numpy.array and back.
 
 mlup comes with several data transformers out of the box. This set corresponds to the supported binarization methods.
@@ -21,7 +21,7 @@ Which are used to convert the data into model format and convert the response fr
 ### mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer
 
 This transformer converts the incoming query into pandas tabular data. Since tabular data has column names, the column names and types are the data interface to the model's prediction.
-It is necessary to specify the columns, either in the configuration parameter [columns](config_file.md#model-interface-settings) or send a dictionary with columns directly in the request.
+It is necessary to specify the columns, either in the configuration parameter [columns](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md#model-interface-settings) or send a dictionary with columns directly in the request.
 
 ```python
 import mlup
@@ -74,7 +74,7 @@ To reverse the conversion, call `pandas.DataFrame(...).to_dict("records")`.
 
 This data transformer is used by default to transform data to and from model format.
 
-Regardless of the presence of columns in the query or [config columns](config_file.md#model-interface-settings), after this transformer you will get `numpy.array`.
+Regardless of the presence of columns in the query or [config columns](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md#model-interface-settings), after this transformer you will get `numpy.array`.
 If you have columns specified in the configuration or the data is sent with columns, they will affect the order of the resulting array.
 The data in the final array will be in the same order in which the columns are specified in the config or serialized by the web framework and turned into List[Dict].
 

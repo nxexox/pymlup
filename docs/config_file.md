@@ -68,7 +68,7 @@ Default is True.
     
 You can write your storage class, for load model from you storage or with your logic. 
 For it, your storage class must be a class [mlup.ml.storage.base.BaseStorage](https://github.com/nxexox/pymlup/blob/main/mlup/ml/storage/base.py) heir.
-See [Storages](storages.md) for details.
+See [Storages](https://github.com/nxexox/pymlup/tree/main/docs/storages.md) for details.
 
 Default: StorageType.memory.
 
@@ -81,7 +81,7 @@ Default: empty Dict.
 ---
 
 `binarization_type (BinarizationType)` - Type binarization model method.
-    Use for load binary model from storage. See [Binarizers](binarizers.md) for details.
+    Use for load binary model from storage. See [Binarizers](https://github.com/nxexox/pymlup/tree/main/docs/binarizers.md) for details.
     
 If set "auto", run auto search binarization type by model raw binary data and model name in storage.
 If binarization_type="auto" found binarization, than set binarization_type to found binarizer class.
@@ -109,14 +109,14 @@ Default is None, that is min(32, os.cpu_count() + 4).
 ---
 
 `data_transformer_for_predict (ModelDataTransformerType)` - How data type need for model predict method.
-    See [Data Transformers](data_transformers.md) for details.
+    See [Data Transformers](https://github.com/nxexox/pymlup/tree/main/docs/data_transformers.md) for details.
     
 Default ModelDataTransformerType.NUMPY_ARR.
 
 ---
 
 `data_transformer_for_predicted (ModelDataTransformerType)` - How data type model returned from predict method.
-    See [Data Transformers](data_transformers.md) for details.
+    See [Data Transformers](https://github.com/nxexox/pymlup/tree/main/docs/data_transformers.md) for details.
 
 Default ModelDataTransformerType.NUMPY_ARR.
 
@@ -125,7 +125,7 @@ Default ModelDataTransformerType.NUMPY_ARR.
 `dtype_for_predict (Optional[str])` - Dtype for data_transformer_for_predict.
     Each data_transformer uses its own way of searching for a dtype by the specified one.
     But as a rule it is getattr([pandas, numpy, torch, tensorflow], dtype).
-See [Data Transformers](data_transformers.md) for details.
+See [Data Transformers](https://github.com/nxexox/pymlup/tree/main/docs/data_transformers.md) for details.
 
 Default is None, and the library itself determines which type.
 
@@ -173,7 +173,7 @@ Default is None.
 
 `mode (WebAppArchitecture)` - Work mode web app. We have three modes for work:
     directly_to_predict, worker_and_queue, batching. 
-    See [Web app architectures](web_app_architectures.md) for details.
+    See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md) for details.
     
 Default is WebAppArchitecture.directly_to_predict.
 

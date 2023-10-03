@@ -15,20 +15,20 @@ PyMLup is a modern way to run machine learning models in production. The market 
 * Use FastApi in web app backend;
 
 Work tested with machine learning model frameworks (links to tests):
-* [scikit-learn>=1.2.0,<1.3.0](tests/integration_tests/frameworks/test_scikit_learn_model.py)
-* [tensorflow>=2.0.0,<3.0.0](tests/integration_tests/frameworks/test_tensorflow_model.py)
-* [lightgbm>=4.0.0,<5.0.0](tests/integration_tests/frameworks/test_lightgbm_model.py)
-* [torch>=2.0.0,<3.0.0](tests/integration_tests/frameworks/test_pytorch_model.py)
-* [onnx>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
-* [onnxruntime>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
+* [scikit-learn>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
+* [tensorflow>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
+* [lightgbm>=4.0.0,<5.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py)
+* [torch>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_pytorch_model.py)
+* [onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+* [onnxruntime>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
 
 Support and tested with machine learning libraries:
-* [numpy>=1.0.0,<2.0.0](tests/unit_tests/ml/test_data_transformers.py)
-* [pandas>=2.0.0,<3.0.0](tests/unit_tests/ml/test_data_transformers.py)
-* [joblib>=1.2.0,<1.3.0](tests/unit_tests/ml/test_binarization.py)
-* [tf2onnx>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
-* [skl2onnx>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
-* [jupyter==1.0.0](tests/integration_tests/test_jupyter_notebook.py)
+* [numpy>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
+* [pandas>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
+* [joblib>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+* [tf2onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+* [skl2onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+* [jupyter==1.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/test_jupyter_notebook.py)
 
 **The easiest way to try:**
 ```bash
@@ -178,7 +178,7 @@ up.run_web_app()
 
 #### Change config
 
-If you can change model settings (See config attributes docs), need call `up.ml.load_model_settings()`.
+If you can change model settings (See [Description of the application life cycle](https://github.com/nxexox/pymlup/blob/main/docs/life_cycle.md#upmlload_model_settings)), need call `up.ml.load_model_settings()`.
 
 ```python
 import mlup
@@ -204,7 +204,7 @@ up.ml.load_model_settings()
 
 You can run web application from model, config, pickle up object. Bash command mlup run making this.
 
-See `mlup run --help` for full docs.
+See `mlup run --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-run) for full docs.
 
 ##### From model
 ```bash
@@ -231,7 +231,7 @@ up.run_web_app()
 ```
 
 You change config attributes in this mode. For this, you can add arguments `--up.<config_attribute_name>=new_value`. 
-(For more examples see `mlup run --help`).
+(For more examples see `mlup run --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-run)).
 
 ##### From config
 ```bash
@@ -268,7 +268,7 @@ up.run_web_app()
 
 This command making `.py` file with mlup web application and your model, config, pickle up object or with default settings.
 
-See `mlup make-app --help` for full docs.
+See `mlup make-app --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-make-app) for full docs.
 
 ##### With default settings
 ```bash
@@ -411,7 +411,7 @@ python3 example_without_data_app.py
 
 This command use for validation your config. This command have alpha version and need finalize.
 
-See `mlup validate-config --help` for full docs.
+See `mlup validate-config --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-validate-config) for full docs.
 
 ```bash
 mlup validate-config /path/to/my/conf.yaml
@@ -420,6 +420,8 @@ mlup validate-config /path/to/my/conf.yaml
 ## Web application interface
 
 By default, web application starting on http://localhost:8009 and have api docs.
+
+See [Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md) for more details. 
 
 ### Interactive API docs
 
@@ -459,8 +461,6 @@ HTTP's methods: GET
   },
   "web_app_info": {
     "version": "1.0.0.0",
-    "column_validation": false,
-    "debug": false
   }
 }
 ```
@@ -571,6 +571,8 @@ This method have validation for inner request data. It's making from config `col
 
 ## Web application modes
 
+See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md) for more details. 
+
 Web application have three works modes:
 * `directly_to_predict` - is Default. User request send directly to model.
 * `worker_and_queue` - ml model starts in thread worker and take data for predict from queue. 
@@ -610,7 +612,7 @@ up = mlup.UP(
 
 ## Metrics
 
-MlUp PyPI download statistics: https://pepy.tech/project/pymlup
+MLup PyPi download statistics: https://pepy.tech/project/pymlup
 
 [![Downloads](https://static.pepy.tech/badge/pymlup)](https://pepy.tech/project/pymlup)
 [![Downloads](https://static.pepy.tech/badge/pymlup/month)](https://pepy.tech/project/pymlup)
