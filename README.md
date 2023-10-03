@@ -5,7 +5,7 @@
 
 ## Introduction
 
-It's library for easy run ML in production. 
+It's library for easy and fast run ML in production. 
 
 All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃
 
@@ -30,16 +30,16 @@ Support and tested with machine learning libraries:
 * [skl2onnx>=1.0.0,<2.0.0](tests/unit_tests/ml/test_binarization.py)
 * [jupyter==1.0.0](tests/integration_tests/test_jupyter_notebook.py)
 
-**The easiest way to poke:**
+**The easiest way to try:**
 ```bash
 pip install pymlup
 mlup run -m /path/to/my/model.onnx
 ```
 
 ## Useful links
-* [Docs](docs) under development;
-* [Examples](examples);
-* [Tests models](mldata)
+* [Docs](https://github.com/nxexox/pymlup/tree/main/docs);
+* [Examples](https://github.com/nxexox/pymlup/tree/main/examples);
+* [Tests models](https://github.com/nxexox/pymlup/tree/main/mldata);
 
 ## How it's work
 
@@ -615,13 +615,3 @@ MlUp PyPI download statistics: https://pepy.tech/project/pymlup
 [![Downloads](https://static.pepy.tech/badge/pymlup)](https://pepy.tech/project/pymlup)
 [![Downloads](https://static.pepy.tech/badge/pymlup/month)](https://pepy.tech/project/pymlup)
 [![Downloads](https://static.pepy.tech/badge/pymlup/week)](https://pepy.tech/project/pymlup)
-
-## TODO
-
-* Full docs by all pymlup library.
-* Added length inner array validation.
-* Modern mlup validate-config command.
-* Auto search params by model and test data.
-* Support multi models pipelines. Now support is only single file model and single model predict method.
-* Add C++ implementation this application by config or model. Support everything that is possible according to the mlup config.
-* Add hub for save configs.
