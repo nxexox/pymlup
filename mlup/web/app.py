@@ -373,6 +373,12 @@ class MLupWebApp:
             self.conf.uvicorn_kwargs['log_config'] = LOGGING_CONFIG
         configure_logging_formatter('web')
 
+        logger.info(f'MLup application will be launched at: http://{self.conf.host}:{self.conf.port}')
+        if self.conf.show_docs:
+            logger.info(
+                f"You can open your application's API documentation at http://{self.conf.host}:{self.conf.port}/docs"
+            )
+
         self._uvicorn_server = uvicorn.Server(
             uvicorn.Config(self.app, **self.conf.uvicorn_kwargs),
         )

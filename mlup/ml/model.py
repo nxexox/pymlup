@@ -26,7 +26,7 @@ from mlup.utils.profiling import TimeProfiler
 from mlup.utils.interspection import analyze_method_params, get_class_by_path, auto_search_binarization_type
 
 
-set_logging_settings(LOGGING_CONFIG)
+set_logging_settings(LOGGING_CONFIG, level=logging.INFO)
 logger = logging.getLogger('mlup')
 
 

@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from typing import List, Union, Optional
 
@@ -9,6 +10,9 @@ from pydantic import BaseModel, ValidationError
 from mlup.constants import PREDICT_ID_HEADER
 from mlup.errors import PredictError, PredictWaitResultError, PredictTransformDataError, \
     PredictValidationInnerDataError
+
+
+logger = logging.getLogger('mlup')
 
 
 class ApiError(BaseModel):
@@ -35,6 +39,9 @@ def api_exception_handler(request: Request, exc: Union[ValidationError, ApiReque
     if hasattr(exc, 'predict_id'):
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
+
+    logger.debug(f'Response error. Status: {status.HTTP_422_UNPROCESSABLE_ENTITY}. Body: {error_res.dict()}.')
+
     return JSONResponse(
         content=jsonable_encoder(error_res.dict()),
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -48,6 +55,9 @@ def api_request_error_handler(request: Request, exc: ApiRequestError):
     if hasattr(exc, 'predict_id'):
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
+
+    logger.debug(f'Response error. Status: {exc.status_code}. Body: {error_res.dict()}.')
+
     return JSONResponse(
         content=jsonable_encoder(error_res.dict()),
         status_code=exc.status_code,
@@ -64,6 +74,9 @@ def predict_errors_handler(
     if hasattr(exc, 'predict_id'):
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
+
+    logger.debug(f'Response error. Status: {exc.http_status}. Body: {error_res.dict()}.')
+
     return JSONResponse(
         content=jsonable_encoder(error_res.dict()),
         status_code=exc.http_status,

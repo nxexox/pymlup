@@ -2,6 +2,8 @@ import importlib
 import sys
 from typing import List
 
+import mlup
+
 
 AVAILABLE_COMMANDS = """Available commands:
   * validate-config     Validate your config for valid format for MLup.
@@ -10,13 +12,14 @@ AVAILABLE_COMMANDS = """Available commands:
 """
 
 
-HELP = f"""usage: mlup [-h] command
+HELP = f"""usage: mlup [-h] [-v] command
 
 positional arguments:
   command               Command name for run
 
 options:
   -h, --help            show this help message and exit
+  -v, --version         show current version mlup and exit
 
 {AVAILABLE_COMMANDS}
 """
@@ -31,6 +34,10 @@ def run_command(args: List[str]):
 
     if command.strip() in ('-h', '--help', 'help'):
         print(HELP)
+        sys.exit()
+
+    if command.strip() in ('-v', '--version', 'version'):
+        print(mlup.__version__)
         sys.exit()
 
     command = command.replace('-', '_')

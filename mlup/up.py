@@ -3,14 +3,14 @@ from dataclasses import field, dataclass, InitVar
 from pathlib import Path
 from typing import Dict, Any, Optional, Union
 
-from mlup.config import ConfigProvider, LOGGING_CONFIG
+from mlup.config import ConfigProvider, LOGGING_CONFIG, set_logging_settings
 from mlup.ml.empty import EmptyModel
 from mlup.ml.model import MLupModel, ModelConfig
 from mlup.utils.loop import run_async
 from mlup.web.app import MLupWebApp, WebAppConfig
 
 
-logging.config.dictConfig(LOGGING_CONFIG)
+set_logging_settings(LOGGING_CONFIG, level=logging.INFO)
 logger = logging.getLogger('mlup')
 
 

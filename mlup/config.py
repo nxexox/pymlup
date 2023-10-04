@@ -4,15 +4,17 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Dict, Any, Set, Union
+from typing import Dict, Any, Set, Union, Optional
 
 import yaml
 
 from mlup.constants import StorageType
 
 
-def set_logging_settings(logging_config: Dict):
+def set_logging_settings(logging_config: Dict, level: Optional[int] = None):
     logging.config.dictConfig(logging_config)
+    if level:
+        logging.basicConfig(level=level)
 
 
 LOGGING_CONFIG: Dict[str, Any] = {
@@ -54,7 +56,7 @@ LOGGING_CONFIG: Dict[str, Any] = {
         },
     },
     "loggers": {
-        "mlup": {"handlers": ["mlup"], "level": "INFO", "propagate": False},
+        "mlup": {"handlers": ["mlup"], "propagate": False},
         "uvicorn": {"handlers": ["uvicorn"], "level": "INFO", "propagate": False},
         "uvicorn.error": {"handlers": ["uvicorn"], "level": "INFO", "propagate": False},
         "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
