@@ -3,7 +3,7 @@ name: Deploy mkdocs with GitHub Pages dependencies preinstalled
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["main", "ci_docs"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,7 +27,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        run: |
+          python -m pip install mkdocs mkdocs-material
       - name: Build with mkdocs
         run: |
           mkdocs build
