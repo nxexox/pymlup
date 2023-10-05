@@ -1,0 +1,868 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../config_file/">
+      
+      
+        <link rel="next" href="../life_cycle/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>Data transformers - MLup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bd3936ea.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-transformers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data transformers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MLup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the bash commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binarizers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mlup-transformers" class="md-nav__link">
+    mlup transformers
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup transformers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerspandas_data_transformerpandasdataframetransformer" class="md-nav__link">
+    mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformersnumpy_data_transformernumpydatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerstf_tensor_data_transformertftensordatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.tf_tensor_data_transformer.TFTensorDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerstorch_tensor_data_transformertorchtensordatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.torch_tensor_data_transformer.TorchTensorDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerssrc_data_transformersrcdatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.src_data_transformer.SrcDataTransformer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-data-transformer" class="md-nav__link">
+    Custom data transformer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life_cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the Python Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_architectures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mlup-transformers" class="md-nav__link">
+    mlup transformers
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup transformers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerspandas_data_transformerpandasdataframetransformer" class="md-nav__link">
+    mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformersnumpy_data_transformernumpydatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerstf_tensor_data_transformertftensordatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.tf_tensor_data_transformer.TFTensorDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerstorch_tensor_data_transformertorchtensordatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.torch_tensor_data_transformer.TorchTensorDataTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmldata_transformerssrc_data_transformersrcdatatransformer" class="md-nav__link">
+    mlup.ml.data_transformers.src_data_transformer.SrcDataTransformer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-data-transformer" class="md-nav__link">
+    Custom data transformer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="data-transformers">Data transformers</h1>
+<p>As described in <a href="../life_cycle/#ml-predict-process">Description of the application life cycle</a>, data transformers are needed to convert data from JSON format to model format and back.
+For example, from python list to numpy.array and back.</p>
+<p>mlup comes with several data transformers out of the box. This set corresponds to the supported binarization methods.</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/data_transformers/pandas_data_transformer.py">mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer</a> - docs is <a href="https://pandas.pydata.org/">here</a>.</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/data_transformers/numpy_data_transformer.py">mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer</a> - docs is <a href="https://numpy.org/">here</a>.</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/data_transformers/tf_tensor_data_transformer.py">mlup.ml.data_transformers.tf_tensor_data_transformer.TFTensorDataTransformer</a> - docs is <a href="https://www.tensorflow.org/api_docs/python/tf/Tensor">here</a>.</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/data_transformers/torch_tensor_data_transformer.py">mlup.ml.data_transformers.torch_tensor_data_transformer.TorchTensorDataTransformer</a> - docs is <a href="https://pytorch.org/docs/stable/tensors.html">here</a>.</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/data_transformers/src_data_transformer.py">mlup.ml.data_transformers.src_data_transformer.SrcDataTransformer</a> - docs in this document.</li>
+</ul>
+<p>These transformers can transform data from JSON format into their own format and back. There are two methods for this: <code>transform_to_model_format</code> and <code>transform_to_json_format</code>.</p>
+<h2 id="mlup-transformers">mlup transformers</h2>
+<p>You can specify data transformers using the <code>data_transformer_for_predict</code> and <code>data_transformer_for_predicted</code> configuration parameters.
+Which are used to convert the data into model format and convert the response from the model accordingly.</p>
+<h3 id="mlupmldata_transformerspandas_data_transformerpandasdataframetransformer">mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer</h3>
+<p>This transformer converts the incoming query into pandas tabular data. Since tabular data has column names, the column names and types are the data interface to the model's prediction.
+It is necessary to specify the columns, either in the configuration parameter <a href="../config_file/#model-interface-settings">columns</a> or send a dictionary with columns directly in the request.</p>
+<pre><code class="language-python">import mlup
+from mlup import constants
+
+class Model:
+    def predict(self, X):
+        return X
+
+columns = [
+    {&quot;name&quot;: &quot;col1&quot;, &quot;type&quot;: &quot;int&quot;},
+    {&quot;name&quot;: &quot;col2&quot;, &quot;type&quot;: &quot;str&quot;},
+    {&quot;name&quot;: &quot;col3&quot;, &quot;type&quot;: &quot;str&quot;},
+]
+obj1 = [1, 2, 3]
+obj2 = [4, 5, 6]
+data_without_columns = [obj1, obj2]
+data_with_columns = [
+    {c[&quot;name&quot;]: v for c, v in zip(columns, obj1)}, 
+    {c[&quot;name&quot;]: v for c, v in zip(columns, obj2)}
+]
+
+# With columns in config
+up = mlup.UP(
+    ml_model=Model(),
+    conf=mlup.Config(
+        columns=columns,
+        data_transformer_for_predict=constants.ModelDataTransformerType.PANDAS_DF,
+        data_transformer_for_predicted=constants.ModelDataTransformerType.PANDAS_DF,
+    )
+)
+up.ml.load()
+print(up.predict(X=data_without_columns))
+# [{'col1': 1, 'col2': 2, 'col3': 3}, {'col1': 4, 'col2': 5, 'col3': 6}]
+
+up.conf.columns = None
+up.ml.load(force_loading=True)
+
+print(up.predict(X=data_with_columns))
+# [{'col1': 1, 'col2': 2, 'col3': 3}, {'col1': 4, 'col2': 5, 'col3': 6}]
+</code></pre>
+<p>For this data transformer, when creating pandas.DataFrame, you can specify dtype. To do this, use the <code>dtype_for_predict</code> configuration parameter.
+In this parameter, you can specify the Dtype name string in pandas. Here are some of them: <code>Float32Dtype</code>, <code>Float64Dtype</code>, <code>Int8Dtype</code>, <code>Int16Dtype</code>, <code>Int32Dtype</code>, <code>StringDtype</code>, <code>BooleanDtype</code>.
+If you do not specify the <code>dtype_for_predict</code> parameter in the configuration, then pandas.DataFrame determines the types itself.</p>
+<p>To reverse the conversion, call <code>pandas.DataFrame(...).to_dict("records")</code>.</p>
+<h3 id="mlupmldata_transformersnumpy_data_transformernumpydatatransformer">mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer</h3>
+<p>This data transformer is used by default to transform data to and from model format.</p>
+<p>Regardless of the presence of columns in the query or <a href="../config_file/#model-interface-settings">config columns</a>, after this transformer you will get <code>numpy.array</code>.
+If you have columns specified in the configuration or the data is sent with columns, they will affect the order of the resulting array.
+The data in the final array will be in the same order in which the columns are specified in the config or serialized by the web framework and turned into List[Dict].</p>
+<p>Therefore, it is not recommended to use this data transformer and send data through columns.
+But when specifying columns in the configuration, there will be no problems. Because the order of the columns is determined by the order in the config.</p>
+<pre><code class="language-python">import mlup
+from mlup import constants
+
+class Model:
+    def predict(self, X):
+        return X
+
+columns = [
+    {&quot;name&quot;: &quot;col1&quot;, &quot;type&quot;: &quot;int&quot;},
+    {&quot;name&quot;: &quot;col2&quot;, &quot;type&quot;: &quot;str&quot;},
+    {&quot;name&quot;: &quot;col3&quot;, &quot;type&quot;: &quot;str&quot;},
+]
+obj1 = [1, 2, 3]
+obj2 = [4, 5, 6]
+data_without_columns = [obj1, obj2]
+data_with_columns = [
+    {c[&quot;name&quot;]: v for c, v in zip(columns[::-1], obj1[::-1])}, 
+    {c[&quot;name&quot;]: v for c, v in zip(columns[::-1], obj2[::-1])}
+]
+
+# With columns in config
+up = mlup.UP(
+    ml_model=Model(),
+    conf=mlup.Config(
+        columns=columns,
+        data_transformer_for_predict=constants.ModelDataTransformerType.NUMPY_ARR,
+        data_transformer_for_predicted=constants.ModelDataTransformerType.NUMPY_ARR,
+    )
+)
+up.ml.load()
+print(up.predict(X=data_with_columns))
+# [[1, 2, 3], [4, 5, 6]]
+print(up.predict(X=data_without_columns))
+# [[1, 2, 3], [4, 5, 6]]
+
+up.conf.columns = None
+up.ml.load(force_loading=True)
+
+print(up.predict(X=data_with_columns))
+# [[3, 2, 1], [6, 5, 4]]
+print(up.predict(X=data_without_columns))
+# [[1, 2, 3], [4, 5, 6]]
+</code></pre>
+<p>For this data transformer, when creating numpy.array, you can specify dtype. To do this, use the <code>dtype_for_predict</code> configuration parameter.
+In this parameter, you can specify the dtype name string in numpy. Here are some of them: <code>float32</code>, <code>float64</code>, <code>int64</code>, <code>int32</code>, <code>int16</code>, <code>bool_</code>.</p>
+<p>If you do not specify the <code>dtype_for_predict</code> parameter in the configuration, then numpy.array determines the types itself.</p>
+<p>To reverse the conversion, call <code>numpy.array(...).tolist()</code>.</p>
+<h3 id="mlupmldata_transformerstf_tensor_data_transformertftensordatatransformer">mlup.ml.data_transformers.tf_tensor_data_transformer.TFTensorDataTransformer</h3>
+<p>This data transformer transforms data into tensorflow.Tensor, which is used in tensorflow models.
+The operating principle and algorithm are similar to <code>mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer</code>.
+Only the final conversion from <code>numpy.array</code> to <code>tensorflow.convert_to_tensor</code> is different.</p>
+<p>For this data transformer, when creating tensorflow.Tensor, you can specify dtype. To do this, use the <code>dtype_for_predict</code> configuration parameter.
+In this parameter, you can specify the dtype name string in tensorflow. Here are some of them: <code>float32</code>, <code>float64</code>, <code>int64</code>, <code>int32</code>, <code>int16</code>, <code>bool</code>.</p>
+<p>If you do not specify the <code>dtype_for_predict</code> parameter in the configuration, then tensorflow.Tensor determines the types itself.</p>
+<p>To reverse the conversion, call <code>tensorflow.Tensor(...).numpy().tolist()</code>.</p>
+<h3 id="mlupmldata_transformerstorch_tensor_data_transformertorchtensordatatransformer">mlup.ml.data_transformers.torch_tensor_data_transformer.TorchTensorDataTransformer</h3>
+<p>This data transformer transforms the data into torch.Tensor, which is used in torch models.
+The operating principle and algorithm are similar to <code>mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer</code>.
+Only the final conversion from <code>numpy.array</code> to <code>torch.tensor</code> is different.</p>
+<p>For this data transformer, when creating torch.Tensor, you can specify dtype. To do this, use the <code>dtype_for_predict</code> configuration parameter.
+In this parameter, you can specify the dtype name string in tensorflow. Here are some of them: <code>float32</code>, <code>float64</code>, <code>int64</code>, <code>int32</code>, <code>int16</code>, <code>bool</code>.</p>
+<p>If you do not specify the <code>dtype_for_predict</code> parameter in the configuration, then torch.Tensor determines the types itself.</p>
+<p>To reverse the conversion, call <code>torch.Tensor(...).tolist()</code>.</p>
+<h3 id="mlupmldata_transformerssrc_data_transformersrcdatatransformer">mlup.ml.data_transformers.src_data_transformer.SrcDataTransformer</h3>
+<p>This transformer does not do any conversions. There are scenarios when the model accepts python types or JSON valid data types.
+Also, the model can return python data or valid JSON data.</p>
+<p>For such scenarios this data transformer is used.</p>
+<h2 id="custom-data-transformer">Custom data transformer</h2>
+<p>If the capabilities of mlup data transformers are not enough for you, you can write your own data transformer.</p>
+<p>The data transformer interface is very simple:</p>
+<pre><code class="language-python"># my_module.py
+from dataclasses import dataclass
+from typing import Any, Optional, List, Union, Dict
+from mlup.ml.data_transformers.base import BaseDataTransformer
+
+
+@dataclass
+class MyDataTransformer(BaseDataTransformer):
+    dtype_name: Optional[str] = None
+    dtype: Optional[Any] = None
+
+    def transform_to_model_format(
+        self,
+        data: List[Union[Dict[str, Any], List[Any]]],
+        columns: Optional[List[Dict[str, str]]] = None,
+    ):
+        pass
+
+    def transform_to_json_format(self, data: Any):
+        pass
+</code></pre>
+<p>And specify the path to import your module in <code>data_transformer_for_predict</code>: <code>my_module.MyDataTransformer</code> or <code>data_transformer_for_predicted</code>: <code>my_module.MyDataTransformer</code>.</p>
+<p><strong>IMPORTANT: a data transformer written independently must be available for import on the server on which you run the mlup application.</strong></p>
+<p>The easiest way to do this is to create your own python library with your data transformers and other useful classes and install it on your server along with the pymlup library.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

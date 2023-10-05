@@ -1,0 +1,1009 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../web_app_api/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>Web app architectures - MLup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bd3936ea.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#web-app-architectures" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Web app architectures
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MLup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the bash commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binarizers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transformers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life_cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the Python Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitecturedirectly_to_predictdirectlytopredictarchitecture" class="md-nav__link">
+    mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitectureworker_and_queueworkerandqueuearchitecture" class="md-nav__link">
+    mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture_1" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle_1" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitecturebatchingbatchingsingleprocessarchitecture" class="md-nav__link">
+    mlup.web.architecture.batching.BatchingSingleProcessArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.batching.BatchingSingleProcessArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture_2" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle_2" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-architecture" class="md-nav__link">
+    Custom architecture
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitecturedirectly_to_predictdirectlytopredictarchitecture" class="md-nav__link">
+    mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitectureworker_and_queueworkerandqueuearchitecture" class="md-nav__link">
+    mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture_1" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle_1" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupwebarchitecturebatchingbatchingsingleprocessarchitecture" class="md-nav__link">
+    mlup.web.architecture.batching.BatchingSingleProcessArchitecture
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.web.architecture.batching.BatchingSingleProcessArchitecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-of-the-architecture_2" class="md-nav__link">
+    Initialization of the architecture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle_2" class="md-nav__link">
+    Request Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-architecture" class="md-nav__link">
+    Custom architecture
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="web-app-architectures">Web app architectures</h1>
+<p>The mlup web application has several architectures:
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/directly_to_predict.py">mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</a>;
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/worker_and_queue.py">mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</a>;
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/batching.py">mlup.web.architecture.batching.BatchingSingleProcessArchitecture</a>;</p>
+<p>You can change the architecture using the <code>mode</code> configuration parameter (See "<a href="../config_file/#web">Description of the configuration file</a>").
+<code>mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</code> is set in the default config.</p>
+<p>As described in "<a href="../life_cycle/">Description of the application life cycle</a>", loading a web application is only possible when <code>mlup.ml</code> has already been loaded into memory.</p>
+<p>The architecture requires initialization just like a web application. This happens inside <code>mlup.UP.web.load()</code>, after the web application itself has been fully initialized.
+In fact, the architecture must support an interface of several methods:</p>
+<pre><code class="language-python">from typing import Any, Dict
+import mlup
+from mlup.constants import WebAppArchitecture
+from mlup.web.architecture.base import BaseWebAppArchitecture
+
+class Architecture(BaseWebAppArchitecture):
+    ml: mlup.MLupModel
+    type: WebAppArchitecture
+
+    def __init__(self, **configs):
+        self.archi_conf_name = configs.pop('archi_conf_name')
+        # ...
+
+    def load(self):
+        pass
+
+    async def run(self):
+        pass
+
+    @property
+    def is_running(self) -&gt; bool:
+        pass
+
+    async def stop(self):
+        pass
+
+    async def predict(self, data_for_predict: Dict, predict_id: str) -&gt; Any:
+        pass
+</code></pre>
+<p>The constructor contains all configs from the web application configuration.</p>
+<p>The <code>load</code> method is called when the architecture is initialized, the last step in initializing a web application.
+This method creates everything necessary for the architecture to work - all internal structures and objects.</p>
+<p>The <code>run</code> method is called when the application starts using the lifespan FastAPI mechanism (see <a href="https://fastapi.tiangolo.com/advanced/events/">FastAPI lifespan docs</a>).
+The <code>stop</code> method is called when the application is terminated using the FastAPI lifespan mechanism (see <a href="https://fastapi.tiangolo.com/advanced/events/">FastAPI lifespan docs</a>).</p>
+<pre><code class="language-python">@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    # Startup web app code
+    await architecture.run()
+    yield
+    # Shutdown web app code
+    await architecture.stop()
+</code></pre>
+<p>The <code>predict</code> method is called every time a new prediction request comes from the user.
+The <code>data_for_predict</code> argument contains already validated data in the same format in which it was received in the web request.
+The <code>predict_id</code> argument includes the unique generated id of the predict request. It can be used to uniquely identify the data included in the request.</p>
+<p>The <code>predict</code> method itself calls <code>mlup.UP.ml.predict</code> at the right time.</p>
+<h2 id="mlupwebarchitecturedirectly_to_predictdirectlytopredictarchitecture">mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</h2>
+<p>This is a simple web application architecture - a direct call to model prediction.</p>
+<p>When several parallel requests arrive, each of them, independently of each other, will call <code>web.UP.ml.predict</code>.
+This can lead to various problems:
+* Using more resources.
+* Slowdown of prediction and web application.
+* Locks if the model cannot simultaneously work in parallel.</p>
+<p>This architecture is well suited for fast models that can process multiple requests per second.</p>
+<p><img alt="mlup architecture directly to predict" src="../assets/img/archi_directly_to_predict.png?raw=true" /></p>
+<h3 id="initialization-of-the-architecture">Initialization of the architecture</h3>
+<p>This architecture does not require any initialization.</p>
+<h3 id="request-lifecycle">Request Lifecycle</h3>
+<p>The request is processed immediately and directly - <code>mlup.UP.ml.predict</code> is called.</p>
+<pre><code class="language-python">async def predict(self, data_for_predict: Dict, predict_id: str) -&gt; Any:
+    return await self.ml.predict(**data_for_predict)
+</code></pre>
+<h2 id="mlupwebarchitectureworker_and_queueworkerandqueuearchitecture">mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</h2>
+<p>This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.</p>
+<p>Predictions are asynchronous:
+* WEB: Place the request in the prediction request queue.
+* WORKER: The model rakes up this queue and runs a predictor on the data from the queue one by one.
+* WORKER: The model puts the prediction results into the result store.
+* WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</p>
+<p>This approach allows you to control concurrent user access to the model resource.
+The model will always process only 1 request while the others are in the queue.</p>
+<p>To configure queue sizes and response prediction lifetimes, there are configuration parameters:
+* <code>max_queue_size: int</code> - maximum queue size for prediction requests.
+* <code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds.
+  If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
+  This setting controls how long after the results are deleted if the client has not collected them.
+  The countdown starts from the moment the result is saved in the results storage.
+* <code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
+  When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
+  This parameter adds an API method <code>GET: /get-predict/{predict_id}</code>, in which you can get prediction results if they are in the results store.
+  See "<a href="../web_app_api/">Web app API</a>".
+* <code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
+  See "<a href="../web_app_api/">Web app API</a>".</p>
+<p><img alt="mlup architecture worker and queue" src="../assets/img/archi_worker_and_queue.png?raw=true" /></p>
+<h3 id="initialization-of-the-architecture_1">Initialization of the architecture</h3>
+<p>For the architecture to work, you need:
+* Queue for prediction requests.
+* Storage of prediction results with TTL.
+* Thread for model work.</p>
+<p>All this is created at the time of initialization. Since mlup works in an asynchronous paradigm, the model prediction worker is launched as <code>asyncio.Task</code>.
+This allows you not to block the web application during model prediction, within one process.</p>
+<h3 id="request-lifecycle_1">Request Lifecycle</h3>
+<p>The processing of the request with all the nuances is described here.
+Request path:
+* A validated request is included in the architecture.
+* The architecture places the request data in a prediction queue.
+* When a request waits its turn, the worker extracts the <code>predict_id</code> from it and sends the user data to the model.
+* The request is digested by the model and it makes a prediction. The worker combines the prediction results with the previously extracted <code>predict_id</code> and stores them in the results storage.
+* If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.
+* The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</p>
+<p>The architecture has a method <code>_get_result_from_storage</code>, which time <code>ttl_client_wait</code> tries to find the prediction result in the storage by <code>predict_id</code>.
+If an error occurs during prediction, the worker will store this error in the results store instead of the prediction result.
+And when the <code>_get_result_from_storage</code> method reads the results and sees an error, it will return an error to the client with the appropriate response code.</p>
+<p>If <code>is_long_predict=False</code>, then the architecture, after adding a request to the prediction queue, immediately calls this method and waits exactly <code>ttl_client_wait</code> for the results.
+If during <code>ttl_client_wait</code> the prediction results have not appeared in the storage, the web application responds to the client with a 408 response code and will not be able to get any more results.
+The result will be removed from the storage after adding it there via <code>ttl_predicted_data</code>.</p>
+<p>If <code>is_long_predict=True</code>, then the architecture immediately responds with JSON <code>{"predict_id": "your_predict_id"}</code> after adding a request to the prediction queue.
+After which, the client, at a convenient time, can make a request to <code>GET: /get-predict/{predict_id}</code> for the results.
+The handler for this request simply calls <code>_get_result_from_storage</code> and returns what this method returned.</p>
+<pre><code class="language-python">async def get_predict_result(predict_id: str):
+    return await _get_result_from_storage(predict_id)
+</code></pre>
+<p>The client can make as many requests to <code>GET: /get-predict/{predict_id}</code>.
+But prediction results or prediction error can only be obtained once for one <code>predict_id</code>.
+Once received by the client, the results will be deleted from the results storage.</p>
+<h2 id="mlupwebarchitecturebatchingbatchingsingleprocessarchitecture">mlup.web.architecture.batching.BatchingSingleProcessArchitecture</h2>
+<p>This architecture is very similar to <code>mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</code>.
+But <code>mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</code> sends 1 request for prediction sequentially.
+While <code>mlup.web.architecture.batching.BatchingSingleProcessArchitecture</code> combines several requests into one batch and sends this batch for prediction.</p>
+<p>This architecture is very convenient to use when your model spends approximately the same time predicting one and several objects.
+For example, it takes ~1 second to predict 1 object, and ~1.1 second to predict many objects.</p>
+<p>This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.
+* WEB: Place the request in the prediction request queue.
+* WORKER: The model clears this queue, combines several requests into one batch and runs a predictor for the batch.
+* WORKER: The model puts the batch prediction results into the results store.
+* WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</p>
+<p>This approach allows you to control concurrent user access to the model resource.
+At the same time, the model can simultaneously process several requests at once.</p>
+<p>The batch has two restrictions:
+* <code>min_batch_len: int</code> - the minimum batch size that is needed to start prediction. The worker will run a prediction on the model of the current batch if this batch exceeds the size specified in this parameter.
+* <code>batch_worker_timeout: float</code> - maximum time for creating a batch. The worker will start a prediction for the current batch model if the batch generation time has reached this value. Even if the batch size has not reached <code>min_batch_len</code>.</p>
+<p>Batching reads <code>batch_worker_timeout</code> time requests from the prediction request queue.
+If, after adding the next request to the batch, the batch size exceeds <code>min_batch_len</code>, the worker will send the batch for prediction.
+If during the <code>batch_worker_timeout</code> time the batch has not reached a size exceeding <code>min_batch_len</code>, the worker sends it for prediction in the form in which it is.</p>
+<p>The <code>batch_worker_timeout</code> timeout starts after the first request is added to the batch.
+After each batch prediction, the batch is reset and re-assembled. Accordingly, the <code>batch_worker_timeout</code> time is reset to zero.</p>
+<p>We can only regulate the minimum batch size, and cannot regulate the maximum batch size.
+Since in one request more than one object for prediction can come, but several, a worker can read 1 request from the queue and receive several objects for prediction at once.
+Therefore, you cannot adjust the batch size from above - ~~max_batch_len~~. It is possible to read from the prediction request queue more objects to predict than ~~max_batch_len~~.
+For example, ~~max_batch_len~~=10`, and two requests came with 9 and 3 objects. Then the worker, having read the first request from the queue, will not get it for the batch. It will read the second request and the batch will be larger than it should be.
+Therefore, it will not be able to send data for prediction.</p>
+<p>In addition to the <code>batch_worker_timeout</code> and <code>min_batch_len</code> batching parameters, there are configuration parameters for configuring the batching architecture:
+* <code>max_queue_size: int</code> - maximum queue size for prediction requests.
+* <code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds. 
+  If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
+  This setting controls how long after the results are deleted if the client has not collected them.
+  The countdown starts from the moment the result is saved in the results storage.
+* <code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
+  When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
+  This parameter adds an API method <code>GET: /get-predict/{predict_id}</code>, in which you can get prediction results if they are in the results store.
+  See "<a href="../web_app_api/">Web app API</a>".
+* <code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
+  See "<a href="../web_app_api/">Web app API</a>".</p>
+<p><img alt="mlup architecture batching" src="../assets/img/archi_batching.png?raw=true" /></p>
+<h3 id="initialization-of-the-architecture_2">Initialization of the architecture</h3>
+<p>For this architecture to work, you need:
+* Queue for prediction requests.
+* Storage of prediction results with TTL.
+* Thread for model work.</p>
+<p>All this is created at the time of initialization. Since mlup works in an asynchronous paradigm, the model prediction worker is launched as <code>asyncio.Task</code>.
+This allows you not to block the web application during model prediction, within one process.</p>
+<h3 id="request-lifecycle_2">Request Lifecycle</h3>
+<p>The processing of the request with all the nuances is described here.
+Request path:
+* A validated request is included in the architecture.
+* The architecture places the request data in a prediction queue.
+* When a request waits its turn, the worker takes the <code>predict_id</code> from it and adds the user data to the batch.
+* The batch is formed as a Python List, where new requests from the queue are added to the end of the list.
+* When a batch is formed by size or collection time, it is sent to the model for prediction.
+* The request is digested by the model and it makes a prediction. <strong>It is important that the data transformers and the model itself give prediction results for objects in the same order in which the data entered the model. 
+  In most cases, models behave this way.</strong>
+  The worker divides the prediction results by <code>predict_id</code> and stores them in the results storage.
+* If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.
+* The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</p>
+<p>Let's take 3 queries: 2, 4, 1 objects in each, respectively <code>[[1, 2], [3, 4, 5, 6], [7]]</code>. A batch of size 7 is assembled from them in the order in which the requests came and the objects in them are <code>[1, 2, 3, 4, 5, 6, 7]</code>.
+When the model made its predictions, it returned the same array of 7 responses: <code>["ans1", "ans2", "ans3", "ans4", "ans5", "ans6", "ans7"]</code>.
+Batching will dissolve the response array into as many arrays as were involved in the request batch - 3 <code>[["ans1", "ans2"], ["ans3", "ans4", "ans5", "ans6"], ["ans7"]]</code>.</p>
+<p>The architecture has a method <code>_get_result_from_storage</code>, which time <code>ttl_client_wait</code> tries to find the prediction result in the storage by <code>predict_id</code>.
+If an error occurs during prediction, the worker will store this error in the results store instead of the prediction result.
+And when the <code>_get_result_from_storage</code> method reads the results and sees an error, it will return an error to the client with the appropriate response code.
+Since multiple queries are involved in the prediction at the same time, an error will be returned for each of these queries.</p>
+<p>If <code>is_long_predict=False</code>, then the architecture, after adding a request to the prediction queue, immediately calls this method and waits exactly <code>ttl_client_wait</code> for the results.
+If during <code>ttl_client_wait</code> the prediction results have not appeared in the storage, the web application responds to the client with a 408 response code and will not be able to get any more results.
+The result will be removed from the storage after adding it there via <code>ttl_predicted_data</code>.</p>
+<p>If <code>is_long_predict=True</code>, then the architecture immediately responds with JSON <code>{"predict_id": "your_predict_id"}</code> after adding a request to the prediction queue.
+After which, the client, at a convenient time, can make a request to <code>GET: /get-predict/{predict_id}</code> for the results.
+The handler for this request simply calls <code>_get_result_from_storage</code> and returns what this method returned.</p>
+<pre><code class="language-python">async def get_predict_result(predict_id: str):
+    return await _get_result_from_storage(predict_id)
+</code></pre>
+<p>The client can make as many requests to <code>GET: /get-predict/{predict_id}</code>.
+But prediction results or prediction error can only be obtained once for one <code>predict_id</code>.
+Once received by the client, the results will be deleted from the result storage.</p>
+<h2 id="custom-architecture">Custom architecture</h2>
+<p>If the capabilities of mlup web architectures are not enough for you, you can write your own web architecture.</p>
+<p>The web architecture interface is:</p>
+<pre><code class="language-python"># my_module.py
+from typing import Any, Dict
+import mlup
+from mlup.constants import WebAppArchitecture
+from mlup.web.architecture.base import BaseWebAppArchitecture
+
+class Architecture(BaseWebAppArchitecture):
+    ml: mlup.MLupModel
+    type: WebAppArchitecture
+
+    def __init__(self, **configs):
+        self.archi_conf_name = configs.pop('archi_conf_name')
+        # ...
+
+    def load(self):
+        pass
+
+    async def run(self):
+        pass
+
+    @property
+    def is_running(self) -&gt; bool:
+        pass
+
+    async def stop(self):
+        pass
+
+    async def predict(self, data_for_predict: Dict, predict_id: str) -&gt; Any:
+        pass
+</code></pre>
+<p>And specify the path to import your module in <code>mode</code>: <code>my_module.Architecture</code>.</p>
+<p><strong>IMPORTANT: a web architecture written independently must be available for import on the server on which you run the mlup application.</strong></p>
+<p>The easiest way to do this is to create your own python library with your web architecture and other useful classes and install it on your server along with the pymlup library.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

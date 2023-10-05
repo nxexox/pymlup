@@ -1,0 +1,1292 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../bash_commands/">
+      
+      
+        <link rel="next" href="../config_file/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>Binarizers - MLup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bd3936ea.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#binarizers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Binarizers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MLup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the bash commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto" class="md-nav__link">
+    Auto
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlup-binaraizers" class="md-nav__link">
+    Mlup binaraizers
+  </a>
+  
+    <nav class="md-nav" aria-label="Mlup binaraizers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationpicklepicklebinarizer" class="md-nav__link">
+    mlup.ml.binarization.pickle.PickleBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.pickle.PickleBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationjoblibjoblibbinarizer" class="md-nav__link">
+    mlup.ml.binarization.joblib.JoblibBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.joblib.JoblibBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_1" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationlightgbmlightgbmbinarizer" class="md-nav__link">
+    mlup.ml.binarization.lightgbm.LightGBMBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.lightgbm.LightGBMBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_2" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtorchtorchbinarizer" class="md-nav__link">
+    mlup.ml.binarization.torch.TorchBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.torch.TorchBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_3" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtorchtorchjitbinarizer" class="md-nav__link">
+    mlup.ml.binarization.torch.TorchJITBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.torch.TorchJITBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_4" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtensorflowtensorflowbinarizer" class="md-nav__link">
+    mlup.ml.binarization.tensorflow.TensorFlowBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.tensorflow.TensorFlowBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_5" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtensorflowtensorflowsavedbinarizer" class="md-nav__link">
+    mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_6" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationonnxinferencesessionbinarizer" class="md-nav__link">
+    mlup.ml.binarization.onnx.InferenceSessionBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.onnx.InferenceSessionBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_7" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupmlbinarizationonnxinferencesessionfullreturnbinarizer" class="md-nav__link">
+    mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-binarizer" class="md-nav__link">
+    Custom binarizer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transformers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life_cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the Python Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_architectures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto" class="md-nav__link">
+    Auto
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlup-binaraizers" class="md-nav__link">
+    Mlup binaraizers
+  </a>
+  
+    <nav class="md-nav" aria-label="Mlup binaraizers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationpicklepicklebinarizer" class="md-nav__link">
+    mlup.ml.binarization.pickle.PickleBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.pickle.PickleBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationjoblibjoblibbinarizer" class="md-nav__link">
+    mlup.ml.binarization.joblib.JoblibBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.joblib.JoblibBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_1" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationlightgbmlightgbmbinarizer" class="md-nav__link">
+    mlup.ml.binarization.lightgbm.LightGBMBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.lightgbm.LightGBMBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_2" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtorchtorchbinarizer" class="md-nav__link">
+    mlup.ml.binarization.torch.TorchBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.torch.TorchBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_3" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtorchtorchjitbinarizer" class="md-nav__link">
+    mlup.ml.binarization.torch.TorchJITBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.torch.TorchJITBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_4" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtensorflowtensorflowbinarizer" class="md-nav__link">
+    mlup.ml.binarization.tensorflow.TensorFlowBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.tensorflow.TensorFlowBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_5" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationtensorflowtensorflowsavedbinarizer" class="md-nav__link">
+    mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_6" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlupmlbinarizationonnxinferencesessionbinarizer" class="md-nav__link">
+    mlup.ml.binarization.onnx.InferenceSessionBinarizer
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup.ml.binarization.onnx.InferenceSessionBinarizer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-search_7" class="md-nav__link">
+    Auto search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlupmlbinarizationonnxinferencesessionfullreturnbinarizer" class="md-nav__link">
+    mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-binarizer" class="md-nav__link">
+    Custom binarizer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="binarizers">Binarizers</h1>
+<p>There are a huge number of ways to deliver a machine learning model to the server.
+But in all cases, you need to deliver some data to this model: a binary pickle object, weights and layers of the neural network, text configuration of the trained model, and others.
+These are always some files or one file.</p>
+<p>When your machine learning model application runs, it loads the model into memory using this data.</p>
+<p>There are many ways to turn a trained model into a file and back again.
+Only some of them are supported out of the box in mlup:</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/pickle.py">pickle</a> - docs is <a href="https://docs.python.org/3/library/pickle.html">here</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/joblib.py">joblib</a> - docs is <a href="https://joblib.readthedocs.io/en/latest/">here</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/lightgbm.py">lightgbm</a> - docs is <a href="https://lightgbm.readthedocs.io/en/latest/Python-Intro.html">here</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/torch.py">torch all formats</a> - docs is <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html">here</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">tensorflow all formats</a> - docs is <a href="https://www.tensorflow.org/tutorials/keras/save_and_load">here</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">onnx</a> - docs is <a href="https://onnxruntime.ai/docs/get-started/with-python.html">here</a>;</li>
+</ul>
+<p>You can select the one you need in the configuration using <code>binarization_type</code>. In <code>binarization_type</code> you can specify:
+* "auto" - default. In this case, mlup will try to automatically select a binarizer based on the name of the model file and its contents.
+If it fails, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">ModelLoadError</a> exception will be thrown.
+* select one of the mlup binarizers and specify it using <a href="https://github.com/nxexox/pymlup/blob/main/mlup/constants.py">mlup.constants.BinarizationType</a>.
+* specify your own binarizer - the full python import line for your binarizer.</p>
+<h2 id="auto">Auto</h2>
+<p>This is the default way to select a binarizer for a model. It uses well-known mlup binarizers, each of which has some knowledge about its model storage format.</p>
+<p>Based on this knowledge, the binarizer analyzes the model name and the contents of the model source files and returns a probability of the degree of confidence that it can load this model.
+The binarizer with the greatest confidence and tries to load. And if all binarizers returned confidence 0, then the automatic selection is considered unsuccessful.</p>
+<p>Not all binarizers participate in the automatic binarizer search, but only:
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/pickle.py">mlup.ml.binarization.pickle.PickleBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/joblib.py">mlup.ml.binarization.joblib.JoblibBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/lightgbm.py">mlup.ml.binarization.lightgbm.LightGBMBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/torch.py">mlup.ml.binarization.torch.TorchBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionBinarize</a>
+* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer</a></p>
+<p>If the model is not already loaded into memory, binarizers do not load it into memory for analysis.
+Instead, they can read up to 100 bytes from the beginning of the file and up to 100 bytes from the end of the file.
+Therefore, the memory used by the application should not increase when you use automatic binarizer selection.</p>
+<p>After successful selection, mlup will install the found binarizer in your application config in <code>binarization_type</code>.
+If your application saves the config after this, then it will no longer contain “auto”, but the selected binarizer.
+This is done so as not to select a binarizer for the same model several times.</p>
+<p><strong>IMPORTANT: automatic selection does not guarantee 100% correct determination of the desired binarizer and may make mistakes. Please be careful and check in the logs and config which binarizer mlup chose for you.</strong></p>
+<h2 id="mlup-binaraizers">Mlup binaraizers</h2>
+<h3 id="mlupmlbinarizationpicklepicklebinarizer">mlup.ml.binarization.pickle.PickleBinarizer</h3>
+<p>Pickle binarizer (<code>mlup.ml.binarization.pickle.PickleBinarizer</code>) is quite simple. All of his code actually converges on a call to <code>pickle.load()</code>.</p>
+<h4 id="auto-search">Auto search</h4>
+<p>To check whether the binarizer can load a model from a file, the binarizer uses the file extension and the first and last bytes of the file.</p>
+<p>According to <a href="https://peps.python.org/pep-3154/">pickle documentation</a>, the first and last bytes are always the same.
+This sign adds 90% confidence.</p>
+<p>The idea is to check the file for these bytes with similar code:</p>
+<pre><code class="language-python">import pickletools
+
+is_pickle_file_confidence: float = 0.0
+
+with open(&quot;file.pickle&quot;, &quot;rb&quot;) as f:
+    start = f.read(1)
+    f.seek(-2, 2)
+    end = f.read()
+    file_bytes = start + end
+    start_opcode = pickletools.code2op.get(file_bytes[0:1].decode('latin-1'))
+    end_opcode = pickletools.code2op.get(file_bytes[-1:].decode('latin-1'))
+    if start_opcode.name == 'PROTO' and end_opcode.name == 'STOP':
+        is_pickle_file_confidence = 0.9
+</code></pre>
+<p>In addition to this, the file extension will be checked. If it is <code>.pckl</code> or <code>.pkl</code>, confidence increases by 5%.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float
+
+if 'file.pickle'.endswith('.pckl') or 'file.pickle'.endswith('.pkl'):
+    is_pickle_file_confidence += 0.05
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationjoblibjoblibbinarizer">mlup.ml.binarization.joblib.JoblibBinarizer</h3>
+<p>Joblib binarizer is a copy of Pickle binarizer, except calling <code>joblib.load()</code> instead of <code>pickle.load()</code>.</p>
+<h4 id="auto-search_1">Auto search</h4>
+<p>Although joblib is involved in automatic selection, it completely copies the pickle analysis method.</p>
+<h3 id="mlupmlbinarizationlightgbmlightgbmbinarizer">mlup.ml.binarization.lightgbm.LightGBMBinarizer</h3>
+<p>The LightGBM binarizer builds a model based on the <code>lightgbm.Booster</code> constructor.</p>
+<pre><code class="language-python">import lightgbm as lgb
+
+path: str
+raw_model_data: str
+
+if path:
+    model = lgb.Booster(model_file=path)
+model = lgb.Booster(model_str=raw_model_data)
+</code></pre>
+<h4 id="auto-search_2">Auto search</h4>
+<p>LightGBM has a text format for saving settings. mlup reads the first 100 bytes of the settings file and looks for a familiar signature there.
+In the current implementation, this is a search for a string starting with "version" in the first 100 bytes of the file. But in the future this signature may change and become more complex.
+This will definitely be written about in the documentation.
+This sign brings 80% confidence.</p>
+<p>Searching for a signature looks something like this:</p>
+<pre><code class="language-python">is_pickle_file_confidence: float = 0.0
+
+with open('model_path.txt', 'r') as f:
+    file_data = f.read(100)
+*rows, other = file_data.split('\n', 5)
+if any([r.split('=')[0] == 'version' for r in rows]):
+    is_pickle_file_confidence = 0.8
+
+</code></pre>
+<p>In addition to this, the file extension will be checked. If it is <code>.txt</code>, confidence increases by 5%.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float
+
+if 'file.txt'.endswith('.txt'):
+    is_pickle_file_confidence += 0.05
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationtorchtorchbinarizer">mlup.ml.binarization.torch.TorchBinarizer</h3>
+<p>Python has its own way of saving and loading a model. mlup uses exactly this. You can read more about ways to save and load your model in torch in the <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html">documentation</a>.</p>
+<p>The entire binarizer code can be reduced to approximately the following lines:</p>
+<pre><code class="language-python">import torch
+
+with open('file_path.pth', 'rb') as f:
+    model = torch.load(f)
+model.eval()
+</code></pre>
+<h4 id="auto-search_3">Auto search</h4>
+<p>This binarizer is involved in automatic selection. Based solely on our observations, torch models saved in the standard way have the same bytes at the beginning and end of the file.
+Similar to Pickle binarization.</p>
+<p>Considering that there is no official confirmation of this observation, this sign only adds 50% confidence.
+Also, the <code>mlup.ml.binarization.tensorflow.TensorFlowBinarizer</code> binarizer is based on the same feature and the same bytes.</p>
+<p>The following code does this check:</p>
+<pre><code class="language-python">is_pickle_file_confidence: float = 0.0
+
+with open('model.pth', 'rb') as f:
+    first_bytes = f.read(5)
+
+if first_bytes.raw_data[:3] == b'PK\x03':
+    is_pickle_file_confidence = 0.5
+</code></pre>
+<p>In addition to this, the file extension will be checked. If it is <code>.pth</code>, confidence increases by 30%.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float
+
+if 'file.pth'.endswith('.pth'):
+    is_pickle_file_confidence += 0.3
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationtorchtorchjitbinarizer">mlup.ml.binarization.torch.TorchJITBinarizer</h3>
+<p>torch has several ways to save a model. JIT format is one of them. (You can read more in <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html">torch documentation</a>).</p>
+<p>In fact, the code for loading the JIT model differs from the code for loading the <code>.pth</code> torch model only in calling the required function from the torch framework.</p>
+<pre><code class="language-python">import torch
+
+with open('file_path_jit.pth', 'rb') as f:
+    model = torch.jit.load(f)
+model.eval()
+</code></pre>
+<h4 id="auto-search_4">Auto search</h4>
+<p>This binarizer is not involved in the automatic selection of a binarizer, because we were unable to find distinctive features of this format.</p>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and add it.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationtensorflowtensorflowbinarizer">mlup.ml.binarization.tensorflow.TensorFlowBinarizer</h3>
+<p>tensorflow has its own way of saving and loading the model. mlup uses exactly this. You can read more about ways to save and load your model in torch in <a href="https://www.tensorflow.org/tutorials/keras/save_and_load">documentation</a>.</p>
+<p>The entire binarizer code can be reduced to approximately the following lines:</p>
+<pre><code class="language-python">import tensorflow
+
+model = tensorflow.keras.models.load_model('model.keras')
+</code></pre>
+<h4 id="auto-search_5">Auto search</h4>
+<p>This binarizer is involved in automatic selection. Based solely on our observations, tensorflow models saved in the standard way have the same bytes at the beginning and end of the file.
+Similar to Pickle binarization.</p>
+<p>Considering that there is no official confirmation of this observation, this sign only adds 50% confidence.
+Also, the <code>mlup.ml.binarization.torch.TorchBinarizer</code> binarizer is based on the same feature and the same bytes.</p>
+<p>The following code does this check:</p>
+<pre><code class="language-python">is_pickle_file_confidence: float = 0.0
+
+with open('model.pth', 'rb') as f:
+    first_bytes = f.read(5)
+
+if first_bytes.raw_data[:3] == b'PK\x03':
+    is_pickle_file_confidence = 0.5
+</code></pre>
+<p>In addition to this, the file extension will be checked. If it is <code>.keras</code> or <code>.h5</code>, confidence increases by 30%.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float
+
+if 'file.h5'.endswith('.keras') or 'file.h5'.endswith('.h5'):
+    is_pickle_file_confidence += 0.3
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationtensorflowtensorflowsavedbinarizer">mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer</h3>
+<p>tensorflow has several ways to save a model. Saved format is one of them. (You can read more in <a href="https://www.tensorflow.org/tutorials/keras/save_and_load">torch documentation</a>).</p>
+<p>In fact, the code for loading the saved model differs from the code for loading the <code>.keras</code> tensorflow model only in calling the required function from the tensorflow framework.</p>
+<pre><code class="language-python">import tensorflow
+
+model = tensorflow.saved_model.load('model.pb')
+</code></pre>
+<h4 id="auto-search_6">Auto search</h4>
+<p>In the automatic selection of a binarizer, this binarizer is based only on the <code>.pb</code> file extension.
+This sign adds only 30% confidence.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float = 0.0
+
+if 'file.pth'.endswith('.pb'):
+    is_pickle_file_confidence = 0.3
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h3 id="mlupmlbinarizationonnxinferencesessionbinarizer">mlup.ml.binarization.onnx.InferenceSessionBinarizer</h3>
+<p>Onnx is one of the most popular formats for saving models.
+It can be used to save models from different frameworks, such as using pickle.</p>
+<p>But the Python implementation has a different interface for using the loaded model than a simple call to the predict method with data passing.
+In the standard case, the onnx model predictor looks like this:</p>
+<pre><code class="language-python">import onnxruntime
+
+model = onnxruntime.InferenceSession('model.onnx')
+
+input_name = model.get_inputs()[0].name
+pred = model.run(None, {input_name: [[1, 2, 3], [4, 5, 6]]})
+</code></pre>
+<p>Additional actions required: receiving inputs. To reduce the predictor to 1 action, mlup has its own wrapper for the onnx model:</p>
+<pre><code class="language-python">import onnxruntime
+
+
+class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
+    def format_predict(self, predict_result):
+        if len(predict_result) &gt; 1:
+            return predict_result[:-1]
+        return predict_result
+
+    def predict(self, input_data):
+        input_name = self.get_inputs()[0].name
+        res = self.run(None, {input_name: input_data})
+        return self.format_predict(res)
+</code></pre>
+<p>The current mlup interface does not allow adding support for multiple inputs to the onnx model. This is due to the difference in incoming data.
+For the onnx model, for each input it is necessary to transmit data isolated for this input on all objects.
+And mlup takes all the data of one object together, and passes it to the model together.</p>
+<p>For example:</p>
+<pre><code class="language-python">onnx_inputs = ['input1', 'input2', 'input3']
+obj1 = [1, 2, 3]
+obj2 = [4, 5, 6]
+# For onnx need data format
+for_onnx_model = [{n: list(features)} for n, features in zip(onnx_inputs, zip(obj1, obj2))]
+
+# For mlup standart model
+for_mlup_model = [obj1, obj2]
+print(for_onnx_model)
+print(for_mlup_model)
+</code></pre>
+<p>When working with a Python List, turning <code>for_mlup_model</code> into <code>for_onnx_model</code> is easy.
+But when the data arrives at the model, it has already been processed by the data transformer (See <a href="../data_transformers/">Data Transformers</a>).
+Including a custom data transformer. Therefore, you cannot add generic code here to convert <code>for_mlup_model</code> to <code>for_onnx_model</code>.
+If you add code based on known mlup data transformers, then onnx models become limited to using these data transformers.</p>
+<p><strong>Be careful! If you have multiple inputs, you can add these transformations to your first neural network layer.</strong></p>
+<p>However, there can be any number of outputs from the model. They are all serialized and returned in the response mlup.</p>
+<p><strong>Be careful! This binarizer always truncates the last element of the response if the response has more than 1 element. 
+This is because these models like to return all the classes and other side information on the predictor that the client may have in the last element. 
+If you don't need to trim the last element, use <code>mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer</code>.</strong></p>
+<p>The final code for loading onnx models is similar to this:</p>
+<pre><code class="language-python">import onnxruntime
+
+
+class _InferenceSessionWithPredict(onnxruntime.InferenceSession):
+    def format_predict(self, predict_result):
+        # Return model predict response in first items and all classes in last item
+        if len(predict_result) &gt; 1:
+            return predict_result[:-1]
+        return predict_result
+
+    def predict(self, input_data):
+        input_name = self.get_inputs()[0].name
+        res = self.run(None, {input_name: input_data})
+        return self.format_predict(res)
+
+model = _InferenceSessionWithPredict(&quot;/path/to/my/model.onnx&quot;)
+</code></pre>
+<h4 id="auto-search_7">Auto search</h4>
+<p>This binarizer is involved in automatic selection. onnx has its own way of checking the correctness of the onnx file, which is what the binarizer uses.
+This sign brings 90% confidence.</p>
+<pre><code class="language-python">import onnx
+
+is_pickle_file_confidence: float = 0.0
+path = 'model.onnx'
+
+try:
+    onnx.checker.check_model(path)
+    is_pickle_file_confidence = 0.9
+except Exception:
+    pass
+</code></pre>
+<p>In addition to this, the file extension will be checked. If it is <code>.onnx</code>, confidence increases by 5%.</p>
+<pre><code class="language-python">is_pickle_file_confidence: float
+
+if 'model.onnx'.endswith('.onnx'):
+    is_pickle_file_confidence += 0.05
+</code></pre>
+<p><em>Perhaps in the future we will conduct more in-depth research on binarization in this way and improve the analysis code.</em></p>
+<hr />
+<h2 id="mlupmlbinarizationonnxinferencesessionfullreturnbinarizer">mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer</h2>
+<p>This binarization differs from <code>mlup.ml.binarization.onnx.InferenceSessionBinarizer</code> only in that it returns the complete response from the onnx model. Doesn't trim the last element.</p>
+<h2 id="custom-binarizer">Custom binarizer</h2>
+<p>If the capabilities of mlup binarizers are not enough for you, you can write your own binarizer.</p>
+<p>The binarizer interface is very simple:</p>
+<pre><code class="language-python"># my_module.py
+from typing import Any
+from mlup.constants import LoadedFile
+from mlup.ml.binarization.base import BaseBinarizer
+
+
+class MyBinarizer(BaseBinarizer):
+    @classmethod
+    def deserialize(cls, data: LoadedFile) -&gt; Any:
+        pass
+</code></pre>
+<p>And specify the path to import your module in <code>binarization_type</code>: <code>my_module.MyBinarizer</code>.</p>
+<p><strong>IMPORTANT: a binarizer written independently must be available for import on the server on which you run the mlup application.</strong></p>
+<p>The easiest way to do this is to create your own python library with your binarizers and other useful classes and install it on your server along with the pymlup library.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

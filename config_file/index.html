@@ -1,0 +1,1211 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../binarizers/">
+      
+      
+        <link rel="next" href="../data_transformers/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>Config file - MLup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bd3936ea.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#config-file" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Config file
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MLup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the bash commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binarizers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-settings-are-there" class="md-nav__link">
+    What settings are there?
+  </a>
+  
+    <nav class="md-nav" aria-label="What settings are there?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ml" class="md-nav__link">
+    ml
+  </a>
+  
+    <nav class="md-nav" aria-label="ml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information-arguments" class="md-nav__link">
+    Information arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-interface-settings" class="md-nav__link">
+    Model interface settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-load-settings" class="md-nav__link">
+    Model load settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-work-settings" class="md-nav__link">
+    Model work settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    web
+  </a>
+  
+    <nav class="md-nav" aria-label="web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webapp-web-outer-interface-settings" class="md-nav__link">
+    WebApp web outer interface settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webapp-architecture-settings" class="md-nav__link">
+    WebApp architecture settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webapp-work-settings" class="md-nav__link">
+    WebApp work settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-configuration-file" class="md-nav__link">
+    Default configuration file
+  </a>
+  
+    <nav class="md-nav" aria-label="Default configuration file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml" class="md-nav__link">
+    yaml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    json
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-get-the-default-configuration-file" class="md-nav__link">
+    How to get the default configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-baselines" class="md-nav__link">
+    Config baselines
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transformers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life_cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the Python Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_architectures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-settings-are-there" class="md-nav__link">
+    What settings are there?
+  </a>
+  
+    <nav class="md-nav" aria-label="What settings are there?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ml" class="md-nav__link">
+    ml
+  </a>
+  
+    <nav class="md-nav" aria-label="ml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information-arguments" class="md-nav__link">
+    Information arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-interface-settings" class="md-nav__link">
+    Model interface settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-load-settings" class="md-nav__link">
+    Model load settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-work-settings" class="md-nav__link">
+    Model work settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    web
+  </a>
+  
+    <nav class="md-nav" aria-label="web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webapp-web-outer-interface-settings" class="md-nav__link">
+    WebApp web outer interface settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webapp-architecture-settings" class="md-nav__link">
+    WebApp architecture settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webapp-work-settings" class="md-nav__link">
+    WebApp work settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-configuration-file" class="md-nav__link">
+    Default configuration file
+  </a>
+  
+    <nav class="md-nav" aria-label="Default configuration file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml" class="md-nav__link">
+    yaml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    json
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-get-the-default-configuration-file" class="md-nav__link">
+    How to get the default configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-baselines" class="md-nav__link">
+    Config baselines
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="config-file">Config file</h1>
+<p>The mlup application configuration consists of two blocks: <code>ml</code>, <code>web</code>.
+When you configure using Python code, this separation does not exist. It is only in the config files.</p>
+<p>You don't always have to write a complete configuration file. You can explicitly specify only those parameters that differ from the default ones.
+All other parameters will be filled with default values.</p>
+<h2 id="what-settings-are-there">What settings are there?</h2>
+<h3 id="ml">ml</h3>
+<h4 id="information-arguments">Information arguments</h4>
+<p><code>name (str)</code> - Model name. Use for information about your model.</p>
+<p>Default is "MyFirstMLupModel".</p>
+<hr />
+<p><code>version (str)</code> - Model version. Use for information about your model. </p>
+<p>Default is "1.0.0.0".</p>
+<hr />
+<h4 id="model-interface-settings">Model interface settings</h4>
+<p><code>type (ModelLibraryType)</code> - Model type for choose current code for load and run model.
+    See <a href="https://github.com/nxexox/pymlup/blob/main/mlup/constants.py">mlup.constants.ModelLibraryType</a> for details.</p>
+<p>Default is <code>ModelLibraryType.SKLEARN</code>.</p>
+<hr />
+<p><code>columns (Optional[List[Dict[str, str]]])</code> - Columns description for model predict method.
+    Format: List[Dict].</p>
+<pre><code>Example [{"name": "col1", "type": "str", "required": True, "default": None}]
+name - Column name;
+type - Column type in string: int, str, float, bool.
+required - bool and optional field. By default is True.
+Default - Any data and optional.
+</code></pre>
+<p>If you not set columns, then columns validation should be False. </p>
+<hr />
+<p><code>predict_method_name (str)</code> - Name for predict method by your model.
+    This param use for analyze predict method and run predict method in your model.</p>
+<p>Default is "predict".</p>
+<hr />
+<h4 id="model-load-settings">Model load settings</h4>
+<p><code>auto_detect_predict_params (bool)</code> - If set is True, UP will parse predict method your model
+    and create from predict method arguments, validators and ApiScheme for inner data.
+    If set is False, then UP wait json with {data_for_predict: [..data for predict..]}.</p>
+<p>Default is True.</p>
+<hr />
+<p><code>storage_type (StorageType)</code> - Type storage, where should the model be loaded from.
+    All storages code there is in <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/storage/">mlup.ml.storage</a> package.
+    This param use in load() method, by it search storage class and use for load model.
+    Params for storage class, can set to storage_kwargs.
+    If set <code>StorageType.memory</code>, you can set ml to construct, without load from storage.</p>
+<p>You can write your storage class, for load model from you storage or with your logic. 
+For it, your storage class must be a class <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/storage/base.py">mlup.ml.storage.base.BaseStorage</a> heir.
+See <a href="../storages/">Storages</a> for details.</p>
+<p>Default: StorageType.memory.</p>
+<hr />
+<p><code>storage_kwargs (Dict)</code> - Naming arguments for storage class from storage_type.</p>
+<p>Default: empty Dict.</p>
+<hr />
+<p><code>binarization_type (BinarizationType)</code> - Type binarization model method.
+    Use for load binary model from storage. See <a href="../binarizers/">Binarizers</a> for details.</p>
+<p>If set "auto", run auto search binarization type by model raw binary data and model name in storage.
+If binarization_type="auto" found binarization, than set binarization_type to found binarizer class.
+If binarization_type="auto" not found binarization, than raise <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">mlup.errors.ModelLoadError</a>.</p>
+<p>Default is "auto".</p>
+<hr />
+<h4 id="model-work-settings">Model work settings</h4>
+<p><code>use_thread_loop (bool)</code> - Use concurrent.futures.ThreadPoolExecutor for create workers
+    and run in workers pool predict in model.
+    This useful for not blocking App CPU bound operations on the predict time.</p>
+<p>Default is True.</p>
+<hr />
+<p><code>max_thread_loop_workers (Optional[int])</code> - Count thread workers in <code>concurrent.futures.ThreadPoolExecutor</code>.
+    Param use if <code>use_thread_loop</code> is set True. If not set this param, then will be calculate,
+    how calculate concurrent library - min(32, os.cpu_count() + 4).</p>
+<p>Default is None, that is min(32, os.cpu_count() + 4).</p>
+<hr />
+<p><code>data_transformer_for_predict (ModelDataTransformerType)</code> - How data type need for model predict method.
+    See <a href="../data_transformers/">Data Transformers</a> for details.</p>
+<p>Default ModelDataTransformerType.NUMPY_ARR.</p>
+<hr />
+<p><code>data_transformer_for_predicted (ModelDataTransformerType)</code> - How data type model returned from predict method.
+    See <a href="../data_transformers/">Data Transformers</a> for details.</p>
+<p>Default ModelDataTransformerType.NUMPY_ARR.</p>
+<hr />
+<p><code>dtype_for_predict (Optional[str])</code> - Dtype for data_transformer_for_predict.
+    Each data_transformer uses its own way of searching for a dtype by the specified one.
+    But as a rule it is getattr([pandas, numpy, torch, tensorflow], dtype).
+See <a href="../data_transformers/">Data Transformers</a> for details.</p>
+<p>Default is None, and the library itself determines which type.</p>
+<h3 id="web">web</h3>
+<h4 id="webapp-web-outer-interface-settings">WebApp web outer interface settings</h4>
+<p><code>host (str)</code> - Web host for web app.</p>
+<p>Default is "0.0.0.0".</p>
+<hr />
+<p><code>port (int)</code> - Web port for web app.</p>
+<p>Default is 8009.</p>
+<hr />
+<p><code>web_app_version (str)</code> - User version for web_app.
+    Using the mlup version may not be nice to users your web app.
+    However, you can change the library version without changing the model.
+    And then the code of the web application backend actually changes.
+    You can use this field to notify users of these changes.</p>
+<p>Default is "1.0.0.0".</p>
+<hr />
+<p><code>column_validation (bool)</code> - Do I need to create a validator for columns from columns config
+    that are sent by the user through the web application?</p>
+<p>Default is False.</p>
+<hr />
+<p><code>custom_column_pydantic_model (Optional[Type[PydanticBaseModel]])</code> - Custom column pydantic model.
+    Use for validation. If set this field, flag column_validation not use. Validation will be always.</p>
+<p>Default is None.</p>
+<hr />
+<h4 id="webapp-architecture-settings">WebApp architecture settings</h4>
+<p><code>mode (WebAppArchitecture)</code> - Work mode web app. We have three modes for work:
+    directly_to_predict, worker_and_queue, batching. 
+    See <a href="../web_app_architectures/">Web app architectures</a> for details.</p>
+<p>Default is WebAppArchitecture.directly_to_predict.</p>
+<hr />
+<p><code>max_queue_size (int)</code> - Max queue size with inner data for model.
+    It's use in modes worker_and_queue and batching, for controlling queue inner requests size.</p>
+<p>Default is 100.</p>
+<hr />
+<p><code>ttl_predicted_data (int)</code> - Max time member predict result data.
+    It's need for clean memory, if client not returned for predict result.</p>
+<p>Default is 60.</p>
+<hr />
+<p><code>ttl_client_wait (float)</code> - Max time wait results for clients, in single request.
+    If the client has not waited for a response within this time, the server responds with a 408 response code, and the user must make a second request.
+    This is necessary so as not to make customers wait forever and all the ensuing consequences.</p>
+<p>Default is 30.0</p>
+<hr />
+<p><code>min_batch_len (int)</code> - Min batch len for start predict.
+    Batching is regulated by two parameters: the batch accumulation time and the size of the accumulated batch.
+    If one of the parameters has reached its limit, then the batch predictor is launched.
+    It's min batch size for call batch predict.</p>
+<p>Default is 10.</p>
+<hr />
+<p><code>batch_worker_timeout (float)</code> - Max time for pending before run batching.
+    Batching is regulated by two parameters: the batch accumulation time and the size of the accumulated batch.
+    If one of the parameters has reached its limit, then the batch predictor is launched.
+    It's max time waiting batch for call batch predict.</p>
+<p>Default is 1.0.</p>
+<hr />
+<p><code>is_long_predict (bool)</code> - Added get-predict api method and add return predict_id to predict response.
+    Use only in worker_and_queue and batching modes.
+    If set this param, after request to /predict, client get predict_id in response.
+    If not set this param, then after <code>ttl_client_wait</code> time, client can't get predict result.</p>
+<p>Default is False.</p>
+<hr />
+<h4 id="webapp-work-settings">WebApp work settings</h4>
+<p><code>show_docs (bool)</code> - Enable API docs in web app by URL /docs.</p>
+<p>Default is True</p>
+<hr />
+<p><code>debug (bool)</code> - Debug mode. Use for FastAPI and for show model configs.</p>
+<p>Default is False</p>
+<hr />
+<p><code>throttling_max_requests (Optional[int])</code> - Max count simultaneous requests to web app.
+    If set None, throttling by requests is disabling.</p>
+<p>Default is None</p>
+<hr />
+<p><code>throttling_max_request_len (Optional[int])</code> - Max count objects to predict in single request.
+    If set None, throttling by max items in request is disable.</p>
+<p>Default is None</p>
+<hr />
+<p><code>timeout_for_shutdown_daemon (float)</code>- Wait time for graceful shutdown web app.</p>
+<p>Default is 3.0</p>
+<hr />
+<p><code>uvicorn_kwargs (Dict)</code> - Uvicorn server kwargs arguments.</p>
+<p>Default is {}</p>
+<hr />
+<p><code>item_id_col_name (str)</code> - Column name for unique item_id.
+    Use in batching and worker. It need for marks requests in worker by request id.
+    Added this key for predicted data, but not thrown into model predict.</p>
+<p>Default is <a href="https://github.com/nxexox/pymlup/blob/main/mlup/constants.py">mlup.constants.ITEM_ID_COL_NAME</a> - "mlup_item_id".</p>
+<hr />
+<h2 id="default-configuration-file">Default configuration file</h2>
+<h3 id="yaml">yaml</h3>
+<pre><code class="language-yaml">version: '1'
+ml:
+  auto_detect_predict_params: true
+  binarization_type: auto
+  columns: null
+  data_transformer_for_predict: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  data_transformer_for_predicted: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
+  dtype_for_predict: null
+  max_thread_loop_workers: null
+  name: MyFirstMLupModel
+  predict_method_name: predict
+  storage_type: mlup.ml.storage.memory.MemoryStorage
+  type: sklearn
+  use_thread_loop: true
+  version: 1.0.0.0
+web:
+  batch_worker_timeout: 1.0
+  column_validation: false
+  debug: false
+  host: 0.0.0.0
+  is_long_predict: false
+  item_id_col_name: mlup_item_id
+  max_queue_size: 100
+  min_batch_len: 10
+  mode: mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture
+  port: 8009
+  show_docs: true
+  throttling_max_request_len: null
+  throttling_max_requests: null
+  timeout_for_shutdown_daemon: 3.0
+  ttl_client_wait: 30.0
+  ttl_predicted_data: 60
+  uvicorn_kwargs: {}
+  web_app_version: 1.0.0.0
+</code></pre>
+<h3 id="json">json</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;ml&quot;: {
+    &quot;storage_type&quot;: &quot;mlup.ml.storage.memory.MemoryStorage&quot;, 
+    &quot;data_transformer_for_predict&quot;: &quot;mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer&quot;, 
+    &quot;type&quot;: &quot;sklearn&quot;, 
+    &quot;data_transformer_for_predicted&quot;: &quot;mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer&quot;, 
+    &quot;auto_detect_predict_params&quot;: true, 
+    &quot;version&quot;: &quot;1.0.0.0&quot;, 
+    &quot;binarization_type&quot;: &quot;auto&quot;, 
+    &quot;max_thread_loop_workers&quot;: null, 
+    &quot;dtype_for_predict&quot;: null, 
+    &quot;use_thread_loop&quot;: true, 
+    &quot;predict_method_name&quot;: &quot;predict&quot;, 
+    &quot;columns&quot;: null, 
+    &quot;name&quot;: &quot;MyFirstMLupModel&quot;
+  }, 
+  &quot;web&quot;: {
+    &quot;port&quot;: 8009, 
+    &quot;show_docs&quot;: true, 
+    &quot;ttl_client_wait&quot;: 30.0, 
+    &quot;timeout_for_shutdown_daemon&quot;: 3.0, 
+    &quot;uvicorn_kwargs&quot;: {}, 
+    &quot;batch_worker_timeout&quot;: 1.0, 
+    &quot;item_id_col_name&quot;: &quot;mlup_item_id&quot;, 
+    &quot;throttling_max_request_len&quot;: null, 
+    &quot;is_long_predict&quot;: false, 
+    &quot;max_queue_size&quot;: 100, 
+    &quot;host&quot;: &quot;0.0.0.0&quot;, 
+    &quot;min_batch_len&quot;: 10, 
+    &quot;debug&quot;: false, 
+    &quot;web_app_version&quot;: &quot;1.0.0.0&quot;, 
+    &quot;mode&quot;: &quot;mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture&quot;, 
+    &quot;throttling_max_requests&quot;: null, 
+    &quot;column_validation&quot;: false, 
+    &quot;ttl_predicted_data&quot;: 60
+  }
+}
+</code></pre>
+<h2 id="how-to-get-the-default-configuration-file">How to get the default configuration file</h2>
+<p>You can get the default configuration file in several ways, for example:</p>
+<pre><code class="language-python">import mlup
+from mlup.ml.empty import EmptyModel
+
+mlup.generate_default_config('/path/to/your/config/file.yaml')
+mlup.generate_default_config('/path/to/your/config/file.json')
+up = mlup.UP(ml_model=EmptyModel())
+up.to_yaml('/path/to/your/config/file.yaml')
+up.to_json('/path/to/your/config/file.json')
+dict_config = up.to_dict()
+</code></pre>
+<h2 id="config-baselines">Config baselines</h2>
+<p>In addition to the default config, mlup created configs for basic scenarios, changing the settings in them for a specific scenario.
+For example, for a tensorflow model or for a web app in batching mode.</p>
+<pre><code class="language-python">from dataclasses import dataclass
+from typing import Union, Optional
+
+from mlup.constants import ModelLibraryType, ModelDataTransformerType, BinarizationType, WebAppArchitecture
+from mlup.up import Config
+
+
+@dataclass
+class WorkerAndQueueConfig(Config):
+    mode: WebAppArchitecture = WebAppArchitecture.worker_and_queue
+
+
+@dataclass
+class BatchingConfig(Config):
+    mode: WebAppArchitecture = WebAppArchitecture.batching
+
+
+@dataclass
+class ScikitLearnConfig(Config):
+    type: Union[str, ModelLibraryType] = ModelLibraryType.SCIKIT_LEARN
+    predict_method_name: str = 'predict'
+
+
+@dataclass
+class ScikitLearnWorkerConfig(ScikitLearnConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.worker_and_queue
+
+
+@dataclass
+class ScikitLearnBatchingConfig(ScikitLearnConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.batching
+
+
+@dataclass
+class TensorflowConfig(Config):
+    type: Union[str, ModelLibraryType] = ModelLibraryType.TENSORFLOW
+    predict_method_name: str = '__call__'
+    data_transformer_for_predict: Union[str, ModelDataTransformerType] = ModelDataTransformerType.TENSORFLOW_TENSOR
+    data_transformer_for_predicted: Union[str, ModelDataTransformerType] = ModelDataTransformerType.TENSORFLOW_TENSOR
+    dtype_for_predict: Optional[str] = 'float32'
+
+
+@dataclass
+class TensorflowWorkerConfig(TensorflowConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.worker_and_queue
+
+
+@dataclass
+class TensorflowBatchingConfig(TensorflowConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.batching
+
+
+@dataclass
+class TorchConfig(Config):
+    type: Union[str, ModelLibraryType] = ModelLibraryType.TORCH
+    predict_method_name: str = '__call__'
+    data_transformer_for_predict: Union[str, ModelDataTransformerType] = ModelDataTransformerType.TORCH_TENSOR
+    data_transformer_for_predicted: Union[str, ModelDataTransformerType] = ModelDataTransformerType.TORCH_TENSOR
+    dtype_for_predict: Optional[str] = 'float32'
+
+
+@dataclass
+class TorchWorkerConfig(TorchConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.worker_and_queue
+
+
+@dataclass
+class TorchBatchingConfig(TorchConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.batching
+
+
+@dataclass
+class OnnxConfig(Config):
+    type: Union[str, ModelLibraryType] = ModelLibraryType.ONNX
+    binarization_type: Union[str, BinarizationType] = BinarizationType.ONNX_INFERENCE_SESSION
+
+
+@dataclass
+class OnnxWorkerConfig(OnnxConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.worker_and_queue
+
+
+@dataclass
+class OnnxBatchingConfig(OnnxConfig):
+    mode: WebAppArchitecture = WebAppArchitecture.batching
+</code></pre>
+<p>Using this config instead of the standard one is quite simple:</p>
+<pre><code class="language-python">import mlup
+from mlup import baseline
+from mlup.ml.empty import EmptyModel
+
+up = mlup.UP(
+    ml_model=EmptyModel(), 
+    conf=baseline.BatchingConfig(),
+)
+</code></pre>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

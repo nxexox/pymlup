@@ -1,0 +1,1687 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="bash_commands/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>MLup</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.bd3936ea.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pymlup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyMLup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    MLup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nxexox/pymlup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyMLup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PyMLup
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-its-work" class="md-nav__link">
+    How it's work
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-code" class="md-nav__link">
+    Examples code
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-ready-application-to-disk" class="md-nav__link">
+    Save ready application to disk
+  </a>
+  
+    <nav class="md-nav" aria-label="Save ready application to disk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-default-config" class="md-nav__link">
+    Make default config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-config" class="md-nav__link">
+    From config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-pickle" class="md-nav__link">
+    From pickle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-config" class="md-nav__link">
+    Change config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-server-commands" class="md-nav__link">
+    Examples server commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples server commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlup-run" class="md-nav__link">
+    mlup run
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-model" class="md-nav__link">
+    From model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-config_1" class="md-nav__link">
+    From config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-mlupup-picklejoblib-object" class="md-nav__link">
+    From mlup.UP pickle/joblib object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlup-make-app" class="md-nav__link">
+    mlup make-app
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup make-app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-default-settings" class="md-nav__link">
+    With default settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-model" class="md-nav__link">
+    With only model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-config" class="md-nav__link">
+    With only config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-binary-up-object" class="md-nav__link">
+    With only binary UP object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlup-validate-config" class="md-nav__link">
+    mlup validate-config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-application-interface" class="md-nav__link">
+    Web application interface
+  </a>
+  
+    <nav class="md-nav" aria-label="Web application interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-api-docs" class="md-nav__link">
+    Interactive API docs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-points" class="md-nav__link">
+    Api points
+  </a>
+  
+    <nav class="md-nav" aria-label="Api points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health" class="md-nav__link">
+    /health
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    /info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    /predict
+  </a>
+  
+    <nav class="md-nav" aria-label="/predict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    Validation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-application-modes" class="md-nav__link">
+    Web application modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the bash commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="binarizers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binarizers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data_transformers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data transformers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="life_cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description of the Python Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="storages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="web_app_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="web_app_architectures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web app architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-its-work" class="md-nav__link">
+    How it's work
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-code" class="md-nav__link">
+    Examples code
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-ready-application-to-disk" class="md-nav__link">
+    Save ready application to disk
+  </a>
+  
+    <nav class="md-nav" aria-label="Save ready application to disk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-default-config" class="md-nav__link">
+    Make default config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-config" class="md-nav__link">
+    From config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-pickle" class="md-nav__link">
+    From pickle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-config" class="md-nav__link">
+    Change config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-server-commands" class="md-nav__link">
+    Examples server commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples server commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlup-run" class="md-nav__link">
+    mlup run
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-model" class="md-nav__link">
+    From model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-config_1" class="md-nav__link">
+    From config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-mlupup-picklejoblib-object" class="md-nav__link">
+    From mlup.UP pickle/joblib object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlup-make-app" class="md-nav__link">
+    mlup make-app
+  </a>
+  
+    <nav class="md-nav" aria-label="mlup make-app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-default-settings" class="md-nav__link">
+    With default settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-model" class="md-nav__link">
+    With only model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-config" class="md-nav__link">
+    With only config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-only-binary-up-object" class="md-nav__link">
+    With only binary UP object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlup-validate-config" class="md-nav__link">
+    mlup validate-config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-application-interface" class="md-nav__link">
+    Web application interface
+  </a>
+  
+    <nav class="md-nav" aria-label="Web application interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-api-docs" class="md-nav__link">
+    Interactive API docs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-points" class="md-nav__link">
+    Api points
+  </a>
+  
+    <nav class="md-nav" aria-label="Api points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health" class="md-nav__link">
+    /health
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    /info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    /predict
+  </a>
+  
+    <nav class="md-nav" aria-label="/predict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    Validation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-application-modes" class="md-nav__link">
+    Web application modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="pymlup">PyMLup</h1>
+<p><a href="https://github.com/nxexox/pymlup/actions/workflows/python-package.yml"><img alt="Linters and testing" src="https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg" /></a>
+<a href="https://badge.fury.io/py/pymlup"><img alt="PyPI version" src="https://badge.fury.io/py/pymlup.svg" /></a>
+<a href="https://pypistats.org/packages/pymlup"><img alt="Downloads" src="https://img.shields.io/pypi/dm/pymlup.svg" /></a></p>
+<h2 id="table-of-contents">Table of contents</h2>
+<ul>
+<li><a href="quickstart/">Quickstart</a></li>
+<li><a href="config_file/">Description of the configuration file</a></li>
+<li><a href="life_cycle/">Description of the application life cycle</a></li>
+<li><a href="storages/">Storages</a></li>
+<li><a href="binarizers/">Binarizers</a></li>
+<li><a href="data_transformers/">Data Transformers</a></li>
+<li><a href="web_app_architectures/">Web app architectures</a></li>
+<li><a href="web_app_api/">Web app API</a></li>
+<li><a href="python_interface/">Description of the Python Interface</a></li>
+<li><a href="bash_commands/">Description of the bash commands</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>It's library for easy and fast run ML in production. </p>
+<p>All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃</p>
+<p>PyMLup is a modern way to run machine learning models in production. The market time has been reduced to a minimum. This library eliminates the need to write your own web applications with machine learning models and copy application code. It is enough to have a machine learning model to launch a web application with one command.</p>
+<ul>
+<li>It's library learning only clean python;</li>
+<li>Use FastApi in web app backend;</li>
+</ul>
+<p>Work tested with machine learning model frameworks (links to tests):</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py">scikit-learn&gt;=1.2.0,&lt;1.3.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py">tensorflow&gt;=2.0.0,&lt;3.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py">lightgbm&gt;=4.0.0,&lt;5.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_pytorch_model.py">torch&gt;=2.0.0,&lt;3.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">onnx&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">onnxruntime&gt;=1.0.0,&lt;2.0.0</a></li>
+</ul>
+<p>Support and tested with machine learning libraries:</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py">numpy&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py">pandas&gt;=2.0.0,&lt;3.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">joblib&gt;=1.2.0,&lt;1.3.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">tf2onnx&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">skl2onnx&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/test_jupyter_notebook.py">jupyter==1.0.0</a></li>
+</ul>
+<p><strong>The easiest way to try:</strong></p>
+<pre><code class="language-bash">pip install pymlup
+mlup run -m /path/to/my/model.onnx
+</code></pre>
+<h2 id="useful-links">Useful links</h2>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/docs">Docs</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/examples">Examples</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/mldata">Tests models</a>;</li>
+</ul>
+<h2 id="how-its-work">How it's work</h2>
+<ol>
+<li>You are making your machine learning model. Optional: you are making mlup config for your model.</li>
+<li>You deliver your model to server. Optional: you deliver your config to server.</li>
+<li>Installing pymlup to your server and libraries for model.</li>
+<li>Run web app from your model or your config 🙃</li>
+</ol>
+<h2 id="requirements">Requirements</h2>
+<p>Python 3.7+</p>
+<ul>
+<li>PyMLup stands on the shoulders of giants FastAPI for the web parts. </li>
+<li>Additionally, you need to install the libraries that your model uses.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-bash">pip install pymlup
+</code></pre>
+<p>You will also can install with ml backend library:</p>
+<pre><code class="language-bash">pip install &quot;pymlup[scikit-learn]&quot;  # For scikit-learn
+pip install &quot;pymlup[lightgbm]&quot;      # For microsoft lightgbm
+pip install &quot;pymlup[tensorflow]&quot;    # For tensorflow
+pip install &quot;pymlup[torch]&quot;         # For torch
+pip install &quot;pymlup[onnx]&quot;          # For onnx models: torch, tensorflow, sklearn, etc...
+</code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="examples-code">Examples code</h3>
+<pre><code class="language-python">import mlup
+
+class MyAnyModelForExample:
+    def predict(self, X):
+        return X
+
+ml_model = MyAnyModelForExample()
+
+
+up = mlup.UP(ml_model=ml_model)
+# Need call up.ml.load(), for analyze your model
+up.ml.load()
+# If you want testing your web app, you can run in daemon mode
+# You can open browser http://localhost:8009/docs
+up.run_web_app(daemon=True)
+
+import requests
+response = requests.post('http://0.0.0.0:8009/predict', json={'X': [[1, 2, 3], [4, 5, 6]]})
+print(response.json())
+
+up.stop_web_app()
+</code></pre>
+<p>You can check work model by config, without web application.
+* <code>predict</code> - Get model predict as inner arguments as in web app.
+* <code>predict_from</code> - As <code>predict</code> method, but not use data transformer before call model predict.
+* <code>async_predict</code> - Asynchronous version of the <code>predict</code> method.</p>
+<pre><code class="language-python">import mlup
+import numpy
+
+class MyAnyModelForExample:
+    def predict(self, X):
+        return X
+
+ml_model = MyAnyModelForExample()
+up = mlup.UP(ml_model=ml_model)
+up.ml.load()
+
+up.predict(X=[[1, 2, 3], [4, 5, 6]])
+up.predict_from(X=numpy.array([[1, 2, 3], [4, 5, 6]]))
+await up.async_predict(X=[[1, 2, 3], [4, 5, 6]])
+</code></pre>
+<h4 id="save-ready-application-to-disk">Save ready application to disk</h4>
+<h5 id="make-default-config">Make default config</h5>
+<p>If path endswith to json, make json config, else yaml config.</p>
+<pre><code class="language-python">import mlup
+mlup.generate_default_config('path_to_yaml_config.yaml')
+</code></pre>
+<h5 id="from-config">From config</h5>
+<p>You can save ready config to disk, but you need set local storage and path to model file in server.
+In folder can there are many files, mask need for filter exactly our model file</p>
+<pre><code class="language-python">import mlup
+from mlup.ml.empty import EmptyModel  # This stub class
+from mlup import constants
+
+up = mlup.UP(ml_model=EmptyModel())
+up.conf.storage_type = constants.StorageType.disk
+up.conf.storage_kwargs = {
+    'path_to_files': 'path/to/model/file/in/model_name.modelextension',
+    'file_mask': 'model_name.modelextension',
+}
+up.to_yaml(&quot;path_to_yaml_config.yaml&quot;)
+up.to_json(&quot;path_to_json_config.json&quot;)
+
+# After in server
+up = mlup.UP.load_from_yaml(&quot;path_to_yaml_config.yaml&quot;, load_model=True)
+up.run_web_app()
+</code></pre>
+<h5 id="from-pickle">From pickle</h5>
+<p>If you make pickle/joblib file your mlup with model, don't need to change storage type, because your model there is in your pickle/joblib file.</p>
+<pre><code class="language-python">import pickle
+import mlup
+from mlup.ml.empty import EmptyModel  # This stub class
+
+up = mlup.UP(ml_model=EmptyModel())
+
+# You can create pickle file
+with open('path_to_pickle_file.pckl', 'wb') as f:
+    pickle.dump(up, f)
+
+# After in server
+with open('path_to_pickle_file.pckl', 'rb') as f:
+    up = pickle.load(f)
+up.ml.load()
+up.run_web_app()
+</code></pre>
+<h4 id="change-config">Change config</h4>
+<p>If you can change model settings (See <a href="life_cycle/#upmlload_model_settings">Description of the application life cycle</a>), need call <code>up.ml.load_model_settings()</code>.</p>
+<pre><code class="language-python">import mlup
+
+class MyAnyModelForExample:
+    def predict(self, X):
+        return X
+
+ml_model = MyAnyModelForExample()
+
+up = mlup.UP(
+    ml_model=ml_model,
+    conf=mlup.Config(port=8011)
+)
+up.ml.load()
+up.conf.auto_detect_predict_params = False
+up.ml.load_model_settings()
+</code></pre>
+<h3 id="examples-server-commands">Examples server commands</h3>
+<h4 id="mlup-run">mlup run</h4>
+<p>You can run web application from model, config, pickle up object. Bash command mlup run making this.</p>
+<p>See <code>mlup run --help</code> or <a href="bash_commands/#mlup-run">Description of the bash commands</a> for full docs.</p>
+<h5 id="from-model">From model</h5>
+<pre><code class="language-bash">mlup run -m /path/to/your/model.extension
+</code></pre>
+<p>This will run code something like this: </p>
+<pre><code class="language-python">import mlup
+from mlup import constants
+
+up = mlup.UP(
+    conf=mlup.Config(
+        storage_type=constants.StorageType.disk,
+        storage_kwargs={
+            'path_to_files': '/path/to/your/model.extension',
+            'files_mask': r'.+',
+        },
+    )
+)
+up.ml.load()
+up.run_web_app()
+</code></pre>
+<p>You change config attributes in this mode. For this, you can add arguments <code>--up.&lt;config_attribute_name&gt;=new_value</code>. 
+(For more examples see <code>mlup run --help</code> or <a href="bash_commands/#mlup-run">Description of the bash commands</a>).</p>
+<h5 id="from-config_1">From config</h5>
+<pre><code class="language-bash">mlup run -c /path/to/your/config.yaml
+# or mlup run -ct json -c /path/to/your/config.json
+</code></pre>
+<p>This will run code something like this:</p>
+<pre><code class="language-python">import mlup
+
+up = mlup.UP.load_from_yaml(conf_path='/path/to/your/config.yaml', load_model=True)
+up.run_web_app()
+</code></pre>
+<h5 id="from-mlupup-picklejoblib-object">From mlup.UP pickle/joblib object</h5>
+<pre><code class="language-bash">mlup run -b /path/to/your/up_object.pckl
+# or mlup run -bt joblib -b /path/to/your/up_object.joblib
+</code></pre>
+<p>This will run code something like this:</p>
+<pre><code class="language-python">import pickle
+
+with open('/path/to/your/up_object.pckl', 'rb') as f:
+    up = pickle.load(f)
+up.run_web_app()
+</code></pre>
+<h4 id="mlup-make-app">mlup make-app</h4>
+<p>This command making <code>.py</code> file with mlup web application and your model, config, pickle up object or with default settings.</p>
+<p>See <code>mlup make-app --help</code> or <a href="bash_commands/#mlup-make-app">Description of the bash commands</a> for full docs.</p>
+<h5 id="with-default-settings">With default settings</h5>
+<pre><code class="language-bash">mlup make-app example_without_data_app.py
+</code></pre>
+<p>This command is making something like this:</p>
+<pre><code class="language-python"># example_without_data_app.py
+import mlup
+
+
+# You can load the model yourself and pass it to the &quot;ml_model&quot; argument.
+# up = mlup.UP(ml_model=my_model, conf=mlup.Config())
+up = mlup.UP(
+    conf=mlup.Config(
+        # Set your config, for work model and get model.
+        # You can use storage_type and storage_kwargs for auto_load model from storage.
+    )
+)
+up.ml.load()
+up.web.load()
+
+# If you want to run the application yourself, or add something else to it, use this variable.
+# Example with uvicorn: uvicorn example_app:app --host 0.0.0.0 --port 80
+app = up.web.app
+
+if __name__ == '__main__':
+    up.run_web_app()
+</code></pre>
+<p>And you can write your settings and run web application:</p>
+<pre><code class="language-bash">python3 example_without_data_app.py
+</code></pre>
+<h5 id="with-only-model">With only model</h5>
+<pre><code class="language-bash">mlup make-app -ms /path/to/my/model.onnx example_without_data_app.py
+</code></pre>
+<p>This command is making something like this:</p>
+<pre><code class="language-python"># example_without_data_app.py
+import mlup
+from mlup import constants
+
+
+up = mlup.UP(
+    conf=mlup.Config(
+        # Set your config, for work model and get model.
+        storage_type=constants.StorageType.disk,
+        storage_kwargs={
+            'path_to_files': '/path/to/my/model.onnx',
+            'files_mask': 'model.onnx',
+        },
+    )
+)
+up.ml.load()
+up.web.load()
+
+# If you want to run the application yourself, or add something else to it, use this variable.
+# Example with uvicorn: uvicorn example_app:app --host 0.0.0.0 --port 80
+app = up.web.app
+
+if __name__ == '__main__':
+    up.run_web_app()
+
+</code></pre>
+<p>And you can run web application:</p>
+<pre><code class="language-bash">python3 example_without_data_app.py
+</code></pre>
+<h5 id="with-only-config">With only config</h5>
+<pre><code class="language-bash">mlup make-app -cs /path/to/my/config.yaml example_without_data_app.py
+</code></pre>
+<p>This command is making something like this:</p>
+<pre><code class="language-python"># example_without_data_app.py
+import mlup
+
+
+up = mlup.UP.load_from_yaml('/path/to/my/config.yaml', load_model=False)
+up.ml.load()
+up.web.load()
+
+# If you want to run the application yourself, or add something else to it, use this variable.
+# Example with uvicorn: uvicorn example_app:app --host 0.0.0.0 --port 80
+app = up.web.app
+
+if __name__ == '__main__':
+    up.run_web_app()
+</code></pre>
+<p>And you can run web application:</p>
+<pre><code class="language-bash">python3 example_without_data_app.py
+</code></pre>
+<h5 id="with-only-binary-up-object">With only binary UP object</h5>
+<pre><code class="language-bash">mlup make-app -bs /path/to/my/up.pickle example_without_data_app.py
+</code></pre>
+<p>This command is making something like this:</p>
+<pre><code class="language-python"># example_without_data_app.py
+import pickle
+
+
+with open('/path/to/my/up.pickle', 'rb') as f:
+    up = pickle.load(f)
+
+if not up.ml.loaded:
+    up.ml.load()
+up.web.load()
+
+# If you want to run the application yourself, or add something else to it, use this variable.
+# Example with uvicorn: uvicorn example_app:app --host 0.0.0.0 --port 80
+app = up.web.app
+
+if __name__ == '__main__':
+    up.run_web_app()
+</code></pre>
+<p>And you can run web application:</p>
+<pre><code class="language-bash">python3 example_without_data_app.py
+</code></pre>
+<h4 id="mlup-validate-config">mlup validate-config</h4>
+<p>This command use for validation your config. This command have alpha version and need finalize.</p>
+<p>See <code>mlup validate-config --help</code> or <a href="bash_commands/#mlup-validate-config">Description of the bash commands</a> for full docs.</p>
+<pre><code class="language-bash">mlup validate-config /path/to/my/conf.yaml
+</code></pre>
+<h2 id="web-application-interface">Web application interface</h2>
+<p>By default, web application starting on http://localhost:8009 and have api docs.</p>
+<p>See <a href="web_app_api/">Web app API</a> for more details. </p>
+<h3 id="interactive-api-docs">Interactive API docs</h3>
+<p>Now go to http://localhost:8009/docs.</p>
+<p>You will see the automatic interactive API documentation (provided by <a href="https://github.com/swagger-api/swagger-ui">Swagger UI</a>):</p>
+<h3 id="api-points">Api points</h3>
+<h4 id="health">/health</h4>
+<p>Use for check health web application.</p>
+<p>HTTP's methods: HEAD, OPTIONS, GET</p>
+<details>
+
+##### Return JSON 
+```{'status': 200}``` and status code is 200.
+
+</details>
+
+<h4 id="info">/info</h4>
+<p>Use for get model and application information. If set debug=True in config, return full config. </p>
+<p>HTTP's methods: GET</p>
+<details>
+
+##### Return JSON:
+
+<pre><code class="language-json">{
+  &quot;model_info&quot;: {
+    &quot;name&quot;: &quot;MyFirstMLupModel&quot;,
+    &quot;version&quot;: &quot;1.0.0.0&quot;,
+    &quot;type&quot;: &quot;sklearn&quot;,
+    &quot;columns&quot;: null
+  },
+  &quot;web_app_info&quot;: {
+    &quot;version&quot;: &quot;1.0.0.0&quot;,
+  }
+}
+</code></pre>
+
+
+If set in config `debug=True`, return another json, almost complete config. But no sensitive data.
+
+
+<pre><code class="language-json">{
+  &quot;web_app_config&quot;: {
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;port&quot;: 8009,
+    &quot;web_app_version&quot;: &quot;1.0.0.0&quot;,
+    &quot;column_validation&quot;: false,
+    &quot;custom_column_pydantic_model&quot;: null,
+    &quot;mode&quot;: &quot;mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture&quot;,
+    &quot;max_queue_size&quot;: 100,
+    &quot;ttl_predicted_data&quot;: 60,
+    &quot;ttl_client_wait&quot;: 30.0,
+    &quot;min_batch_len&quot;: 10,
+    &quot;batch_worker_timeout&quot;: 1.0,
+    &quot;is_long_predict&quot;: false,
+    &quot;show_docs&quot;: true,
+    &quot;debug&quot;: true,
+    &quot;throttling_max_requests&quot;: null,
+    &quot;throttling_max_request_len&quot;: null,
+    &quot;timeout_for_shutdown_daemon&quot;: 3.0,
+    &quot;item_id_col_name&quot;: &quot;mlup_item_id&quot;
+  },
+  &quot;model_config&quot;: {
+    &quot;name&quot;: &quot;MyFirstMLupModel&quot;,
+    &quot;version&quot;: &quot;1.0.0.0&quot;,
+    &quot;type&quot;: &quot;sklearn&quot;,
+    &quot;columns&quot;: null,
+    &quot;predict_method_name&quot;: &quot;predict&quot;,
+    &quot;auto_detect_predict_params&quot;: true,
+    &quot;storage_type&quot;: &quot;mlup.ml.storage.memory.MemoryStorage&quot;,
+    &quot;binarization_type&quot;: &quot;auto&quot;,
+    &quot;use_thread_loop&quot;: true,
+    &quot;max_thread_loop_workers&quot;: true,
+    &quot;data_transformer_for_predict&quot;: &quot;mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer&quot;,
+    &quot;data_transformer_for_predicted&quot;: &quot;mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer&quot;,
+    &quot;dtype_for_predict&quot;: null
+  }
+}
+</code></pre>
+
+
+</details>
+
+<h4 id="predict">/predict</h4>
+<p>Use for call predict in model.</p>
+<p>HTTP's methods: POST</p>
+<details>
+
+##### Requests body data:
+
+<pre><code class="language-json">{
+  &quot;data_for_predict&quot;: [
+    &quot;input_data_for_obj_1&quot;,
+    &quot;input_data_for_obj_2&quot;,
+    &quot;input_data_for_obj_3&quot;
+  ]
+}
+</code></pre>
+
+
+Key `data_for_predict` is default key for inner data. In config by default set param `auto_detect_predict_params` is True. 
+This param activate analyze model predict method, get arguments from and generate API by params. 
+If `auto_detect_predict_params` found params, he changes `data_for_predict` to finding keys and change API docs.
+
+Example for `scikit-learn` models:
+
+<pre><code class="language-json">{
+  &quot;X&quot;: [
+    &quot;input_data_for_obj_1&quot;,
+    &quot;input_data_for_obj_2&quot;,
+    &quot;input_data_for_obj_3&quot;
+  ]
+}
+</code></pre>
+
+
+`input_data_for_obj_1` maybe any valid JSON data. These data are run through data transformers from config `data_transformer_for_predict`.
+
+By default, this param is `mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer`.
+
+##### Return JSON:
+
+<pre><code class="language-json">{
+  &quot;predict_result&quot;: [
+    &quot;predict_result_for_obj_1&quot;,
+    &quot;predict_result_for_obj_2&quot;,
+    &quot;predict_result_for_obj_3&quot;
+  ]
+}
+</code></pre>
+
+
+`predict_result_for_obj_1` will be valid JSON data. These data, after being predicted by the model, are run through data transformers from config `data_transformer_for_predicted`.
+
+By default, this param is `mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer`.
+
+</details>
+
+<h5 id="validation">Validation</h5>
+<p>This method have validation for inner request data. It's making from config <code>columns</code> and flag <code>column_validation</code>.</p>
+<h2 id="web-application-modes">Web application modes</h2>
+<p>See <a href="web_app_architectures/">Web app architectures</a> for more details. </p>
+<p>Web application have three works modes:
+* <code>directly_to_predict</code> - is Default. User request send directly to model.
+* <code>worker_and_queue</code> - ml model starts in thread worker and take data for predict from queue. 
+  Web application new user requests send to queue and wait result from results queue.
+* <code>batching</code> - ml model start in thread worker and take data for predict from queue. 
+  But not for one request, but combines data from several requests and sends it in one large array to the model. 
+  Web application new user requests send to queue and wait result from results queue.</p>
+<p>This param is naming <code>mode</code>.</p>
+<pre><code class="language-python">import mlup
+from mlup.ml.empty import EmptyModel
+from mlup import constants
+
+up = mlup.UP(
+    ml_model=EmptyModel(),
+    conf=mlup.Config(
+        mode=constants.WebAppArchitecture.worker_and_queue,
+    )
+)
+</code></pre>
+<p>If your model is light, or you hae many CPU/GPU/RAM, you can run many processes:</p>
+<pre><code class="language-python">import mlup
+from mlup.ml.empty import EmptyModel
+from mlup import constants
+
+up = mlup.UP(
+    ml_model=EmptyModel(),
+    conf=mlup.Config(
+        mode=constants.WebAppArchitecture.worker_and_queue,
+        uvicorn_kwargs={'workers': 4},
+    )
+)
+</code></pre>
+<h2 id="metrics">Metrics</h2>
+<p>MLup PyPi download statistics: https://pepy.tech/project/pymlup</p>
+<p><a href="https://pepy.tech/project/pymlup"><img alt="Downloads" src="https://static.pepy.tech/badge/pymlup" /></a>
+<a href="https://pepy.tech/project/pymlup"><img alt="Downloads" src="https://static.pepy.tech/badge/pymlup/month" /></a>
+<a href="https://pepy.tech/project/pymlup"><img alt="Downloads" src="https://static.pepy.tech/badge/pymlup/week" /></a></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>
