@@ -5,9 +5,9 @@ on:
   push:
 #    branches: ["main", "ci_docs"]
     branches: ["*"]
-    paths:
-      - "**.md"
-      - "mkdocs.yml"
+#    paths:
+#      - "**.md"
+#      - "mkdocs.yml"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
