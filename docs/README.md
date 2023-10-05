@@ -2,19 +2,20 @@
 
 [![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
 [![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
+[![Downloads](https://img.shields.io/pypi/dm/pymlup.svg)](https://pypistats.org/packages/pymlup)
 
 ## Table of contents
 
-* [Quickstart](https://github.com/nxexox/pymlup/tree/main/docs/quickstart.md)
-* [Description of the configuration file](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md)
-* [Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md)
-* [Storages](https://github.com/nxexox/pymlup/tree/main/docs/storages.md)
-* [Binarizers](https://github.com/nxexox/pymlup/tree/main/docs/binarizers.md)
-* [Data Transformers](https://github.com/nxexox/pymlup/tree/main/docs/data_transformers.md)
-* [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md)
-* [Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)
-* [Description of the Python Interface](https://github.com/nxexox/pymlup/tree/main/docs/python_interface.md)
-* [Description of the bash commands](https://github.com/nxexox/pymlup/tree/main/docs/bash_commands.md)
+* [Quickstart](quickstart.md)
+* [Description of the configuration file](config_file.md)
+* [Description of the application life cycle](life_cycle.md)
+* [Storages](storages.md)
+* [Binarizers](binarizers.md)
+* [Data Transformers](data_transformers.md)
+* [Web app architectures](web_app_architectures.md)
+* [Web app API](web_app_api.md)
+* [Description of the Python Interface](python_interface.md)
+* [Description of the bash commands](bash_commands.md)
 
 ## Introduction
 
@@ -28,6 +29,7 @@ PyMLup is a modern way to run machine learning models in production. The market 
 * Use FastApi in web app backend;
 
 Work tested with machine learning model frameworks (links to tests):
+
 * [scikit-learn>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
 * [tensorflow>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
 * [lightgbm>=4.0.0,<5.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py)
@@ -36,6 +38,7 @@ Work tested with machine learning model frameworks (links to tests):
 * [onnxruntime>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
 
 Support and tested with machine learning libraries:
+
 * [numpy>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
 * [pandas>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
 * [joblib>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
@@ -191,7 +194,7 @@ up.run_web_app()
 
 #### Change config
 
-If you can change model settings (See [Description of the application life cycle](https://github.com/nxexox/pymlup/blob/main/docs/life_cycle.md#upmlload_model_settings)), need call `up.ml.load_model_settings()`.
+If you can change model settings (See [Description of the application life cycle](life_cycle.md#upmlload_model_settings)), need call `up.ml.load_model_settings()`.
 
 ```python
 import mlup
@@ -217,7 +220,7 @@ up.ml.load_model_settings()
 
 You can run web application from model, config, pickle up object. Bash command mlup run making this.
 
-See `mlup run --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-run) for full docs.
+See `mlup run --help` or [Description of the bash commands](bash_commands.md#mlup-run) for full docs.
 
 ##### From model
 ```bash
@@ -244,7 +247,7 @@ up.run_web_app()
 ```
 
 You change config attributes in this mode. For this, you can add arguments `--up.<config_attribute_name>=new_value`. 
-(For more examples see `mlup run --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-run)).
+(For more examples see `mlup run --help` or [Description of the bash commands](bash_commands.md#mlup-run)).
 
 ##### From config
 ```bash
@@ -281,7 +284,7 @@ up.run_web_app()
 
 This command making `.py` file with mlup web application and your model, config, pickle up object or with default settings.
 
-See `mlup make-app --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-make-app) for full docs.
+See `mlup make-app --help` or [Description of the bash commands](bash_commands.md#mlup-make-app) for full docs.
 
 ##### With default settings
 ```bash
@@ -424,7 +427,7 @@ python3 example_without_data_app.py
 
 This command use for validation your config. This command have alpha version and need finalize.
 
-See `mlup validate-config --help` or [Description of the bash commands](https://github.com/nxexox/pymlup/blob/main/docs/bash_commands.md#mlup-validate-config) for full docs.
+See `mlup validate-config --help` or [Description of the bash commands](bash_commands.md#mlup-validate-config) for full docs.
 
 ```bash
 mlup validate-config /path/to/my/conf.yaml
@@ -434,7 +437,7 @@ mlup validate-config /path/to/my/conf.yaml
 
 By default, web application starting on http://localhost:8009 and have api docs.
 
-See [Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md) for more details. 
+See [Web app API](web_app_api.md) for more details. 
 
 ### Interactive API docs
 
@@ -584,7 +587,7 @@ This method have validation for inner request data. It's making from config `col
 
 ## Web application modes
 
-See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md) for more details. 
+See [Web app architectures](web_app_architectures.md) for more details. 
 
 Web application have three works modes:
 * `directly_to_predict` - is Default. User request send directly to model.

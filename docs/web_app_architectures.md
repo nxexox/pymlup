@@ -5,10 +5,10 @@ The mlup web application has several architectures:
 * [mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture](https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/worker_and_queue.py);
 * [mlup.web.architecture.batching.BatchingSingleProcessArchitecture](https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/batching.py);
 
-You can change the architecture using the `mode` configuration parameter (See "[Description of the configuration file](https://github.com/nxexox/pymlup/tree/main/docs/config_file.md#web)").
+You can change the architecture using the `mode` configuration parameter (See "[Description of the configuration file](config_file.md#web)").
 `mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture` is set in the default config.
 
-As described in "[Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md)", loading a web application is only possible when `mlup.ml` has already been loaded into memory.
+As described in "[Description of the application life cycle](life_cycle.md)", loading a web application is only possible when `mlup.ml` has already been loaded into memory.
 
 The architecture requires initialization just like a web application. This happens inside `mlup.UP.web.load()`, after the web application itself has been fully initialized.
 In fact, the architecture must support an interface of several methods:
@@ -78,7 +78,7 @@ This can lead to various problems:
 
 This architecture is well suited for fast models that can process multiple requests per second.
 
-![mlup architecture directly to predict](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_directly_to_predict.png?raw=true)
+![mlup architecture directly to predict](assets/img/archi_directly_to_predict.png?raw=true)
 
 ### Initialization of the architecture
 
@@ -114,11 +114,11 @@ To configure queue sizes and response prediction lifetimes, there are configurat
 * `is_long_predict: bool` - enable an additional API method in which you can retrieve the prediction result.
   When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
   This parameter adds an API method `GET: /get-predict/{predict_id}`, in which you can get prediction results if they are in the results store.
-  See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
+  See "[Web app API](web_app_api.md)".
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
-  See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
+  See "[Web app API](web_app_api.md)".
 
-![mlup architecture worker and queue](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_worker_and_queue.png?raw=true)
+![mlup architecture worker and queue](assets/img/archi_worker_and_queue.png?raw=true)
 
 ### Initialization of the architecture
 
@@ -204,11 +204,11 @@ In addition to the `batch_worker_timeout` and `min_batch_len` batching parameter
 * `is_long_predict: bool` - enable an additional API method in which you can retrieve the prediction result.
   When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
   This parameter adds an API method `GET: /get-predict/{predict_id}`, in which you can get prediction results if they are in the results store.
-  See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
+  See "[Web app API](web_app_api.md)".
 * `ttl_client_wait: float` - the maximum time to wait for client results in the `GET: /get-predict/{predict_id}` method in seconds.
-  See "[Web app API](https://github.com/nxexox/pymlup/tree/main/docs/web_app_api.md)".
+  See "[Web app API](web_app_api.md)".
 
-![mlup architecture batching](https://github.com/nxexox/pymlup/blob/main/docs/assets/img/archi_batching.png?raw=true)
+![mlup architecture batching](assets/img/archi_batching.png?raw=true)
 
 ### Initialization of the architecture
 

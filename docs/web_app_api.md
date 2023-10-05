@@ -111,7 +111,7 @@ If the parameter `auto_detect_predict_params=False` (default is `True`_), then t
 ```
 
 If `auto_detect_predict_params=True` (default `True`_), then mlup analyzes the model and its predict method.
-And converts the arguments of the predict method of the model into parameters accepted by this API method. (_See [Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md)_).
+And converts the arguments of the predict method of the model into parameters accepted by this API method. (_See [Description of the application life cycle](life_cycle.md)_).
 
 For example, for scikit-learn models, the `predict` method has 1 argument `X: Any`. And then the API request will look like this:
 
@@ -164,7 +164,7 @@ If no problems occurred, the method returns the prediction results.
 
 The architecture may change the response body returned by this method. For example, for the architecture `mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture` and `mlup.web.architecture.batching.BatchingSingleProcessArchitecture`,
 if the `is_long_predict=True` configuration option is enabled, this method will return `predict_id`.
-You can use it to pick up the results later. (_See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md)_).
+You can use it to pick up the results later. (_See [Web app architectures](web_app_architectures.md)_).
 
 ```json
 {
@@ -176,7 +176,7 @@ You can use it to pick up the results later. (_See [Web app architectures](https
 
 This API method is only used in the `mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture` and `mlup.web.architecture.batching.BatchingSingleProcessArchitecture` architectures.
 If the model takes a long time to make a prediction, or the client wants to pick up the prediction results later, he can set the `is_long_predict=True` configuration parameter and go for the results later.
-(_See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md)_).
+(_See [Web app architectures](web_app_architectures.md)_).
 
 ### GET
 
@@ -287,6 +287,6 @@ Error during model prediction or data transformation.
 
 ## Свой API
 
-As shown in the [life_cycle.md](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md#web-application-customization) section, you can completely customize a web application after it has been created.
+As shown in the [life_cycle.md](life_cycle.md#web-application-customization) section, you can completely customize a web application after it has been created.
 
 Including, you can add new or even change existing API methods.

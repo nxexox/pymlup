@@ -1,7 +1,7 @@
 # Storages
 
-[Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md) describes the role of storage throughout mlup.
-This component is needed to deliver the model from your storage to the local disk and transfer information about the downloaded file to the binarizer (See [Binarizers](https://github.com/nxexox/pymlup/tree/main/docs/binarizers.md)).
+[Description of the application life cycle](life_cycle.md) describes the role of storage throughout mlup.
+This component is needed to deliver the model from your storage to the local disk and transfer information about the downloaded file to the binarizer (See [Binarizers](binarizers.md)).
 It can also load the contents of files into memory.
 
 This can be any storage that your code can access from the server using any protocol.

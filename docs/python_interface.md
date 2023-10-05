@@ -91,7 +91,7 @@ The `mlup.UP.ml` object is `mlup.ml.model.MLupModel`.
 * `async predict` - causes model prediction, along with data processing.
 * `async predict_from` - the same as `predict`, but without processing before prediction.
 
-You can read about scenarios for using the `load`, `load_model_settings`, `get_X_from_predict_data` methods in [Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md#mlupml).
+You can read about scenarios for using the `load`, `load_model_settings`, `get_X_from_predict_data` methods in [Description of the application life cycle](life_cycle.md#mlupml).
 
 The `predict` and `predict_from` methods accept data for prediction based on the keys for which you send it to the model.
 ```python
@@ -172,7 +172,7 @@ The `mlup.UP.web` object is `mlup.web.app.MLupWebApp`.
 * `async debug_info` - This is the `/info` request handler in the case of `debug=True`.
 * `async http_health` - This is the `/predict` request handler.
 
-You can read about scenarios for using the `load`, `load_web_app_settings`, `run`, `stop` methods in [Description of the application life cycle](https://github.com/nxexox/pymlup/tree/main/docs/life_cycle.md#mlupweb).
+You can read about scenarios for using the `load`, `load_web_app_settings`, `run`, `stop` methods in [Description of the application life cycle](life_cycle.md#mlupweb).
 
 ```python
 import numpy
