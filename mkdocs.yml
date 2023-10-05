@@ -12,6 +12,7 @@ theme:
     - search.highlight
     - search.share
     - offline
+  favicon: assets/img/favicon.png
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -32,6 +33,7 @@ theme:
       accent: "teal"
 
 extra:
+  homepage: https://mlup.org
   version:
     provider: mike
     default: stable
