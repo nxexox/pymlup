@@ -1,0 +1,37 @@
+site_name: MLup
+
+repo_url: https://github.com/nxexox/pymlup
+repo_name: PyMLup
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - offline
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: "teal"
+      accent: "cyan"
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: "cyan"
+      accent: "teal"
+
+extra:
+  version:
+    provider: mike
+    default: stable
