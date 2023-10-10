@@ -75,6 +75,8 @@ pip install "pymlup[onnx]"          # For onnx models: torch, tensorflow, sklear
 
 ### Examples code
 
+<details>
+
 ```python
 import mlup
 
@@ -199,7 +201,11 @@ up.conf.auto_detect_predict_params = False
 up.ml.load_model_settings()
 ```
 
+</details>
+
 ### Examples server commands
+
+<details>
 
 #### mlup run
 
@@ -418,7 +424,11 @@ See `mlup validate-config --help` or [Description of the bash commands](https://
 mlup validate-config /path/to/my/conf.yaml
 ```
 
+</details>
+
 ## Web application interface
+
+<details>
 
 By default, web application starting on http://localhost:8009 and have api docs.
 
@@ -570,7 +580,11 @@ By default, this param is `mlup.ml.data_transformers.numpy_data_transformer.Nump
 
 This method have validation for inner request data. It's making from config `columns` and flag `column_validation`.
 
+</details>
+
 ## Web application modes
+
+<details>
 
 See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md) for more details. 
 
@@ -610,6 +624,8 @@ up = mlup.UP(
     )
 )
 ```
+
+</details>
 
 ## Metrics
 
