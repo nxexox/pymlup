@@ -21,6 +21,7 @@ To start using your model, you need to load the model into mlup - `up.ml.load()`
 At this point, mlup first loads your model into memory. In the case of `mlup.UP(ml_model=your_model)` your model is already loaded and mlup will not load it into memory again.
 
 Loading a model into memory consists of two stages:
+
 * Loading binary data using `storage_type`;
 * Deserilization of binary data into the model;
 
@@ -40,6 +41,7 @@ But it does not indicate whether the model was analyzed using the `up.ml.load_mo
 The `up.ml.load_model_settings()` method analyzes the loaded model, according to the settings specified in the config, and prepares the `mlup.UP` object to work with it.
 
 At this point the analysis occurs:
+
 * Method for prediction;
 * Method arguments for prediction;
 * Creating data transformers to convert user data into model format and model response into user format;
@@ -88,6 +90,7 @@ _P.S. You don't have to worry if you forget to call `up.web.load()`. mlup will n
 Unlike the ml component, the web component has only 1 loading method, `up.web.load()`, which each time recreates the web app application and reinitializes all settings.
 
 Loading a web application consists of several sequential stages (all of them are hidden inside `up.web.load()`):
+
 * `up.web.load_web_app_settings()` - preloading parameters for initializing and launching the application. Here transformations and filling of internal structures take place for the configuration of the web application and the backend of the application.
 * `up.web._create_app()` - initialization of the web application itself and its backend, construction of the API and application documentation. This is where the analysis results from your machine learning model are most used.
 * `self._architecture_obj.load()` - initialization of the web application architecture. Some architectures require some operations before launch: initializing workers and queues, adding custom API methods to a web application, and other operations. (See [Web app architectures](web_app_architectures.md)).
@@ -148,6 +151,7 @@ After successful initialization of the web component, you can launch your applic
 The `up.ml.predict` method calls the web application for prediction. But you also use it when you call any of the methods: `up.predict`, `up.predict_from`, `up.async_predict`.
 
 Behind it lies a process of several stages:
+
 * First of all, the main array with object attributes - X - is searched in the transmitted user data. To do this, the `up.ml.get_X_from_predict_data` method is called.
 * If X is found, in other words the data is not empty, then the found data X is passed through the data transformer specified in the `data_transformer_for_predict` configuration parameter. Called `up.ml._transform_data_for_predict`. See [Data Transformers](data_transformers.md).
 * If there are problems with the transformation, a [PredictTransformDataError](https://github.com/nxexox/pymlup/blob/main/mlup/errors.py) exception will be thrown. If the transformation is successful, the data is used for prediction.
@@ -165,6 +169,7 @@ mlup takes care of this, so the entire request processing process is described h
 ![mlup web application work process](assets/img/mlup-request-processed.png?raw=true)
 
 The process looks like this:
+
 * A request has been received from a user.
 * If this is not a /predict request, then it immediately goes to the handler. If `/predict`, wrappers for the handler are processed first:
   * `mlup.web.app._set_predict_id_to_response_headers` - generates _predict_id_ and sets the request headers to it. Thus, it can be used in the request handler itself and its subfunctions.

@@ -9,6 +9,7 @@ This can be any storage that your code can access from the server using any prot
 At the moment there are no implementations for working with remote storages in mlup 🙃
 
 So far, mlup supports two types of storage out of the box:
+
 * [mlup.ml.storage.memory.MemoryStorage](https://github.com/nxexox/pymlup/blob/main/mlup/ml/storage/memory.py)
 * [mlup.ml.storage.local_disk.DiskStorage](https://github.com/nxexox/pymlup/blob/main/mlup/ml/storage/local_disk.py)
 
@@ -43,11 +44,13 @@ When you run a mlup application on the server, at that moment your model is not 
 `mlup.ml.storage.local_disk.DiskStorage` finds the model file by path and mask on the local disk, and returns information on the found file, which mlup passes to the binarizer.
 
 This storage has parameters for `storage_kwargs`:
+
 * `path_to_files: str` - Required. The path to the folder with the model file or to the model file itself on disk.
 * `file_mask: str` = Optional. By default `(\w.-_)*.pckl` is pickle. A regular expression that will be used to search for a file in `path_to_files`.
 * `need_load_file: bool` - Optional. Default is False. If False, the binary model data itself will not be loaded into memory and the binarizer will load it itself. If True, then the storage will load the raw data into memory and give it to the binarizer.
 
 **IMPORTANT!**
+
 * By default, `mlup.ml.storage.local_disk.DiskStorage` does not load model data into memory. The binarizer loads them independently.
 In this case, if your model weighs 1 GB, then you need at least 1 GB of RAM to run the application.
 * If you specify `need_load_file=True`, and the model is loaded into memory by storage, memory duplication will occur: raw data loaded by storage and the model serialized from this data.
@@ -112,6 +115,7 @@ class MyStorage(BaseStorage):
 ```
 
 Where:
+
 * `load` - method that calls mlup. Everything happens in this method. It also calls `load_bytes_single_file` for each file that needs to be analyzed, loaded into memory or downloaded to disk.
 * `load_bytes_single_file` - this method is called inside `load` for each file when the file needs to be parsed, loaded into memory or downloaded to its disk.
 

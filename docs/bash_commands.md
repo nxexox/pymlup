@@ -29,6 +29,7 @@ mlup run -m /path/to/my/model.onnx
 ```
 
 But this team is much broader. It can run the application:
+
 * by model - `mlup run -m /path/to/my/model.onnx`;
 * according to the config - `mlup run -c /path/to/my/config.yaml`;
 * according to the pickle file with mlup.UP - `mlup run -b /path/to/my/binary.pickle`;
@@ -39,6 +40,7 @@ mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
 ```
 
 The order of using the config in this case:
+
 * The most priority config from the arguments `--up.<conf_name>`;
 * Config from your configuration file;
 * Default config value;
@@ -94,11 +96,13 @@ if __name__ == '__main__':
 ```
 
 You can control which application will be generated using arguments:
+
 * `mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py` - will add model loading from disk to the application.
 * `mlup make-app -сs /path/to/your/config.yaml /path/to/your/app.py` - will add config loading from disk to the application.
 * `mlup make-app -bs /path/to/your/mlupUP.pickle /path/to/your/app.py` - will add loading mlup.UP from disk and unpickle to the application.
 
 For example, the command `mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py` will create the file:
+
 ```python
 import mlup
 from mlup import constants
@@ -128,6 +132,7 @@ if __name__ == '__main__':
 If the file `/path/to/your/app.py` already exists, you can specify `--force` to overwrite it. Then the existing file will be deleted and a new one will be created.
 
 Just like in `mlup run`, you can specify your own configuration options via the `--up.<conf_name>` argument.
+
 ```bash
 mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py --up.port=8010 --up.use_thread_loop=False`
 ```

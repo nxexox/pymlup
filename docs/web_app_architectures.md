@@ -1,6 +1,7 @@
 # Web app architectures
 
 The mlup web application has several architectures:
+
 * [mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture](https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/directly_to_predict.py);
 * [mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture](https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/worker_and_queue.py);
 * [mlup.web.architecture.batching.BatchingSingleProcessArchitecture](https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/batching.py);
@@ -72,6 +73,7 @@ This is a simple web application architecture - a direct call to model predictio
 
 When several parallel requests arrive, each of them, independently of each other, will call `web.UP.ml.predict`.
 This can lead to various problems:
+
 * Using more resources.
 * Slowdown of prediction and web application.
 * Locks if the model cannot simultaneously work in parallel.
@@ -97,6 +99,7 @@ async def predict(self, data_for_predict: Dict, predict_id: str) -> Any:
 This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.
 
 Predictions are asynchronous:
+
 * WEB: Place the request in the prediction request queue.
 * WORKER: The model rakes up this queue and runs a predictor on the data from the queue one by one.
 * WORKER: The model puts the prediction results into the result store.
@@ -106,6 +109,7 @@ This approach allows you to control concurrent user access to the model resource
 The model will always process only 1 request while the others are in the queue.
 
 To configure queue sizes and response prediction lifetimes, there are configuration parameters:
+
 * `max_queue_size: int` - maximum queue size for prediction requests.
 * `ttl_predicted_data: int` - maximum lifetime of the prediction result in seconds.
   If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
@@ -123,6 +127,7 @@ To configure queue sizes and response prediction lifetimes, there are configurat
 ### Initialization of the architecture
 
 For the architecture to work, you need:
+
 * Queue for prediction requests.
 * Storage of prediction results with TTL.
 * Thread for model work.
@@ -134,6 +139,7 @@ This allows you not to block the web application during model prediction, within
 
 The processing of the request with all the nuances is described here.
 Request path:
+
 * A validated request is included in the architecture.
 * The architecture places the request data in a prediction queue.
 * When a request waits its turn, the worker extracts the `predict_id` from it and sends the user data to the model.
@@ -170,6 +176,7 @@ This architecture is very convenient to use when your model spends approximately
 For example, it takes ~1 second to predict 1 object, and ~1.1 second to predict many objects.
 
 This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.
+
 * WEB: Place the request in the prediction request queue.
 * WORKER: The model clears this queue, combines several requests into one batch and runs a predictor for the batch.
 * WORKER: The model puts the batch prediction results into the results store.
@@ -179,6 +186,7 @@ This approach allows you to control concurrent user access to the model resource
 At the same time, the model can simultaneously process several requests at once.
 
 The batch has two restrictions:
+
 * `min_batch_len: int` - the minimum batch size that is needed to start prediction. The worker will run a prediction on the model of the current batch if this batch exceeds the size specified in this parameter.
 * `batch_worker_timeout: float` - maximum time for creating a batch. The worker will start a prediction for the current batch model if the batch generation time has reached this value. Even if the batch size has not reached `min_batch_len`.
 
@@ -196,6 +204,7 @@ For example, ~~max_batch_len~~=10`, and two requests came with 9 and 3 objects. 
 Therefore, it will not be able to send data for prediction.
 
 In addition to the `batch_worker_timeout` and `min_batch_len` batching parameters, there are configuration parameters for configuring the batching architecture:
+
 * `max_queue_size: int` - maximum queue size for prediction requests.
 * `ttl_predicted_data: int` - maximum lifetime of the prediction result in seconds. 
   If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
@@ -213,6 +222,7 @@ In addition to the `batch_worker_timeout` and `min_batch_len` batching parameter
 ### Initialization of the architecture
 
 For this architecture to work, you need:
+
 * Queue for prediction requests.
 * Storage of prediction results with TTL.
 * Thread for model work.
@@ -224,6 +234,7 @@ This allows you not to block the web application during model prediction, within
 
 The processing of the request with all the nuances is described here.
 Request path:
+
 * A validated request is included in the architecture.
 * The architecture places the request data in a prediction queue.
 * When a request waits its turn, the worker takes the `predict_id` from it and adds the user data to the batch.

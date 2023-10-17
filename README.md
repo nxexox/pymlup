@@ -16,6 +16,7 @@ PyMLup is a modern way to run machine learning models in production. The market 
 * Use FastApi in web app backend;
 
 Work tested with machine learning model frameworks (links to tests):
+
 * [scikit-learn>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
 * [tensorflow>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
 * [lightgbm>=4.0.0,<5.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py)
@@ -24,6 +25,7 @@ Work tested with machine learning model frameworks (links to tests):
 * [onnxruntime>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
 
 Support and tested with machine learning libraries:
+
 * [numpy>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
 * [pandas>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
 * [joblib>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
@@ -589,6 +591,7 @@ This method have validation for inner request data. It's making from config `col
 See [Web app architectures](https://github.com/nxexox/pymlup/tree/main/docs/web_app_architectures.md) for more details. 
 
 Web application have three works modes:
+
 * `directly_to_predict` - is Default. User request send directly to model.
 * `worker_and_queue` - ml model starts in thread worker and take data for predict from queue. 
   Web application new user requests send to queue and wait result from results queue.

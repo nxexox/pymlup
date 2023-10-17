@@ -17,6 +17,7 @@ Only some of them are supported out of the box in mlup:
 * [onnx](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py) - docs is [here](https://onnxruntime.ai/docs/get-started/with-python.html);
 
 You can select the one you need in the configuration using `binarization_type`. In `binarization_type` you can specify:
+
 * "auto" - default. In this case, mlup will try to automatically select a binarizer based on the name of the model file and its contents.
 If it fails, a [ModelLoadError](https://github.com/nxexox/pymlup/blob/main/mlup/errors.py) exception will be thrown.
 * select one of the mlup binarizers and specify it using [mlup.constants.BinarizationType](https://github.com/nxexox/pymlup/blob/main/mlup/constants.py).
@@ -30,6 +31,7 @@ Based on this knowledge, the binarizer analyzes the model name and the contents 
 The binarizer with the greatest confidence and tries to load. And if all binarizers returned confidence 0, then the automatic selection is considered unsuccessful.
 
 Not all binarizers participate in the automatic binarizer search, but only:
+
 * [mlup.ml.binarization.pickle.PickleBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/pickle.py)
 * [mlup.ml.binarization.joblib.JoblibBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/joblib.py)
 * [mlup.ml.binarization.lightgbm.LightGBMBinarizer](https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/lightgbm.py)

@@ -21,6 +21,7 @@ up2 = mlup.UP()
 ## mlup.UP
 
 The `mlup.UP` object can be created in different ways:
+
 * Create models in the variable `mlup.UP(ml_model=your_model)`
 * Create from the config `mlup.UP.load_from_yaml(path_ti_your_conf)`
 * Create with empty model:
@@ -45,6 +46,7 @@ up = mlup.UP(
 ```
 
 `mlup.UP` has methods:
+
 * `load_from_dict` - Creating a `mlup.UP` object from a dictionary with a config.
 * `load_from_yaml` - Creating a `mlup.UP` object from a file with yaml config.
 * `load_from_json` - Creating a `mlup.UP` object from a file with a json config.
@@ -58,6 +60,7 @@ up = mlup.UP(
 * `stop_web_app` - Stops a running web application.
 
 And also, there are properties:
+
 * `mlup.UP.ml` is a wrapper over the ml model. It contains all the logic for working with the model and processing data for it.
 * `mlup.UP.web` is a wrapper for the web application. This object contains all the logic for creating, configuring and operating a web application.
 
@@ -85,6 +88,7 @@ The `mlup.UP.ml` object is `mlup.ml.model.MLupModel`.
 `mlup.UP.ml` is a wrapper around your ml model. Other than the `mlup.UP.ml.load` method, in most cases you won't need to access it directly.
 
 `mlup.UP.ml` has methods:
+
 * `load` - a method that loads the model into memory, analyzes it and prepares the `MLupModel` object for working with the model.
 * `load_model_settings` - only parses the loaded model and configures the internals of `MLupModel` after parsing. Called inside `load`.
 * `get_X_from_predict_data` - searches and extracts from the data for prediction, the main argument with features X, according to the results of the analysis of the loaded model.
@@ -163,6 +167,7 @@ The `mlup.UP.web` object is `mlup.web.app.MLupWebApp`.
 `mlup.UP.web` is a wrapper around a FastAPI web application. In most cases, you won't need to contact it directly.
 
 `mlup.UP.web` has methods:
+
 * `load` - a method that creates a web application, according to the config and the results of the analysis of `mlup.ml.model.MLupModel.load()`.
 * `load_web_app_settings` - prepares some internal configs for launching the web application. Called inside `load`.
 * `run` - Launches the web application.

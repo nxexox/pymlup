@@ -590,6 +590,7 @@ This method have validation for inner request data. It's making from config `col
 See [Web app architectures](web_app_architectures.md) for more details. 
 
 Web application have three works modes:
+
 * `directly_to_predict` - is Default. User request send directly to model.
 * `worker_and_queue` - ml model starts in thread worker and take data for predict from queue. 
   Web application new user requests send to queue and wait result from results queue.

@@ -44,6 +44,7 @@ You can read about all the settings at [description of the configuration file](c
 
 You can check how the data is processed, the model makes a prediction, and the response is processed without launching the web application.
 There are methods for this:
+
 * `UP.predict` - Method that is called by the web application with the data received in the request.
 If the `auto_detect_predict_params=True` flag is set in the config (See [Config: auto_detect_predict_params](config_file.md#model-load-settings)), the arguments of this method are the same as the arguments of the model's predict method.
 If the `auto_detect_predict_params=False` flag is set in the config, the data is passed in the `data_for_predict` argument.
