@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
@@ -1602,13 +1602,15 @@ By default, this param is `mlup.ml.data_transformers.numpy_data_transformer.Nump
 <p>This method have validation for inner request data. It's making from config <code>columns</code> and flag <code>column_validation</code>.</p>
 <h2 id="web-application-modes">Web application modes</h2>
 <p>See <a href="web_app_architectures/">Web app architectures</a> for more details. </p>
-<p>Web application have three works modes:
-* <code>directly_to_predict</code> - is Default. User request send directly to model.
-* <code>worker_and_queue</code> - ml model starts in thread worker and take data for predict from queue. 
-  Web application new user requests send to queue and wait result from results queue.
-* <code>batching</code> - ml model start in thread worker and take data for predict from queue. 
+<p>Web application have three works modes:</p>
+<ul>
+<li><code>directly_to_predict</code> - is Default. User request send directly to model.</li>
+<li><code>worker_and_queue</code> - ml model starts in thread worker and take data for predict from queue. 
+  Web application new user requests send to queue and wait result from results queue.</li>
+<li><code>batching</code> - ml model start in thread worker and take data for predict from queue. 
   But not for one request, but combines data from several requests and sends it in one large array to the model. 
-  Web application new user requests send to queue and wait result from results queue.</p>
+  Web application new user requests send to queue and wait result from results queue.</li>
+</ul>
 <p>This param is naming <code>mode</code>.</p>
 <pre><code class="language-python">import mlup
 from mlup.ml.empty import EmptyModel

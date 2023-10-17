@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -608,17 +608,21 @@ Config is valid
 <p>Perhaps the most interesting command, which allows you to run the application directly according to the model without a config.</p>
 <pre><code class="language-bash">mlup run -m /path/to/my/model.onnx
 </code></pre>
-<p>But this team is much broader. It can run the application:
-* by model - <code>mlup run -m /path/to/my/model.onnx</code>;
-* according to the config - <code>mlup run -c /path/to/my/config.yaml</code>;
-* according to the pickle file with mlup.UP - <code>mlup run -b /path/to/my/binary.pickle</code>;</p>
+<p>But this team is much broader. It can run the application:</p>
+<ul>
+<li>by model - <code>mlup run -m /path/to/my/model.onnx</code>;</li>
+<li>according to the config - <code>mlup run -c /path/to/my/config.yaml</code>;</li>
+<li>according to the pickle file with mlup.UP - <code>mlup run -b /path/to/my/binary.pickle</code>;</li>
+</ul>
 <p>Also, you can replace any config value on the fly, directly in the arguments.</p>
 <pre><code class="language-bash">mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
 </code></pre>
-<p>The order of using the config in this case:
-* The most priority config from the arguments <code>--up.&lt;conf_name&gt;</code>;
-* Config from your configuration file;
-* Default config value;</p>
+<p>The order of using the config in this case:</p>
+<ul>
+<li>The most priority config from the arguments <code>--up.&lt;conf_name&gt;</code>;</li>
+<li>Config from your configuration file;</li>
+<li>Default config value;</li>
+</ul>
 <p>Examples for different data types:</p>
 <pre><code class="language-bash"> mlup run -m /path/tomy/model.onnx \
   --up.port=8011 \
@@ -659,10 +663,12 @@ app = up.web.app
 if __name__ == '__main__':
     up.run_web_app()
 </code></pre>
-<p>You can control which application will be generated using arguments:
-* <code>mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py</code> - will add model loading from disk to the application.
-* <code>mlup make-app -сs /path/to/your/config.yaml /path/to/your/app.py</code> - will add config loading from disk to the application.
-* <code>mlup make-app -bs /path/to/your/mlupUP.pickle /path/to/your/app.py</code> - will add loading mlup.UP from disk and unpickle to the application.</p>
+<p>You can control which application will be generated using arguments:</p>
+<ul>
+<li><code>mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py</code> - will add model loading from disk to the application.</li>
+<li><code>mlup make-app -сs /path/to/your/config.yaml /path/to/your/app.py</code> - will add config loading from disk to the application.</li>
+<li><code>mlup make-app -bs /path/to/your/mlupUP.pickle /path/to/your/app.py</code> - will add loading mlup.UP from disk and unpickle to the application.</li>
+</ul>
 <p>For example, the command <code>mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py</code> will create the file:</p>
 <pre><code class="language-python">import mlup
 from mlup import constants

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -625,13 +625,15 @@ up.stop_web_app()
 </code></pre>
 <p>You can read about all the settings at <a href="../config_file/">description of the configuration file</a>.</p>
 <p>You can check how the data is processed, the model makes a prediction, and the response is processed without launching the web application.
-There are methods for this:
-* <code>UP.predict</code> - Method that is called by the web application with the data received in the request.
+There are methods for this:</p>
+<ul>
+<li><code>UP.predict</code> - Method that is called by the web application with the data received in the request.
 If the <code>auto_detect_predict_params=True</code> flag is set in the config (See <a href="../config_file/#model-load-settings">Config: auto_detect_predict_params</a>), the arguments of this method are the same as the arguments of the model's predict method.
-If the <code>auto_detect_predict_params=False</code> flag is set in the config, the data is passed in the <code>data_for_predict</code> argument.
-* <code>UP.async_predict</code> - Asynchronous version of <code>UP.predict</code>.
-* <code>UP.predict_from</code> - Same as <code>UP.predict</code>, but does not call the data transformer before calling the model predictor.
-This allows you to quickly test the model, without transforming your test data into a valid JSON format.</p>
+If the <code>auto_detect_predict_params=False</code> flag is set in the config, the data is passed in the <code>data_for_predict</code> argument.</li>
+<li><code>UP.async_predict</code> - Asynchronous version of <code>UP.predict</code>.</li>
+<li><code>UP.predict_from</code> - Same as <code>UP.predict</code>, but does not call the data transformer before calling the model predictor.
+This allows you to quickly test the model, without transforming your test data into a valid JSON format.</li>
+</ul>
 <pre><code class="language-python">import numpy
 import mlup
 

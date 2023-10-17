@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -951,24 +951,28 @@ Only some of them are supported out of the box in mlup:</p>
 <li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">tensorflow all formats</a> - docs is <a href="https://www.tensorflow.org/tutorials/keras/save_and_load">here</a>;</li>
 <li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">onnx</a> - docs is <a href="https://onnxruntime.ai/docs/get-started/with-python.html">here</a>;</li>
 </ul>
-<p>You can select the one you need in the configuration using <code>binarization_type</code>. In <code>binarization_type</code> you can specify:
-* "auto" - default. In this case, mlup will try to automatically select a binarizer based on the name of the model file and its contents.
-If it fails, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">ModelLoadError</a> exception will be thrown.
-* select one of the mlup binarizers and specify it using <a href="https://github.com/nxexox/pymlup/blob/main/mlup/constants.py">mlup.constants.BinarizationType</a>.
-* specify your own binarizer - the full python import line for your binarizer.</p>
+<p>You can select the one you need in the configuration using <code>binarization_type</code>. In <code>binarization_type</code> you can specify:</p>
+<ul>
+<li>"auto" - default. In this case, mlup will try to automatically select a binarizer based on the name of the model file and its contents.
+If it fails, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">ModelLoadError</a> exception will be thrown.</li>
+<li>select one of the mlup binarizers and specify it using <a href="https://github.com/nxexox/pymlup/blob/main/mlup/constants.py">mlup.constants.BinarizationType</a>.</li>
+<li>specify your own binarizer - the full python import line for your binarizer.</li>
+</ul>
 <h2 id="auto">Auto</h2>
 <p>This is the default way to select a binarizer for a model. It uses well-known mlup binarizers, each of which has some knowledge about its model storage format.</p>
 <p>Based on this knowledge, the binarizer analyzes the model name and the contents of the model source files and returns a probability of the degree of confidence that it can load this model.
 The binarizer with the greatest confidence and tries to load. And if all binarizers returned confidence 0, then the automatic selection is considered unsuccessful.</p>
-<p>Not all binarizers participate in the automatic binarizer search, but only:
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/pickle.py">mlup.ml.binarization.pickle.PickleBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/joblib.py">mlup.ml.binarization.joblib.JoblibBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/lightgbm.py">mlup.ml.binarization.lightgbm.LightGBMBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/torch.py">mlup.ml.binarization.torch.TorchBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionBinarize</a>
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer</a></p>
+<p>Not all binarizers participate in the automatic binarizer search, but only:</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/pickle.py">mlup.ml.binarization.pickle.PickleBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/joblib.py">mlup.ml.binarization.joblib.JoblibBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/lightgbm.py">mlup.ml.binarization.lightgbm.LightGBMBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/torch.py">mlup.ml.binarization.torch.TorchBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/tensorflow.py">mlup.ml.binarization.tensorflow.TensorFlowSavedBinarizer</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionBinarize</a></li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/ml/binarization/onnx.py">mlup.ml.binarization.onnx.InferenceSessionFullReturnBinarizer</a></li>
+</ul>
 <p>If the model is not already loaded into memory, binarizers do not load it into memory for analysis.
 Instead, they can read up to 100 bytes from the beginning of the file and up to 100 bytes from the end of the file.
 Therefore, the memory used by the application should not increase when you use automatic binarizer selection.</p>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -696,9 +696,11 @@ At this point, you have simply created a class. This is done in order to avoid s
 <h4 id="upmlload">up.ml.load()</h4>
 <p>To start using your model, you need to load the model into mlup - <code>up.ml.load()</code>.
 At this point, mlup first loads your model into memory. In the case of <code>mlup.UP(ml_model=your_model)</code> your model is already loaded and mlup will not load it into memory again.</p>
-<p>Loading a model into memory consists of two stages:
-* Loading binary data using <code>storage_type</code>;
-* Deserilization of binary data into the model;</p>
+<p>Loading a model into memory consists of two stages:</p>
+<ul>
+<li>Loading binary data using <code>storage_type</code>;</li>
+<li>Deserilization of binary data into the model;</li>
+</ul>
 <p>If you use <code>storage_type=mlup.constants.StorageType.disk</code>, by default binary data is not loaded into memory and binarizers themselves load the model during binarization.
 This was done to eliminate the possibility of duplicating model data in memory. Binaryizers have access to a local disk, so it is not difficult for them to load the model themselves.
 To change this behavior, <code>storage_type=mlup.constants.StorageType.disk</code> has a <code>need_load_file</code> flag, which defaults to False.</p>
@@ -708,11 +710,13 @@ To change this behavior, <code>storage_type=mlup.constants.StorageType.disk</cod
 But it does not indicate whether the model was analyzed using the <code>up.ml.load_model_settings()</code> method.</p>
 <h4 id="upmlload_model_settings">up.ml.load_model_settings()</h4>
 <p>The <code>up.ml.load_model_settings()</code> method analyzes the loaded model, according to the settings specified in the config, and prepares the <code>mlup.UP</code> object to work with it.</p>
-<p>At this point the analysis occurs:
-* Method for prediction;
-* Method arguments for prediction;
-* Creating data transformers to convert user data into model format and model response into user format;
-* Creation of auxiliary entities, such as <code>concurrent.futures.ThreadPoolExecutor</code>;</p>
+<p>At this point the analysis occurs:</p>
+<ul>
+<li>Method for prediction;</li>
+<li>Method arguments for prediction;</li>
+<li>Creating data transformers to convert user data into model format and model response into user format;</li>
+<li>Creation of auxiliary entities, such as <code>concurrent.futures.ThreadPoolExecutor</code>;</li>
+</ul>
 <p>After this, your model is ready to be used via mlup.</p>
 <p>If you change some setting related to the operation of the model, just call <code>up.load_model_settings()</code>.
 Then mlup will not reload your model into memory, but will simply analyze it again taking into account the changed config.</p>
@@ -746,10 +750,12 @@ But if the web component has already been initialized, you need to specify the <
 If you want to launch your web application in any of the other ways, you need to take care of initializing it yourself - call the <code>up.web.load()</code> method.</p>
 <p><em>P.S. You don't have to worry if you forget to call <code>up.web.load()</code>. mlup will not be able to launch the web application and will crash with the error <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">WebAppLoadError</a></em></p>
 <p>Unlike the ml component, the web component has only 1 loading method, <code>up.web.load()</code>, which each time recreates the web app application and reinitializes all settings.</p>
-<p>Loading a web application consists of several sequential stages (all of them are hidden inside <code>up.web.load()</code>):
-* <code>up.web.load_web_app_settings()</code> - preloading parameters for initializing and launching the application. Here transformations and filling of internal structures take place for the configuration of the web application and the backend of the application.
-* <code>up.web._create_app()</code> - initialization of the web application itself and its backend, construction of the API and application documentation. This is where the analysis results from your machine learning model are most used.
-* <code>self._architecture_obj.load()</code> - initialization of the web application architecture. Some architectures require some operations before launch: initializing workers and queues, adding custom API methods to a web application, and other operations. (See <a href="../web_app_architectures/">Web app architectures</a>).</p>
+<p>Loading a web application consists of several sequential stages (all of them are hidden inside <code>up.web.load()</code>):</p>
+<ul>
+<li><code>up.web.load_web_app_settings()</code> - preloading parameters for initializing and launching the application. Here transformations and filling of internal structures take place for the configuration of the web application and the backend of the application.</li>
+<li><code>up.web._create_app()</code> - initialization of the web application itself and its backend, construction of the API and application documentation. This is where the analysis results from your machine learning model are most used.</li>
+<li><code>self._architecture_obj.load()</code> - initialization of the web application architecture. Some architectures require some operations before launch: initializing workers and queues, adding custom API methods to a web application, and other operations. (See <a href="../web_app_architectures/">Web app architectures</a>).</li>
+</ul>
 <p>Almost always, you need to call <code>up.web.load()</code> and not worry about its internals. But understanding the initialization order will help you write your own modules correctly and customize the application.</p>
 <p>Because the web component builds the API and validation for incoming data, it uses the results of your model analysis.
 This means that you will not be able to initialize web first and then ml. The web component needs an initialized ml component to initialize.</p>
@@ -796,29 +802,33 @@ print(web_app_predicted)
 <p>After successful initialization of the web component, you can launch your application in a way convenient for you.</p>
 <h2 id="ml-predict-process">Ml predict process</h2>
 <p>The <code>up.ml.predict</code> method calls the web application for prediction. But you also use it when you call any of the methods: <code>up.predict</code>, <code>up.predict_from</code>, <code>up.async_predict</code>.</p>
-<p>Behind it lies a process of several stages:
-* First of all, the main array with object attributes - X - is searched in the transmitted user data. To do this, the <code>up.ml.get_X_from_predict_data</code> method is called.
-* If X is found, in other words the data is not empty, then the found data X is passed through the data transformer specified in the <code>data_transformer_for_predict</code> configuration parameter. Called <code>up.ml._transform_data_for_predict</code>. See <a href="../data_transformers/">Data Transformers</a>.
-* If there are problems with the transformation, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">PredictTransformDataError</a> exception will be thrown. If the transformation is successful, the data is used for prediction.
-* Prediction is the actual call to <code>predict</code> on the model with the transformed data. But depending on the configuration and the <a href="../config_file/">(use_thread_loop) Description of the configuration file</a> parameter, the prediction is run with or without <code>concurrent.futures.ThreadPoolExecutor</code>.
-* If the prediction caused an error, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">PredictError</a> exception will be thrown.
-* And if the prediction is successful, the prediction results will be sent to the data transformer from the <code>data_transformer_for_predicted</code> configuration parameter for conversion to a valid JSON format and returned from the method. Called <code>up.ml._transform_predicted_data</code>.</p>
+<p>Behind it lies a process of several stages:</p>
+<ul>
+<li>First of all, the main array with object attributes - X - is searched in the transmitted user data. To do this, the <code>up.ml.get_X_from_predict_data</code> method is called.</li>
+<li>If X is found, in other words the data is not empty, then the found data X is passed through the data transformer specified in the <code>data_transformer_for_predict</code> configuration parameter. Called <code>up.ml._transform_data_for_predict</code>. See <a href="../data_transformers/">Data Transformers</a>.</li>
+<li>If there are problems with the transformation, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">PredictTransformDataError</a> exception will be thrown. If the transformation is successful, the data is used for prediction.</li>
+<li>Prediction is the actual call to <code>predict</code> on the model with the transformed data. But depending on the configuration and the <a href="../config_file/">(use_thread_loop) Description of the configuration file</a> parameter, the prediction is run with or without <code>concurrent.futures.ThreadPoolExecutor</code>.</li>
+<li>If the prediction caused an error, a <a href="https://github.com/nxexox/pymlup/blob/main/mlup/errors.py">PredictError</a> exception will be thrown.</li>
+<li>And if the prediction is successful, the prediction results will be sent to the data transformer from the <code>data_transformer_for_predicted</code> configuration parameter for conversion to a valid JSON format and returned from the method. Called <code>up.ml._transform_predicted_data</code>.</li>
+</ul>
 <p><img alt="mlup predict process" src="../assets/img/mlup-predict-scheme.png?raw=true" /></p>
 <h2 id="web-application-work">Web application work</h2>
 <p>After launching the web application, it is ready to accept requests from users. When a developer independently writes a web application with a model, he has full control and knowledge of how the request processing process occurs.
 mlup takes care of this, so the entire request processing process is described here.</p>
 <p><img alt="mlup web application work process" src="../assets/img/mlup-request-processed.png?raw=true" /></p>
-<p>The process looks like this:
-* A request has been received from a user.
-* If this is not a /predict request, then it immediately goes to the handler. If <code>/predict</code>, wrappers for the handler are processed first:
-  * <code>mlup.web.app._set_predict_id_to_response_headers</code> - generates <em>predict_id</em> and sets the request headers to it. Thus, it can be used in the request handler itself and its subfunctions.
-  * <code>mlup.web.app._requests_throttling</code> - throttling by the number of requests to the predictor. If the request is not throttled, the web application responds with a 429 response code. Enabling/disabling throttling and configuration can be found in <a href="../config_file/#webapp-work-settings">Description of the configuration file (throttling_max_requests)</a>.
-* If not <code>/predict</code>, a JSON response is generated and returned to the client. Next we'll look at the <code>/predict</code> method.
-* During web application initialization, a pydantic model is created to validate incoming data. The Pydantic model is based on the result of model analysis and mlup configuration and is available in the <code>up.web._predict_inner_pydantic_model</code> attribute.
-Incoming data is run and validated through this pydantic model. If there are errors, the application immediately responds with a 422 response code with validation errors.
-* If the validation is successful, validation occurs for the length of the request - the number of objects for predict in the request. If the request is not throttled, the web application responds with a 429 response code. Enabling/disabling and configuration of request length throttling can be found in <a href="../config_file/#webapp-work-settings">Description of the configuration file (throttling_max_request_len)</a>
-* After successfully passing through all stages of validation and throttling, the request is transferred to the architecture for processing, to the <code>up.web._architecture_obj.predict</code> method.
-* After receiving a response from the architecture component, the web application responds with what the architecture component responded.</p>
+<p>The process looks like this:</p>
+<ul>
+<li>A request has been received from a user.</li>
+<li>If this is not a /predict request, then it immediately goes to the handler. If <code>/predict</code>, wrappers for the handler are processed first:</li>
+<li><code>mlup.web.app._set_predict_id_to_response_headers</code> - generates <em>predict_id</em> and sets the request headers to it. Thus, it can be used in the request handler itself and its subfunctions.</li>
+<li><code>mlup.web.app._requests_throttling</code> - throttling by the number of requests to the predictor. If the request is not throttled, the web application responds with a 429 response code. Enabling/disabling throttling and configuration can be found in <a href="../config_file/#webapp-work-settings">Description of the configuration file (throttling_max_requests)</a>.</li>
+<li>If not <code>/predict</code>, a JSON response is generated and returned to the client. Next we'll look at the <code>/predict</code> method.</li>
+<li>During web application initialization, a pydantic model is created to validate incoming data. The Pydantic model is based on the result of model analysis and mlup configuration and is available in the <code>up.web._predict_inner_pydantic_model</code> attribute.
+Incoming data is run and validated through this pydantic model. If there are errors, the application immediately responds with a 422 response code with validation errors.</li>
+<li>If the validation is successful, validation occurs for the length of the request - the number of objects for predict in the request. If the request is not throttled, the web application responds with a 429 response code. Enabling/disabling and configuration of request length throttling can be found in <a href="../config_file/#webapp-work-settings">Description of the configuration file (throttling_max_request_len)</a></li>
+<li>After successfully passing through all stages of validation and throttling, the request is transferred to the architecture for processing, to the <code>up.web._architecture_obj.predict</code> method.</li>
+<li>After receiving a response from the architecture component, the web application responds with what the architecture component responded.</li>
+</ul>
 <p>The processing code itself is short:</p>
 <pre><code class="language-python">@_set_predict_id_to_response_headers
 @_requests_throttling

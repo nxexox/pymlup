@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -723,10 +723,12 @@
 
 
 <h1 id="web-app-architectures">Web app architectures</h1>
-<p>The mlup web application has several architectures:
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/directly_to_predict.py">mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</a>;
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/worker_and_queue.py">mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</a>;
-* <a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/batching.py">mlup.web.architecture.batching.BatchingSingleProcessArchitecture</a>;</p>
+<p>The mlup web application has several architectures:</p>
+<ul>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/directly_to_predict.py">mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/worker_and_queue.py">mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</a>;</li>
+<li><a href="https://github.com/nxexox/pymlup/blob/main/mlup/web/architecture/batching.py">mlup.web.architecture.batching.BatchingSingleProcessArchitecture</a>;</li>
+</ul>
 <p>You can change the architecture using the <code>mode</code> configuration parameter (See "<a href="../config_file/#web">Description of the configuration file</a>").
 <code>mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</code> is set in the default config.</p>
 <p>As described in "<a href="../life_cycle/">Description of the application life cycle</a>", loading a web application is only possible when <code>mlup.ml</code> has already been loaded into memory.</p>
@@ -781,10 +783,12 @@ The <code>predict_id</code> argument includes the unique generated id of the pre
 <h2 id="mlupwebarchitecturedirectly_to_predictdirectlytopredictarchitecture">mlup.web.architecture.directly_to_predict.DirectlyToPredictArchitecture</h2>
 <p>This is a simple web application architecture - a direct call to model prediction.</p>
 <p>When several parallel requests arrive, each of them, independently of each other, will call <code>web.UP.ml.predict</code>.
-This can lead to various problems:
-* Using more resources.
-* Slowdown of prediction and web application.
-* Locks if the model cannot simultaneously work in parallel.</p>
+This can lead to various problems:</p>
+<ul>
+<li>Using more resources.</li>
+<li>Slowdown of prediction and web application.</li>
+<li>Locks if the model cannot simultaneously work in parallel.</li>
+</ul>
 <p>This architecture is well suited for fast models that can process multiple requests per second.</p>
 <p><img alt="mlup architecture directly to predict" src="../assets/img/archi_directly_to_predict.png?raw=true" /></p>
 <h3 id="initialization-of-the-architecture">Initialization of the architecture</h3>
@@ -796,42 +800,50 @@ This can lead to various problems:
 </code></pre>
 <h2 id="mlupwebarchitectureworker_and_queueworkerandqueuearchitecture">mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</h2>
 <p>This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.</p>
-<p>Predictions are asynchronous:
-* WEB: Place the request in the prediction request queue.
-* WORKER: The model rakes up this queue and runs a predictor on the data from the queue one by one.
-* WORKER: The model puts the prediction results into the result store.
-* WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</p>
+<p>Predictions are asynchronous:</p>
+<ul>
+<li>WEB: Place the request in the prediction request queue.</li>
+<li>WORKER: The model rakes up this queue and runs a predictor on the data from the queue one by one.</li>
+<li>WORKER: The model puts the prediction results into the result store.</li>
+<li>WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</li>
+</ul>
 <p>This approach allows you to control concurrent user access to the model resource.
 The model will always process only 1 request while the others are in the queue.</p>
-<p>To configure queue sizes and response prediction lifetimes, there are configuration parameters:
-* <code>max_queue_size: int</code> - maximum queue size for prediction requests.
-* <code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds.
+<p>To configure queue sizes and response prediction lifetimes, there are configuration parameters:</p>
+<ul>
+<li><code>max_queue_size: int</code> - maximum queue size for prediction requests.</li>
+<li><code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds.
   If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
   This setting controls how long after the results are deleted if the client has not collected them.
-  The countdown starts from the moment the result is saved in the results storage.
-* <code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
+  The countdown starts from the moment the result is saved in the results storage.</li>
+<li><code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
   When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
   This parameter adds an API method <code>GET: /get-predict/{predict_id}</code>, in which you can get prediction results if they are in the results store.
-  See "<a href="../web_app_api/">Web app API</a>".
-* <code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
-  See "<a href="../web_app_api/">Web app API</a>".</p>
+  See "<a href="../web_app_api/">Web app API</a>".</li>
+<li><code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
+  See "<a href="../web_app_api/">Web app API</a>".</li>
+</ul>
 <p><img alt="mlup architecture worker and queue" src="../assets/img/archi_worker_and_queue.png?raw=true" /></p>
 <h3 id="initialization-of-the-architecture_1">Initialization of the architecture</h3>
-<p>For the architecture to work, you need:
-* Queue for prediction requests.
-* Storage of prediction results with TTL.
-* Thread for model work.</p>
+<p>For the architecture to work, you need:</p>
+<ul>
+<li>Queue for prediction requests.</li>
+<li>Storage of prediction results with TTL.</li>
+<li>Thread for model work.</li>
+</ul>
 <p>All this is created at the time of initialization. Since mlup works in an asynchronous paradigm, the model prediction worker is launched as <code>asyncio.Task</code>.
 This allows you not to block the web application during model prediction, within one process.</p>
 <h3 id="request-lifecycle_1">Request Lifecycle</h3>
 <p>The processing of the request with all the nuances is described here.
-Request path:
-* A validated request is included in the architecture.
-* The architecture places the request data in a prediction queue.
-* When a request waits its turn, the worker extracts the <code>predict_id</code> from it and sends the user data to the model.
-* The request is digested by the model and it makes a prediction. The worker combines the prediction results with the previously extracted <code>predict_id</code> and stores them in the results storage.
-* If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.
-* The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</p>
+Request path:</p>
+<ul>
+<li>A validated request is included in the architecture.</li>
+<li>The architecture places the request data in a prediction queue.</li>
+<li>When a request waits its turn, the worker extracts the <code>predict_id</code> from it and sends the user data to the model.</li>
+<li>The request is digested by the model and it makes a prediction. The worker combines the prediction results with the previously extracted <code>predict_id</code> and stores them in the results storage.</li>
+<li>If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.</li>
+<li>The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</li>
+</ul>
 <p>The architecture has a method <code>_get_result_from_storage</code>, which time <code>ttl_client_wait</code> tries to find the prediction result in the storage by <code>predict_id</code>.
 If an error occurs during prediction, the worker will store this error in the results store instead of the prediction result.
 And when the <code>_get_result_from_storage</code> method reads the results and sees an error, it will return an error to the client with the appropriate response code.</p>
@@ -853,16 +865,20 @@ But <code>mlup.web.architecture.worker_and_queue.WorkerAndQueueArchitecture</cod
 While <code>mlup.web.architecture.batching.BatchingSingleProcessArchitecture</code> combines several requests into one batch and sends this batch for prediction.</p>
 <p>This architecture is very convenient to use when your model spends approximately the same time predicting one and several objects.
 For example, it takes ~1 second to predict 1 object, and ~1.1 second to predict many objects.</p>
-<p>This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.
-* WEB: Place the request in the prediction request queue.
-* WORKER: The model clears this queue, combines several requests into one batch and runs a predictor for the batch.
-* WORKER: The model puts the batch prediction results into the results store.
-* WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</p>
+<p>This architecture involves running the machine learning model in a separate thread, thereby not blocking the main thread of the web application.</p>
+<ul>
+<li>WEB: Place the request in the prediction request queue.</li>
+<li>WORKER: The model clears this queue, combines several requests into one batch and runs a predictor for the batch.</li>
+<li>WORKER: The model puts the batch prediction results into the results store.</li>
+<li>WEB: The query waits for its result by <code>predict_id</code> to appear in the result store.</li>
+</ul>
 <p>This approach allows you to control concurrent user access to the model resource.
 At the same time, the model can simultaneously process several requests at once.</p>
-<p>The batch has two restrictions:
-* <code>min_batch_len: int</code> - the minimum batch size that is needed to start prediction. The worker will run a prediction on the model of the current batch if this batch exceeds the size specified in this parameter.
-* <code>batch_worker_timeout: float</code> - maximum time for creating a batch. The worker will start a prediction for the current batch model if the batch generation time has reached this value. Even if the batch size has not reached <code>min_batch_len</code>.</p>
+<p>The batch has two restrictions:</p>
+<ul>
+<li><code>min_batch_len: int</code> - the minimum batch size that is needed to start prediction. The worker will run a prediction on the model of the current batch if this batch exceeds the size specified in this parameter.</li>
+<li><code>batch_worker_timeout: float</code> - maximum time for creating a batch. The worker will start a prediction for the current batch model if the batch generation time has reached this value. Even if the batch size has not reached <code>min_batch_len</code>.</li>
+</ul>
 <p>Batching reads <code>batch_worker_timeout</code> time requests from the prediction request queue.
 If, after adding the next request to the batch, the batch size exceeds <code>min_batch_len</code>, the worker will send the batch for prediction.
 If during the <code>batch_worker_timeout</code> time the batch has not reached a size exceeding <code>min_batch_len</code>, the worker sends it for prediction in the form in which it is.</p>
@@ -873,39 +889,45 @@ Since in one request more than one object for prediction can come, but several, 
 Therefore, you cannot adjust the batch size from above - ~~max_batch_len~~. It is possible to read from the prediction request queue more objects to predict than ~~max_batch_len~~.
 For example, ~~max_batch_len~~=10`, and two requests came with 9 and 3 objects. Then the worker, having read the first request from the queue, will not get it for the batch. It will read the second request and the batch will be larger than it should be.
 Therefore, it will not be able to send data for prediction.</p>
-<p>In addition to the <code>batch_worker_timeout</code> and <code>min_batch_len</code> batching parameters, there are configuration parameters for configuring the batching architecture:
-* <code>max_queue_size: int</code> - maximum queue size for prediction requests.
-* <code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds. 
+<p>In addition to the <code>batch_worker_timeout</code> and <code>min_batch_len</code> batching parameters, there are configuration parameters for configuring the batching architecture:</p>
+<ul>
+<li><code>max_queue_size: int</code> - maximum queue size for prediction requests.</li>
+<li><code>ttl_predicted_data: int</code> - maximum lifetime of the prediction result in seconds. 
   If the client does not wait for the prediction results, its prediction is no longer needed and should be removed from the results store.
   This setting controls how long after the results are deleted if the client has not collected them.
-  The countdown starts from the moment the result is saved in the results storage.
-* <code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
+  The countdown starts from the moment the result is saved in the results storage.</li>
+<li><code>is_long_predict: bool</code> - enable an additional API method in which you can retrieve the prediction result.
   When the prediction takes a long time or the client wants to retrieve the prediction results later, he can do this in a separate API method.
   This parameter adds an API method <code>GET: /get-predict/{predict_id}</code>, in which you can get prediction results if they are in the results store.
-  See "<a href="../web_app_api/">Web app API</a>".
-* <code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
-  See "<a href="../web_app_api/">Web app API</a>".</p>
+  See "<a href="../web_app_api/">Web app API</a>".</li>
+<li><code>ttl_client_wait: float</code> - the maximum time to wait for client results in the <code>GET: /get-predict/{predict_id}</code> method in seconds.
+  See "<a href="../web_app_api/">Web app API</a>".</li>
+</ul>
 <p><img alt="mlup architecture batching" src="../assets/img/archi_batching.png?raw=true" /></p>
 <h3 id="initialization-of-the-architecture_2">Initialization of the architecture</h3>
-<p>For this architecture to work, you need:
-* Queue for prediction requests.
-* Storage of prediction results with TTL.
-* Thread for model work.</p>
+<p>For this architecture to work, you need:</p>
+<ul>
+<li>Queue for prediction requests.</li>
+<li>Storage of prediction results with TTL.</li>
+<li>Thread for model work.</li>
+</ul>
 <p>All this is created at the time of initialization. Since mlup works in an asynchronous paradigm, the model prediction worker is launched as <code>asyncio.Task</code>.
 This allows you not to block the web application during model prediction, within one process.</p>
 <h3 id="request-lifecycle_2">Request Lifecycle</h3>
 <p>The processing of the request with all the nuances is described here.
-Request path:
-* A validated request is included in the architecture.
-* The architecture places the request data in a prediction queue.
-* When a request waits its turn, the worker takes the <code>predict_id</code> from it and adds the user data to the batch.
-* The batch is formed as a Python List, where new requests from the queue are added to the end of the list.
-* When a batch is formed by size or collection time, it is sent to the model for prediction.
-* The request is digested by the model and it makes a prediction. <strong>It is important that the data transformers and the model itself give prediction results for objects in the same order in which the data entered the model. 
+Request path:</p>
+<ul>
+<li>A validated request is included in the architecture.</li>
+<li>The architecture places the request data in a prediction queue.</li>
+<li>When a request waits its turn, the worker takes the <code>predict_id</code> from it and adds the user data to the batch.</li>
+<li>The batch is formed as a Python List, where new requests from the queue are added to the end of the list.</li>
+<li>When a batch is formed by size or collection time, it is sent to the model for prediction.</li>
+<li>The request is digested by the model and it makes a prediction. <strong>It is important that the data transformers and the model itself give prediction results for objects in the same order in which the data entered the model. 
   In most cases, models behave this way.</strong>
-  The worker divides the prediction results by <code>predict_id</code> and stores them in the results storage.
-* If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.
-* The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</p>
+  The worker divides the prediction results by <code>predict_id</code> and stores them in the results storage.</li>
+<li>If an error occurs during prediction, then the worker will store this error in the results store under the same conditions as the results and with the same TTL.</li>
+<li>The client retrieves the prediction result from the result store. This could be the result of a prediction or an error.</li>
+</ul>
 <p>Let's take 3 queries: 2, 4, 1 objects in each, respectively <code>[[1, 2], [3, 4, 5, 6], [7]]</code>. A batch of size 7 is assembled from them in the order in which the requests came and the objects in them are <code>[1, 2, 3, 4, 5, 6, 7]</code>.
 When the model made its predictions, it returned the same array of 7 responses: <code>["ans1", "ans2", "ans3", "ans4", "ans5", "ans6", "ans7"]</code>.
 Batching will dissolve the response array into as many arrays as were involved in the request batch - 3 <code>[["ans1", "ans2"], ["ans3", "ans4", "ans5", "ans6"], ["ans7"]]</code>.</p>

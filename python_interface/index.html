@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -603,10 +603,12 @@ up2 = mlup.UP()
 # ...
 </code></pre>
 <h2 id="mlupup">mlup.UP</h2>
-<p>The <code>mlup.UP</code> object can be created in different ways:
-* Create models in the variable <code>mlup.UP(ml_model=your_model)</code>
-* Create from the config <code>mlup.UP.load_from_yaml(path_ti_your_conf)</code>
-* Create with empty model:</p>
+<p>The <code>mlup.UP</code> object can be created in different ways:</p>
+<ul>
+<li>Create models in the variable <code>mlup.UP(ml_model=your_model)</code></li>
+<li>Create from the config <code>mlup.UP.load_from_yaml(path_ti_your_conf)</code></li>
+<li>Create with empty model:</li>
+</ul>
 <pre><code class="language-python">import mlup
 from mlup.ml.empty import EmptyModel
 
@@ -623,21 +625,25 @@ up = mlup.UP(
     )
 )
 </code></pre>
-<p><code>mlup.UP</code> has methods:
-* <code>load_from_dict</code> - Creating a <code>mlup.UP</code> object from a dictionary with a config.
-* <code>load_from_yaml</code> - Creating a <code>mlup.UP</code> object from a file with yaml config.
-* <code>load_from_json</code> - Creating a <code>mlup.UP</code> object from a file with a json config.
-* <code>to_dict</code> - Returns the config of an existing <code>mlup.UP</code> in the form of a dictionary.
-* <code>to_yaml</code> - Saves the existing <code>mlup.UP</code> config to a yaml file.
-* <code>to_json</code> - Saves the existing <code>mlup.UP</code> config to a json file.
-* <code>predict</code> - Calls model prediction <code>mlup.UP.ml.predict</code> on the running event_loop.
-* <code>predict_from</code> - Same as <code>predict</code>, but without data processing before prediction.
-* <code>async async_predict</code> - Asynchronous version of <code>predict</code>. Fires in your event_loop.
-* <code>run_web_app</code> - Runs a web application.
-* <code>stop_web_app</code> - Stops a running web application.</p>
-<p>And also, there are properties:
-* <code>mlup.UP.ml</code> is a wrapper over the ml model. It contains all the logic for working with the model and processing data for it.
-* <code>mlup.UP.web</code> is a wrapper for the web application. This object contains all the logic for creating, configuring and operating a web application.</p>
+<p><code>mlup.UP</code> has methods:</p>
+<ul>
+<li><code>load_from_dict</code> - Creating a <code>mlup.UP</code> object from a dictionary with a config.</li>
+<li><code>load_from_yaml</code> - Creating a <code>mlup.UP</code> object from a file with yaml config.</li>
+<li><code>load_from_json</code> - Creating a <code>mlup.UP</code> object from a file with a json config.</li>
+<li><code>to_dict</code> - Returns the config of an existing <code>mlup.UP</code> in the form of a dictionary.</li>
+<li><code>to_yaml</code> - Saves the existing <code>mlup.UP</code> config to a yaml file.</li>
+<li><code>to_json</code> - Saves the existing <code>mlup.UP</code> config to a json file.</li>
+<li><code>predict</code> - Calls model prediction <code>mlup.UP.ml.predict</code> on the running event_loop.</li>
+<li><code>predict_from</code> - Same as <code>predict</code>, but without data processing before prediction.</li>
+<li><code>async async_predict</code> - Asynchronous version of <code>predict</code>. Fires in your event_loop.</li>
+<li><code>run_web_app</code> - Runs a web application.</li>
+<li><code>stop_web_app</code> - Stops a running web application.</li>
+</ul>
+<p>And also, there are properties:</p>
+<ul>
+<li><code>mlup.UP.ml</code> is a wrapper over the ml model. It contains all the logic for working with the model and processing data for it.</li>
+<li><code>mlup.UP.web</code> is a wrapper for the web application. This object contains all the logic for creating, configuring and operating a web application.</li>
+</ul>
 <p>You can change the configuration while <code>mlup.UP</code> is alive, without having to recreate the <code>mlup.UP</code> object.</p>
 <pre><code class="language-python">import mlup
 from mlup.ml.empty import EmptyModel
@@ -656,12 +662,14 @@ up.ml.load(force_loading=True)
 <h2 id="mlupupml">mlup.UP.ml</h2>
 <p>The <code>mlup.UP.ml</code> object is <code>mlup.ml.model.MLupModel</code>.</p>
 <p><code>mlup.UP.ml</code> is a wrapper around your ml model. Other than the <code>mlup.UP.ml.load</code> method, in most cases you won't need to access it directly.</p>
-<p><code>mlup.UP.ml</code> has methods:
-* <code>load</code> - a method that loads the model into memory, analyzes it and prepares the <code>MLupModel</code> object for working with the model.
-* <code>load_model_settings</code> - only parses the loaded model and configures the internals of <code>MLupModel</code> after parsing. Called inside <code>load</code>.
-* <code>get_X_from_predict_data</code> - searches and extracts from the data for prediction, the main argument with features X, according to the results of the analysis of the loaded model.
-* <code>async predict</code> - causes model prediction, along with data processing.
-* <code>async predict_from</code> - the same as <code>predict</code>, but without processing before prediction.</p>
+<p><code>mlup.UP.ml</code> has methods:</p>
+<ul>
+<li><code>load</code> - a method that loads the model into memory, analyzes it and prepares the <code>MLupModel</code> object for working with the model.</li>
+<li><code>load_model_settings</code> - only parses the loaded model and configures the internals of <code>MLupModel</code> after parsing. Called inside <code>load</code>.</li>
+<li><code>get_X_from_predict_data</code> - searches and extracts from the data for prediction, the main argument with features X, according to the results of the analysis of the loaded model.</li>
+<li><code>async predict</code> - causes model prediction, along with data processing.</li>
+<li><code>async predict_from</code> - the same as <code>predict</code>, but without processing before prediction.</li>
+</ul>
 <p>You can read about scenarios for using the <code>load</code>, <code>load_model_settings</code>, <code>get_X_from_predict_data</code> methods in <a href="../life_cycle/#mlupml">Description of the application life cycle</a>.</p>
 <p>The <code>predict</code> and <code>predict_from</code> methods accept data for prediction based on the keys for which you send it to the model.</p>
 <pre><code class="language-python">import numpy
@@ -722,15 +730,17 @@ print(model is up.ml.model_obj)
 <h2 id="mlupupweb">mlup.UP.web</h2>
 <p>The <code>mlup.UP.web</code> object is <code>mlup.web.app.MLupWebApp</code>.</p>
 <p><code>mlup.UP.web</code> is a wrapper around a FastAPI web application. In most cases, you won't need to contact it directly.</p>
-<p><code>mlup.UP.web</code> has methods:
-* <code>load</code> - a method that creates a web application, according to the config and the results of the analysis of <code>mlup.ml.model.MLupModel.load()</code>.
-* <code>load_web_app_settings</code> - prepares some internal configs for launching the web application. Called inside <code>load</code>.
-* <code>run</code> - Launches the web application.
-* <code>stop</code> - Stops a running web application.
-* <code>async http_health</code> - This is a handler for the <code>/health</code> request.
-* <code>async info</code> - This is the <code>/info</code> request handler in case of <code>debug=False</code>.
-* <code>async debug_info</code> - This is the <code>/info</code> request handler in the case of <code>debug=True</code>.
-* <code>async http_health</code> - This is the <code>/predict</code> request handler.</p>
+<p><code>mlup.UP.web</code> has methods:</p>
+<ul>
+<li><code>load</code> - a method that creates a web application, according to the config and the results of the analysis of <code>mlup.ml.model.MLupModel.load()</code>.</li>
+<li><code>load_web_app_settings</code> - prepares some internal configs for launching the web application. Called inside <code>load</code>.</li>
+<li><code>run</code> - Launches the web application.</li>
+<li><code>stop</code> - Stops a running web application.</li>
+<li><code>async http_health</code> - This is a handler for the <code>/health</code> request.</li>
+<li><code>async info</code> - This is the <code>/info</code> request handler in case of <code>debug=False</code>.</li>
+<li><code>async debug_info</code> - This is the <code>/info</code> request handler in the case of <code>debug=True</code>.</li>
+<li><code>async http_health</code> - This is the <code>/predict</code> request handler.</li>
+</ul>
 <p>You can read about scenarios for using the <code>load</code>, <code>load_web_app_settings</code>, <code>run</code>, <code>stop</code> methods in <a href="../life_cycle/#mlupweb">Description of the application life cycle</a>.</p>
 <pre><code class="language-python">import numpy
 import mlup
