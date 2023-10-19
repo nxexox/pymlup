@@ -101,8 +101,8 @@ class TestDiskStorage:
         # Order in folder
         assert str(models_bin[0].path) in {str(pickle_with_x_model), str(pickle_with_x_model_two)}
         assert models_bin[0].raw_data in {with_x_model_data, with_x_model_data_two}
-        assert str(models_bin[1].path) == {str(pickle_with_x_model), str(pickle_with_x_model_two)}
-        assert models_bin[1].raw_data == {with_x_model_data, with_x_model_data_two}
+        assert str(models_bin[1].path) in {str(pickle_with_x_model), str(pickle_with_x_model_two)}
+        assert models_bin[1].raw_data in {with_x_model_data, with_x_model_data_two}
 
     def test_load_single_file_by_not_default_mask(self, joblib_print_model):
         storage = DiskStorage(
