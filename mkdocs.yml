@@ -6,6 +6,7 @@ repo_name: PyMLup
 theme:
   name: material
   language: en
+  custom_dir: docs
   features:
     - navigation.tracking
     - search.suggest
@@ -34,6 +35,8 @@ theme:
 
 extra:
   homepage: https://mlup.org
+  analytics:
+    provider: custom
   version:
     provider: mike
     default: stable
