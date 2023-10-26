@@ -1,4 +1,6 @@
-# PyMLup
+![MLup logo](docs/assets/img/logo_with_name_blue.png?raw=true)
+
+----
 
 [![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
 [![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
@@ -6,7 +8,7 @@
 
 ## Introduction
 
-It's library for easy and fast run ML in production. 
+MLup is library for easy and fast run ML in production. 
 
 All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃
 
@@ -35,7 +37,7 @@ Support and tested with machine learning libraries:
 
 **The easiest way to try:**
 ```bash
-pip install pymlup
+pip install "pymlup[onnx]"
 mlup run -m /path/to/my/model.onnx
 ```
 

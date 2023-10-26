@@ -8,6 +8,7 @@ theme:
   name: material
   language: en
   custom_dir: docs
+  logo: assets/img/logo_without_text.png
   features:
     - navigation.tracking
     - search.suggest
@@ -23,7 +24,8 @@ theme:
         icon: material/brightness-7
         name: Switch to dark mode
       primary: "teal"
-      accent: "cyan"
+#      accent: "cyan"
+      accent: 485edf
 
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
@@ -31,7 +33,8 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-      primary: "cyan"
+#      primary: "cyan"
+      primary: 485edf
       accent: "teal"
 
 extra:

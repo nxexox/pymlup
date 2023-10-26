@@ -1,8 +1,13 @@
-# PyMLup
+![MLup logo](assets/img/logo_with_name_blue.png?raw=true)
+
+# MLup
+
+MLup is framework for easy and fast run ML in production.
 
 [![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
 [![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
 [![Downloads](https://img.shields.io/pypi/dm/pymlup.svg)](https://pypistats.org/packages/pymlup)
+
 
 ## Table of contents
 
@@ -19,7 +24,7 @@
 
 ## Introduction
 
-It's library for easy and fast run ML in production. 
+MLup is library for easy and fast run ML in production. 
 
 All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃
 
