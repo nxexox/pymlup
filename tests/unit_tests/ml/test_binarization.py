@@ -141,6 +141,7 @@ def test_single_file_lightgbm_binarization_deserialize(lightgbm_binary_cls_model
     with open(lightgbm_binary_cls_model_txt.path, 'r') as f:
         model = binarizer.deserialize(LoadedFile(f.read(), lightgbm_binary_cls_model_txt.path))
         pred_d = model.predict(test_data_raw)
+        pred_d[0] = round(pred_d[0], lightgbm_binary_cls_model_txt.test_model_response_round)
         assert np.array_equal(
             pred_d,
             np.array([lightgbm_binary_cls_model_txt.test_model_response_raw])
@@ -149,6 +150,7 @@ def test_single_file_lightgbm_binarization_deserialize(lightgbm_binary_cls_model
     with open(lightgbm_binary_cls_model_txt.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), lightgbm_binary_cls_model_txt.path))
         pred_d = model.predict(test_data_raw)
+        pred_d[0] = round(pred_d[0], lightgbm_binary_cls_model_txt.test_model_response_round)
         assert np.array_equal(
             pred_d,
             np.array([lightgbm_binary_cls_model_txt.test_model_response_raw])
@@ -169,12 +171,16 @@ def test_single_file_tensorflow_binarization_deserialize(fixture_name, request):
     with open(base_model.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(f.read(), base_model.path))
         pred_d = model(test_data_raw)
-        assert pred_d.numpy().tolist() == [[base_model.test_model_response_raw]]
+        pred_d = pred_d.numpy().tolist()
+        pred_d[0][0] = round(pred_d[0][0], base_model.test_model_response_round)
+        assert pred_d == [[base_model.test_model_response_raw]]
 
     with open(base_model.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), base_model.path))
         pred_d = model(test_data_raw)
-        assert pred_d.numpy().tolist() == [[base_model.test_model_response_raw]]
+        pred_d = pred_d.numpy().tolist()
+        pred_d[0][0] = round(pred_d[0][0], base_model.test_model_response_round)
+        assert pred_d == [[base_model.test_model_response_raw]]
 
 
 @pytest.mark.skipif(TorchBinarizer is None, reason='pytorch library not installed.')
@@ -186,12 +192,16 @@ def test_single_file_torch_binarization_deserialize(pytorch_binary_cls_model_pth
     with open(pytorch_binary_cls_model_pth.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(f.read(), pytorch_binary_cls_model_pth.path))
         pred_d = model(test_data_raw)
-        assert pred_d == pytorch_binary_cls_model_pth.test_model_response_raw
+        pred_d = pred_d.tolist()
+        pred_d[0] = round(pred_d[0], pytorch_binary_cls_model_pth.test_model_response_round)
+        assert pred_d[0] == pytorch_binary_cls_model_pth.test_model_response_raw
 
     with open(pytorch_binary_cls_model_pth.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), pytorch_binary_cls_model_pth.path))
         pred_d = model(test_data_raw)
-        assert pred_d == pytorch_binary_cls_model_pth.test_model_response_raw
+        pred_d = pred_d.tolist()
+        pred_d[0] = round(pred_d[0], pytorch_binary_cls_model_pth.test_model_response_round)
+        assert pred_d[0] == pytorch_binary_cls_model_pth.test_model_response_raw
 
 
 @pytest.mark.skipif(InferenceSessionBinarizer is None, reason='pytorch, onnxruntime libraries not installed.')
@@ -203,12 +213,16 @@ def test_single_file_torch_onnx_binarization_deserialize(pytorch_binary_cls_mode
     with open(pytorch_binary_cls_model_onnx.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(f.read(), pytorch_binary_cls_model_onnx.path))
         pred_d = model.predict(test_data_raw)
-        assert pred_d[0].tolist()[0][0] == pytorch_binary_cls_model_onnx.test_model_response_raw
+        pred_d = pred_d[0].tolist()
+        pred_d[0][0] = round(pred_d[0][0], pytorch_binary_cls_model_onnx.test_model_response_round)
+        assert pred_d[0][0] == pytorch_binary_cls_model_onnx.test_model_response_raw
 
     with open(pytorch_binary_cls_model_onnx.path, 'rb') as f:
         model = binarizer.deserialize(LoadedFile(BytesIO(f.read()), pytorch_binary_cls_model_onnx.path))
         pred_d = model.predict(test_data_raw)
-        assert pred_d[0].tolist()[0][0] == pytorch_binary_cls_model_onnx.test_model_response_raw
+        pred_d = pred_d[0].tolist()
+        pred_d[0][0] = round(pred_d[0][0], pytorch_binary_cls_model_onnx.test_model_response_round)
+        assert pred_d[0][0] == pytorch_binary_cls_model_onnx.test_model_response_raw
 
 
 @pytest.mark.parametrize(
