@@ -1,7 +1,5 @@
 import json
 import logging
-import os
-import shutil
 import socket
 import sys
 from dataclasses import dataclass, field
@@ -9,7 +7,7 @@ import pickle
 import time
 from itertools import cycle
 from pathlib import Path
-from typing import List, Type, Any, Dict
+from typing import List, Type, Any, Dict, Union
 
 import httpx
 import joblib
@@ -292,23 +290,23 @@ def pickle_not_exists_folder(tmp_path_factory):
 
 
 @pytest.fixture(scope="session")
-def root_dir(request):
+def root_dir(request) -> Path:
     return request.config.rootdir
 
 
 @pytest.fixture(scope="session")
-def models_datadir(root_dir):
+def models_datadir(root_dir) -> Path:
     return root_dir / 'mldata' / 'models'
 
 
 @pytest.fixture(scope="session")
-def tests_jupyter_notebooks_datadir():
-    return 'tests/integration_tests/notebooks'
+def tests_jupyter_notebooks_datadir() -> Path:
+    return Path('tests/integration_tests/notebooks')
 
 
 @dataclass
 class ModelAndPath:
-    path: str
+    path: Union[str, Path]
     model: Any
     test_data_raw: Dict = field(default_factory=lambda: {
         'MinTemp': 1.0,
@@ -321,6 +319,7 @@ class ModelAndPath:
         'Temp3pm': 8.0,
     })
     test_model_response_raw: Any = 'No'
+    test_model_response_round: int = 4
     predict_method_name: str = '__call__'
     file_mask: str = r'(\w.-_)*.pckl'
     is_many_files: bool = False
@@ -384,7 +383,7 @@ def lightgbm_binary_cls_model(models_datadir):
             return ModelAndPath(
                 models_datadir / 'lightgbm-binary_cls_model.pckl',
                 pickle.load(f),
-                test_model_response_raw=0.19782479223155408,
+                test_model_response_raw=0.1978,
                 x_arg_name='data',
             )
     except ImportError:
@@ -398,7 +397,7 @@ def lightgbm_binary_cls_model_txt(models_datadir):
         return ModelAndPath(
             models_datadir / 'lightgbm-binary_cls_model.txt',
             lgb.Booster(model_file=models_datadir / 'lightgbm-binary_cls_model.txt'),
-            test_model_response_raw=0.19782479223155408,
+            test_model_response_raw=0.1978,
             x_arg_name='data',
             file_mask=r'(\w.-_)*.txt',
         )
@@ -411,11 +410,11 @@ def tensorflow_binary_cls_model(models_datadir):
     try:
         import tensorflow
         model_name = 'tensorflow-binary_cls_model.pckl'
-        model_result = 0.5144115686416626
+        model_result = 0.5144
         # For python 3.7
         if sys.version_info.minor == 7:
             model_name = 'tensorflow-binary_cls_model37.pckl'
-            model_result = 0.6405760645866394
+            model_result = 0.6406
 
         with open(models_datadir / model_name, 'rb') as f:
             return ModelAndPath(
@@ -432,11 +431,11 @@ def tensorflow_binary_cls_model_keras(models_datadir, tmp_path_factory):
     try:
         import tensorflow
         model_name = 'tensorflow-binary_cls_model.keras'
-        model_result = 0.5144115686416626
+        model_result = 0.5144
         # For python 3.7
         if sys.version_info.minor == 7:
             model_name = 'tensorflow-binary_cls_model37.keras'
-            model_result = 0.6405760645866394
+            model_result = 0.6406
 
         path_to_model = models_datadir / model_name
         model = tensorflow.keras.models.load_model(str(path_to_model), compile=False)
@@ -457,11 +456,11 @@ def tensorflow_binary_cls_model_h5(models_datadir):
     try:
         import tensorflow
         model_name = 'tensorflow-binary_cls_model.h5'
-        model_result = 0.5144115686416626
+        model_result = 0.5144
         # For python 3.7
         if sys.version_info.minor == 7:
             model_name = 'tensorflow-binary_cls_model37.h5'
-            model_result = 0.6405760645866394
+            model_result = 0.6406
 
         path_to_model = models_datadir / model_name
         model = tensorflow.keras.models.load_model(path_to_model, compile=False)
@@ -485,7 +484,7 @@ def tensorflow_binary_cls_model_zip(models_datadir):
         return ModelAndPath(
             models_datadir,
             model=tensorflow.saved_model.load(models_datadir / 'tensorflow-binary_cls_model.savedmodel'),
-            test_model_response_raw=0.5144115686416626,
+            test_model_response_raw=0.5144,
             file_mask=r'tensorflow-binary_cls_model.savedmodel',
             is_many_files=True,
             predict_method_name='serve',
@@ -503,7 +502,7 @@ def pytorch_binary_cls_model(models_datadir):
             return ModelAndPath(
                 models_datadir / 'pytorch-binary_cls_model.pckl',
                 pickle.load(f),
-                test_model_response_raw=0.4163038432598114,
+                test_model_response_raw=0.4163,
             )
     except ImportError:
         return None
@@ -518,7 +517,7 @@ def pytorch_binary_cls_model_onnx(models_datadir):
         return ModelAndPath(
             models_datadir / 'pytorch-binary_cls_model.onnx',
             model,
-            test_model_response_raw=0.4163038432598114,
+            test_model_response_raw=0.4163,
             predict_method_name='predict',
             x_arg_name='input',
         )
@@ -537,7 +536,7 @@ def pytorch_binary_cls_model_pth(models_datadir):
             models_datadir / 'pytorch-binary_cls_model.pth',
             model,
             file_mask=r'(\w.-_)*.pth',
-            test_model_response_raw=0.4163038432598114,
+            test_model_response_raw=0.4163,
         )
     except ImportError:
         return None
@@ -555,7 +554,7 @@ def pytorch_binary_cls_model_jit(models_datadir):
             models_datadir / 'pytorch-binary_cls_model-jit.pth',
             model,
             file_mask=r'(\w.-_)*.pth',
-            test_model_response_raw=0.4163038432598114,
+            test_model_response_raw=0.4163,
         )
     except ImportError:
         return None

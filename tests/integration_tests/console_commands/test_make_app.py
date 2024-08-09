@@ -17,12 +17,15 @@ from mlup.constants import ModelDataTransformerType
 logger = logging.getLogger('mlup.test')
 
 
+# TODO: It hangs in CI tests
+pytestmark = pytest.mark.skip
+
+
 @pytest.mark.parametrize(
     'custom_params',
     [{}, {'port': 8010}],
     ids=['without_custom_params', 'with_custom_params']
 )
-@pytest.mark.skip
 def test_run_maked_app_from_conf(
     tmp_path_factory,
     pickle_scikit_learn_model_config_yaml,
@@ -82,7 +85,6 @@ def test_run_maked_app_from_conf(
     [{}, {'port': 8011}],
     ids=['without_custom_params', 'with_custom_params']
 )
-@pytest.mark.skip
 def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_model, custom_params):
     path_to_app = str(tmp_path_factory.getbasetemp() / 'test_run_maked_app_from_up_bin' /
                       'test_run_maked_app_from_up_bin.py')
@@ -155,7 +157,6 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_mod
         'with_custom_params'
     ]
 )
-@pytest.mark.skip
 def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_model, custom_params):
     path_to_app = str(tmp_path_factory.getbasetemp() / 'test_run_maked_app_from_model_bin' /
                       'test_run_maked_app_from_model_bin.py')

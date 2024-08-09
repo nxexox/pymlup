@@ -142,3 +142,4 @@ cython_debug/
 README_HIDE.md
 .python-version
 .DS_Store
+.idea

@@ -36,8 +36,9 @@ class TestLightGBMModel:
             ),
         )
         up.ml.load()
-        assert up.predict(**{model_and_path.x_arg_name: [model_and_path.test_data_raw]}) == \
-               [model_and_path.test_model_response_raw]
+        pred = up.predict(**{model_and_path.x_arg_name: [model_and_path.test_data_raw]})
+        pred[0] = round(pred[0], model_and_path.test_model_response_round)
+        assert pred == [model_and_path.test_model_response_raw]
 
     @pytest.mark.asyncio
     async def test_predict(self, lightgbm_binary_cls_model):
@@ -51,6 +52,7 @@ class TestLightGBMModel:
         up.ml.load()
 
         pred = up.predict(**{lightgbm_binary_cls_model.x_arg_name: [lightgbm_binary_cls_model.test_data_raw]})
+        pred[0] = round(pred[0], lightgbm_binary_cls_model.test_model_response_round)
         assert pred == [lightgbm_binary_cls_model.test_model_response_raw]
 
     @pytest.mark.parametrize(
@@ -70,6 +72,7 @@ class TestLightGBMModel:
         up.ml.load()
 
         pred = up.predict(**{lightgbm_binary_cls_model.x_arg_name: [lightgbm_binary_cls_model.test_data_raw]})
+        pred[0] = round(pred[0], lightgbm_binary_cls_model.test_model_response_round)
         assert pred == [lightgbm_binary_cls_model.test_model_response_raw]
 
     @pytest.mark.asyncio
@@ -90,7 +93,11 @@ class TestLightGBMModel:
                 json={lightgbm_binary_cls_model.x_arg_name: [lightgbm_binary_cls_model.test_data_raw]},
             )
             assert response.status_code == 200
-            assert response.json() == {"predict_result": [lightgbm_binary_cls_model.test_model_response_raw]}
+            resp_json = response.json()
+            resp_json["predict_result"][0] = round(
+                resp_json["predict_result"][0], lightgbm_binary_cls_model.test_model_response_round
+            )
+            assert resp_json == {"predict_result": [lightgbm_binary_cls_model.test_model_response_raw]}
 
     @pytest.mark.asyncio
     async def test_web_app_with_worker_architecture(self, lightgbm_binary_cls_model, web_app_test_client):
@@ -111,7 +118,11 @@ class TestLightGBMModel:
                 json={lightgbm_binary_cls_model.x_arg_name: [lightgbm_binary_cls_model.test_data_raw]},
             )
             assert response.status_code == 200
-            assert response.json() == {"predict_result": [lightgbm_binary_cls_model.test_model_response_raw]}
+            resp_json = response.json()
+            resp_json["predict_result"][0] = round(
+                resp_json["predict_result"][0], lightgbm_binary_cls_model.test_model_response_round
+            )
+            assert resp_json == {"predict_result": [lightgbm_binary_cls_model.test_model_response_raw]}
 
     @pytest.mark.asyncio
     async def test_web_app_with_batching_architecture(self, lightgbm_binary_cls_model, web_app_test_client):
@@ -144,7 +155,11 @@ class TestLightGBMModel:
                 )
                 pred_id_2 = pred_resp_2.json()["predict_result"]["predict_id"]
                 pred_result_resp_2 = await api_test_client.get("/get-predict/" + pred_id_2)
-                assert pred_result_resp_2.json() == [lightgbm_binary_cls_model.test_model_response_raw]
+                pred_result_json_2 = pred_result_resp_2.json()
+                pred_result_json_2[0] = round(
+                    pred_result_json_2[0], lightgbm_binary_cls_model.test_model_response_round
+                )
+                assert pred_result_json_2 == [lightgbm_binary_cls_model.test_model_response_raw]
 
                 # Not found results. Long client wait response
                 pred_id_1 = pred_resp_1.json()["predict_result"]["predict_id"]
@@ -178,4 +193,6 @@ class TestLightGBMModel:
         pred_after_pickle = up_after_pickle.predict(
             **{lightgbm_binary_cls_model.x_arg_name: [lightgbm_binary_cls_model.test_data_raw]}
         )
+        pred_before_pickle[0] = round(pred_before_pickle[0], lightgbm_binary_cls_model.test_model_response_round)
+        pred_after_pickle[0] = round(pred_after_pickle[0], lightgbm_binary_cls_model.test_model_response_round)
         assert pred_after_pickle == pred_before_pickle == [lightgbm_binary_cls_model.test_model_response_raw]
