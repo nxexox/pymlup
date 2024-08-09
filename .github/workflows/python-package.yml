@@ -40,11 +40,12 @@ jobs:
       timeout-minutes: 30
       run: |
         pytest tests/unit_tests
+    - name: Prepare integrations tests
+      timeout-minutes: 10
+      run: |
+        python -m pip install --upgrade ipython ipykernel
+        ipython kernel install --name "python3" --user
     - name: Integration tests
-      timeout-minutes: 60
+      timeout-minutes: 30
       run: |
-        pytest -s tests/integration_tests > /tmp/integration_tests${{ matrix.python-version }}.log
-    - name: Read integration tests logs
-      if: ${{ failure() }}
-      run: |
-        cat /tmp/integration_tests${{ matrix.python-version }}.log
+        pytest tests/integration_tests

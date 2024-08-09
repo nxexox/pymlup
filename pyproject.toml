@@ -91,8 +91,10 @@ tests = [
     "skl2onnx>=1.0.0,<2.0.0",
 
     # Tests jupyter
-    "requests>=2.0.0,<3.0.0",
-    "jupyter==1.0.0",
+    "nbclient==0.10.0;python_version>='3.8'",
+    "nbclient==0.7.4;python_version<'3.8'",
+    "jupyterlab-pygments==0.3.0;python_version>='3.8'",
+    "jupyterlab-pygments==0.2.2;python_version<'3.8'",
 ]
 
 [tool.setuptools.dynamic]

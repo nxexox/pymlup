@@ -150,7 +150,7 @@ class TestPyTorchModel:
         up.ml.load()
         up.web.load()
 
-        with (web_app_test_client(up.web) as api_test_client):
+        with web_app_test_client(up.web) as api_test_client:
             try:
                 await asyncio.sleep(0.05)
                 pred_resp_1 = await api_test_client.post(
