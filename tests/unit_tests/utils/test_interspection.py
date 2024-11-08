@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Union, Tuple, Dict
 import sys
 
 import pytest
@@ -13,6 +13,22 @@ def pred_func_without_x(wt, y: List, b: bool = False): pass
 def pred_func_with_list(wt, x: list, b: bool = False): pass
 
 
+def pred_func_with_optional_params(
+    wt,
+    x: list,
+    opt: Optional[int],
+    opt_unknown_type: Optional[Dict],
+    opt_union: Union[float, None],
+    opt_union_tuple: Union[Tuple, None],
+    opt_union_unknown_type: Union[Dict, None],
+    opt_union_otherwise: Union[None, float],
+    opt_union_many_types: Union[float, Tuple, int, str, bool, None],
+    opt_default: Optional[int] = 10,
+    opt_union_default: Union[float, None] = 100,
+    b: bool = False,
+): pass
+
+
 if sys.version_info.minor >= 9:
     def pred_func_with_list_of_int(wt, x: list[int], b: bool = False): pass
 else:
@@ -21,17 +37,37 @@ else:
 
 pred_func_args_without_auto_detect_predict_params = [
     {'name': 'wt', 'required': True},
-    {'name': 'x', 'required': True},
+    {'name': 'x', 'required': True, 'collection_type': 'List', 'type': 'str'},
+    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+]
+pred_func_args_without_auto_detect_predict_params_with_X_int = [
+    {'name': 'wt', 'required': True},
+    {'name': 'x', 'required': True, 'collection_type': 'List', 'type': 'int'},
+    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+]
+pred_func_args_without_auto_detect_predict_params_without_X_type = [
+    {'name': 'wt', 'required': True},
+    {'name': 'x', 'required': True, 'collection_type': 'List'},
     {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
 ]
 pred_func_args_with_auto_detect_predict_params = [
     {'name': 'wt', 'required': True},
-    {'name': 'x', 'required': True, 'type': 'List', IS_X: True},
+    {'name': 'x', 'required': True, IS_X: True, 'collection_type': 'List'},
+    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+]
+pred_func_args_with_auto_detect_predict_params_with_x_type_str = [
+    {'name': 'wt', 'required': True},
+    {'name': 'x', 'required': True, IS_X: True, 'collection_type': 'List', 'type': 'str'},
+    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+]
+pred_func_args_with_auto_detect_predict_params_with_x_type_int = [
+    {'name': 'wt', 'required': True},
+    {'name': 'x', 'required': True, IS_X: True, 'collection_type': 'List', 'type': 'int'},
     {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
 ]
 pred_func_args_with_auto_detect_predict_params_without_x = [
-    {'name': 'wt', 'required': True, 'type': 'List', IS_X: True},
-    {'name': 'y', 'required': True},
+    {'name': 'wt', 'required': True, 'collection_type': 'List', IS_X: True},
+    {'name': 'y', 'required': True, 'collection_type': 'List'},
     {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
 ]
 
@@ -46,11 +82,27 @@ class TestAnalyzeMethodParams:
         def pred_func_staticmethod_with_list(wt, x: list, b: bool = False): pass
         def pred_func_without_x(self, wt, y: List, b: bool = False): pass
 
+        def pred_func_with_optional_params(
+            self,
+            wt,
+            x: list,
+            opt: Optional[int],
+            opt_unknown_type: Optional[Dict],
+            opt_union: Union[float, None],
+            opt_union_tuple: Union[Tuple, None],
+            opt_union_unknown_type: Union[Dict, None],
+            opt_union_otherwise: Union[None, float],
+            opt_union_many_types: Union[float, Tuple, int, str, bool, None],
+            opt_default: Optional[int] = 10,
+            opt_union_default: Union[float, None] = 100,
+            b: bool = False,
+        ): pass
+
     @pytest.mark.parametrize(
         'pred_func, expected_result',
         [
             pytest.param(
-                pred_func_with_X_List, pred_func_args_without_auto_detect_predict_params,
+                pred_func_with_X_List, pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='func_with_X_type_List'
             ),
             pytest.param(
@@ -58,35 +110,41 @@ class TestAnalyzeMethodParams:
                 id='func_with_X_type_List[str]'
             ),
             pytest.param(
-                pred_func_with_list, pred_func_args_without_auto_detect_predict_params,
+                pred_func_with_list, pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='func_with_X_type_list'
             ),
             pytest.param(
-                pred_func_with_list_of_int, pred_func_args_without_auto_detect_predict_params,
+                pred_func_with_list_of_int, pred_func_args_without_auto_detect_predict_params_with_X_int,
                 id='func_with_X_type_list[int]'
             ),
             pytest.param(
-                ModelClass().pred_func_with_self_and_X_List, pred_func_args_without_auto_detect_predict_params,
+                ModelClass().pred_func_with_self_and_X_List,
+                pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='method_from_obj_with_X_type_List'
             ),
             pytest.param(
-                ModelClass.pred_func_with_self_and_X_List, pred_func_args_without_auto_detect_predict_params,
+                ModelClass.pred_func_with_self_and_X_List,
+                pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='method_fro_cls_with_X_type_List'
             ),
             pytest.param(
-                ModelClass.pred_func_with_cls_and_X_List_of_str, pred_func_args_without_auto_detect_predict_params,
+                ModelClass.pred_func_with_cls_and_X_List_of_str,
+                pred_func_args_without_auto_detect_predict_params,
                 id='classmethod_from_cls_with_cls_and_X_List[str]'
             ),
             pytest.param(
-                ModelClass().pred_func_with_cls_and_X_List_of_str, pred_func_args_without_auto_detect_predict_params,
+                ModelClass().pred_func_with_cls_and_X_List_of_str,
+                pred_func_args_without_auto_detect_predict_params,
                 id='classmethod_from_obj_with_cls_and_X_List[str]'
             ),
             pytest.param(
-                ModelClass.pred_func_staticmethod_with_list, pred_func_args_without_auto_detect_predict_params,
+                ModelClass.pred_func_staticmethod_with_list,
+                pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='staticmethod_from_cls_with_cls_and_X_list'
             ),
             pytest.param(
-                ModelClass().pred_func_staticmethod_with_list, pred_func_args_without_auto_detect_predict_params,
+                ModelClass().pred_func_staticmethod_with_list,
+                pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='staticmethod_from_obj_with_cls_and_X_list'
             ),
         ],
@@ -103,7 +161,7 @@ class TestAnalyzeMethodParams:
                 id='func_with_X_type_List'
             ),
             pytest.param(
-                pred_func_with_X_List_of_str, pred_func_args_with_auto_detect_predict_params,
+                pred_func_with_X_List_of_str, pred_func_args_with_auto_detect_predict_params_with_x_type_str,
                 id='func_with_X_type_List[str]'
             ),
             pytest.param(
@@ -111,7 +169,7 @@ class TestAnalyzeMethodParams:
                 id='func_with_X_type_list'
             ),
             pytest.param(
-                pred_func_with_list_of_int, pred_func_args_with_auto_detect_predict_params,
+                pred_func_with_list_of_int, pred_func_args_with_auto_detect_predict_params_with_x_type_int,
                 id='func_with_X_type_list[int]'
             ),
             pytest.param(
@@ -123,19 +181,23 @@ class TestAnalyzeMethodParams:
                 id='method_from_cls_with_X_type_List'
             ),
             pytest.param(
-                ModelClass.pred_func_with_cls_and_X_List_of_str, pred_func_args_with_auto_detect_predict_params,
+                ModelClass.pred_func_with_cls_and_X_List_of_str,
+                pred_func_args_with_auto_detect_predict_params_with_x_type_str,
                 id='classmethod_from_cls_with_X_type_List[str]'
             ),
             pytest.param(
-                ModelClass().pred_func_with_cls_and_X_List_of_str, pred_func_args_with_auto_detect_predict_params,
+                ModelClass().pred_func_with_cls_and_X_List_of_str,
+                pred_func_args_with_auto_detect_predict_params_with_x_type_str,
                 id='classmethod_from_obj_with_X_type_List[str]'
             ),
             pytest.param(
-                ModelClass.pred_func_staticmethod_with_list, pred_func_args_with_auto_detect_predict_params,
+                ModelClass.pred_func_staticmethod_with_list,
+                pred_func_args_with_auto_detect_predict_params,
                 id='staticmethod_from_cls_with_X_type_list'
             ),
             pytest.param(
-                ModelClass().pred_func_staticmethod_with_list, pred_func_args_with_auto_detect_predict_params,
+                ModelClass().pred_func_staticmethod_with_list,
+                pred_func_args_with_auto_detect_predict_params,
                 id='staticmethod_from_obj_with_X_type_list'
             ),
             pytest.param(
@@ -161,7 +223,7 @@ class TestAnalyzeMethodParams:
         [
             pytest.param(
                 ModelClass.pred_func_with_self_and_X_List,
-                [{'name': 'self', 'required': True}] + pred_func_args_without_auto_detect_predict_params,
+                [{'name': 'self', 'required': True}] + pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='method_with_X_List'
             ),
             pytest.param(
@@ -169,7 +231,8 @@ class TestAnalyzeMethodParams:
                 id='classmethod_from_cls_with_X_List[str]'
             ),
             pytest.param(
-                ModelClass.pred_func_staticmethod_with_list, pred_func_args_without_auto_detect_predict_params,
+                ModelClass.pred_func_staticmethod_with_list,
+                pred_func_args_without_auto_detect_predict_params_without_X_type,
                 id='staticmethod_from_cls_with_X_list'
             ),
             pytest.param(
@@ -177,7 +240,7 @@ class TestAnalyzeMethodParams:
                 [
                     {'name': 'self', 'required': True},
                     {'name': 'wt', 'required': True},
-                    {'name': 'y', 'required': True},
+                    {'name': 'y', 'required': True, 'collection_type': 'List'},
                     {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
                 ],
                 id='method_from_cls_without_X'
@@ -186,6 +249,51 @@ class TestAnalyzeMethodParams:
     )
     def test_without_ignore_self(self, pred_func, expected_result):
         inspection_params = analyze_method_params(pred_func, auto_detect_predict_params=False, ignore_self=False)
+        assert inspection_params == expected_result
+
+    @pytest.mark.parametrize(
+        'pred_func, expected_result',
+        [
+            pytest.param(
+                pred_func_with_optional_params,
+                [
+                    {'name': 'wt', 'required': True},
+                    {'name': 'x', 'required': True, 'collection_type': 'List'},
+                    {'name': 'opt', 'required': False, 'type': 'int'},
+                    {'name': 'opt_unknown_type', 'required': False},
+                    {'name': 'opt_union', 'required': False, 'type': 'float'},
+                    {'name': 'opt_union_tuple', 'required': False, 'collection_type': 'List'},
+                    {'name': 'opt_union_unknown_type', 'required': False},
+                    {'name': 'opt_union_otherwise', 'required': False, 'type': 'float'},
+                    {'name': 'opt_union_many_types', 'required': False, 'type': 'float'},
+                    {'name': 'opt_default', 'required': False, 'type': 'int', 'default': 10},
+                    {'name': 'opt_union_default', 'required': False, 'type': 'float', 'default': 100},
+                    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+                ],
+                id='func'
+            ),
+            pytest.param(
+                ModelClass.pred_func_with_optional_params,
+                [
+                    {'name': 'wt', 'required': True},
+                    {'name': 'x', 'required': True, 'collection_type': 'List'},
+                    {'name': 'opt', 'required': False, 'type': 'int'},
+                    {'name': 'opt_unknown_type', 'required': False},
+                    {'name': 'opt_union', 'required': False, 'type': 'float'},
+                    {'name': 'opt_union_tuple', 'required': False, 'collection_type': 'List'},
+                    {'name': 'opt_union_unknown_type', 'required': False},
+                    {'name': 'opt_union_otherwise', 'required': False, 'type': 'float'},
+                    {'name': 'opt_union_many_types', 'required': False, 'type': 'float'},
+                    {'name': 'opt_default', 'required': False, 'type': 'int', 'default': 10},
+                    {'name': 'opt_union_default', 'required': False, 'type': 'float', 'default': 100},
+                    {'name': 'b', 'required': False, 'default': False, 'type': 'bool'},
+                ],
+                id='method'
+            ),
+        ],
+    )
+    def test_optional_params(self, pred_func, expected_result):
+        inspection_params = analyze_method_params(pred_func, auto_detect_predict_params=False, ignore_self=True)
         assert inspection_params == expected_result
 
 

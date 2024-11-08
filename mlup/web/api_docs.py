@@ -35,10 +35,19 @@ def make_columns_object_openapi_scheme(src_columns: List[Dict]) -> Tuple[Dict, L
     cols_openapi_config = {}
     required_columns = []
     for col_config in src_columns:
-        col_name, col_type = col_config["name"], col_config.get("type", "str")
+        col_name = col_config["name"]
         col_required, col_default = col_config.get("required", True), col_config.get("default", None)
 
-        _col_config = {"type": _openapi_types_map[col_type.lower()]}
+        _col_config = {}
+        col_type = col_config.get("type", None)
+        if "collection_type" in col_config:
+            if col_type is not None:
+                _col_config["items"] = {"type": _openapi_types_map[col_type.lower()]}
+            _col_config["type"] = _openapi_types_map[col_config["collection_type"].lower()]
+            col_type = "list"
+        else:
+            _col_config["type"] = _openapi_types_map[col_type].lower() or "string"
+
         title = []
         if col_default is not None:
             title.append("Default")

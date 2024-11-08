@@ -2,13 +2,91 @@ import importlib
 import inspect
 import logging
 from enum import Enum
-from typing import Callable, Any, Union, Optional, Type
+from typing import Callable, Any, Union, Optional, Type, Generic, Sequence, Dict, Tuple
+
+try:
+    from typing import get_args as typing_get_args, get_origin as typing_get_origin
+# For Python <= 3.7
+except ImportError:
+    typing_get_args = lambda t: getattr(t, '__args__', ()) if t is not Generic else Generic  # noqa: E731
+    typing_get_origin = lambda t: getattr(t, '__origin__', None)  # noqa: E731
 
 from mlup.constants import IS_X, THERE_IS_ARGS, DEFAULT_X_ARG_NAME, BinarizationType, LoadedFile
 from mlup.utils.profiling import TimeProfiler
 
 
 logger = logging.getLogger('mlup')
+
+
+SUPPORTED_PRIMITIVE_TYPES = {
+    int: 'int',
+    float: 'float',
+    bool: 'bool',
+    str: 'str',
+}
+
+
+def _is_optional(field: Any) -> bool:
+    return typing_get_origin(field) is Union and type(None) in typing_get_args(field)
+
+
+def _is_sequence(field: Any) -> bool:
+    _type_for_check = typing_get_origin(field)
+    _collection_types = (list, set, tuple)
+    try:
+        return ((field is not None and field in _collection_types)
+                or (_type_for_check is not None and issubclass(_type_for_check, Sequence)))
+    except TypeError:
+        # If _type_for_check not in class object& For example Optional[int].
+        return False
+
+
+def parse_attributes_from_generic_type(
+    param: inspect.Parameter,
+) -> Tuple[Dict[str, Any], bool]:
+    """
+    Search and return primitive type from single level of Generic.
+    If ont found supported types, return default type = str.
+
+    :param inspect.Parameter param: Parameter that needs to be parsed.
+
+    :return: Attributes from parsed Generic and result parsing.
+        If bool is True, then parsing was success, else parsing was failure.
+        {"type": "int", "required": False, "collection_type": None}, True
+        Key "type" is optional.
+        Key "collection_type" is optional.
+    :rtype: Dict[str, Any], bool
+
+    """
+    result = {
+        'required': True,
+    }
+    _types_for_analyze = typing_get_args(param.annotation)
+
+    logger.debug(f"Analyze argument '{param.name}', attempt to pick up determine primitive type.")
+
+    if _is_optional(param.annotation):
+        result['required'] = False
+    if _is_sequence(param.annotation):
+        result['collection_type'] = 'List'
+    if len(_types_for_analyze) > 0 and _is_sequence(_types_for_analyze[0]):
+        result['collection_type'] = 'List'
+        _types_for_analyze = typing_get_args(_types_for_analyze[0])
+
+    for p in _types_for_analyze:
+        if p in SUPPORTED_PRIMITIVE_TYPES:
+            result['type'] = SUPPORTED_PRIMITIVE_TYPES[p]
+            break
+
+    _parse_error = False
+
+    if 'type' not in result:
+        logger.warning(f"Cannot determine primitive type for '{param.name}'.")
+        _parse_error = True
+
+    logger.debug(f"For argument '{param.name}' parsing result '{result}'")
+
+    return result, _parse_error
 
 
 def get_class_by_path(path_to_class: Union[str, Enum]) -> Any:
@@ -66,12 +144,6 @@ def analyze_method_params(func: Callable, auto_detect_predict_params: bool = Tru
     sign = inspect.signature(func)
     arg_spec = inspect.getfullargspec(func)
     result = []
-    types = {
-        int: 'int',
-        float: 'float',
-        bool: 'bool',
-        str: 'str',
-    }
     is_there_args = False
     logger.info(f'Analyzing arguments in {func}.')
 
@@ -93,23 +165,27 @@ def analyze_method_params(func: Callable, auto_detect_predict_params: bool = Tru
             'required': True,
         }
         if param_obj.annotation is not inspect._empty:
-            if param_obj.annotation in types:
-                param_data['type'] = types[param_obj.annotation]
+            if param_obj.annotation in SUPPORTED_PRIMITIVE_TYPES:
+                param_data['type'] = SUPPORTED_PRIMITIVE_TYPES[param_obj.annotation]
             else:
-                logger.warning(
-                    f'For model predict argument writes not supported type {param_obj.annotation}. '
-                    f'Skip added validation'
-                )
+                _param_attributes, _parse_error = parse_attributes_from_generic_type(param_obj)
+                param_data.update(**_param_attributes)
+
+                if _parse_error:
+                    logger.warning(
+                        f'For model predict argument writes not supported type {param_obj.annotation}. '
+                        f'Skip added validation'
+                    )
 
         if param_obj.default is not inspect._empty:
             param_data['required'] = False
             param_data['default'] = param_obj.default
-            if 'type' not in param_data and type(param_obj.default) in types:
-                param_data['type'] = types[type(param_obj.default)]
+            if 'type' not in param_data and type(param_obj.default) in SUPPORTED_PRIMITIVE_TYPES:
+                param_data['type'] = SUPPORTED_PRIMITIVE_TYPES[type(param_obj.default)]
 
         if param_name.lower().strip() == 'x' and auto_detect_predict_params:
             logger.info('Found X param in model params. Set List type')
-            param_data['type'] = 'List'
+            param_data['collection_type'] = 'List'
             param_data[IS_X] = True
             _found_X = True
 
@@ -121,7 +197,7 @@ def analyze_method_params(func: Callable, auto_detect_predict_params: bool = Tru
                 f'X argument in predict method not found. '
                 f'For predict data use first argument with name "{result[0]["name"]}".'
             )
-            result[0]['type'] = 'List'
+            result[0]['collection_type'] = 'List'
             result[0][IS_X] = True
         else:
             logger.info('Not found arguments in predict method.')

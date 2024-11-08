@@ -320,7 +320,7 @@ class TestMLupModelPublicMethods:
         mlup_model.load(force_loading=True)
         assert mlup_model._predict_arguments != predict_arguments
         assert mlup_model._predict_arguments == [
-            {'name': 'Y', 'required': True, 'type': 'List', 'is_X': True},
+            {'name': 'Y', 'required': True, 'collection_type': 'List', 'is_X': True},
             {'name': 'test_param', 'required': False, 'type': 'bool', 'default': False},
         ]
 

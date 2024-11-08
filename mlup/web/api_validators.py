@@ -84,6 +84,9 @@ def make_map_pydantic_columns(
         'str': str,
         'list': list,
     }
+    collection_types = {
+        'List': List,
+    }
     __validators__ = {}
     columns_pydantic_format = {}
     # If set None, from ml.columns
@@ -102,6 +105,9 @@ def make_map_pydantic_columns(
                     f'Supported types {", ".join(column_types.keys())}.'
                 )
                 col_type = Any
+            # Process from "int" to "Generic[int]"
+            if col_config.get('collection_type', None) in collection_types:
+                col_type = collection_types[col_config['collection_type']][col_type]
 
         # Required
         field_required_default_value = Field(...)
