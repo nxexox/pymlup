@@ -366,6 +366,32 @@ async def test_predict_model_numpy_returned_valid(web_app_test_client, list_to_n
 
 
 @pytest.mark.asyncio
+async def test_predict_model_with_list_fields_column_validation(web_app_test_client, list_to_numpy_array_model):
+    mlup_model = MLupModel(
+        ml_model=list_to_numpy_array_model,
+        conf=ModelConfig(
+            data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR,
+            data_transformer_for_predicted=ModelDataTransformerType.NUMPY_ARR,
+            columns=[
+                {"name": "col1", "type": "int", "collection_type": "List"},
+                {"name": "col2", "type": "int", "collection_type": "List"},
+            ]
+        )
+    )
+    mlup_web_app = MLupWebApp(
+        ml=mlup_model,
+        conf=WebAppConfig(mode=WebAppArchitecture.directly_to_predict, column_validation=True)
+    )
+    mlup_model.load()
+    mlup_web_app.load()
+    with web_app_test_client(mlup_web_app) as api_test_client:
+        response = await api_test_client.post("/predict", json={'X': [{"col1": [1, 2, 3], "col2": [4, 5, 6]}]})
+        assert response.status_code == 200
+        assert response.headers['x-predict-id']
+        assert response.json() == {"predict_result": [[[1, 2, 3], [4, 5, 6]]]}
+
+
+@pytest.mark.asyncio
 async def test_predict_model_numpy_returned_not_valid(web_app_test_client, list_to_numpy_array_model):
     mlup_model = MLupModel(
         ml_model=list_to_numpy_array_model,
