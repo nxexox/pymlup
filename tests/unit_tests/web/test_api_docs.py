@@ -8,8 +8,9 @@ from mlup.constants import IS_X, DEFAULT_X_ARG_NAME, WebAppArchitecture
 from mlup.up import UP, Config
 from mlup.web.api_docs import make_columns_object_openapi_scheme, generate_openapi_schema
 
-
-assertDictEqual = TestCase().assertDictEqual
+testcase = TestCase()
+testcase.maxDiff = None
+assertDictEqual = testcase.assertDictEqual
 
 
 src_columns = [

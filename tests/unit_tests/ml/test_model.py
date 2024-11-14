@@ -320,7 +320,7 @@ class TestMLupModelPublicMethods:
         mlup_model.load(force_loading=True)
         assert mlup_model._predict_arguments != predict_arguments
         assert mlup_model._predict_arguments == [
-            {'name': 'Y', 'required': True, 'type': 'List', 'is_X': True},
+            {'name': 'Y', 'required': True, 'collection_type': 'List', 'is_X': True},
             {'name': 'test_param', 'required': False, 'type': 'bool', 'default': False},
         ]
 
@@ -800,3 +800,21 @@ class TestMLupModelPublicMethods:
 
         predicted_data = await mlup_model.predict_from(X=[1, 2, 3, 4, 5, 6, 7, 8, 9])
         np.array_equal(predicted_data, np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+
+    @pytest.mark.asyncio
+    async def test_predict_with_list_columns(self):
+        mlup_model = MLupModel(
+            ml_model=ModelWithX(),
+            conf=ModelConfig(
+                data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR,
+                data_transformer_for_predicted=ModelDataTransformerType.SRC_TYPES,
+                columns=[
+                    {"name": "col1", "type": "int", "collection_type": "List"},
+                    {"name": "col2", "type": "int", "collection_type": "List"},
+                ],
+            )
+        )
+        mlup_model.load()
+
+        predicted_data = await mlup_model.predict_from(X=[[1, 2], [3, 4], [5, 6]])
+        np.array_equal(predicted_data, np.array([[1, 2], [3, 4], [5, 6]]))

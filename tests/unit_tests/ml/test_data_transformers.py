@@ -93,11 +93,11 @@ class TestSrcDataTransformer:
 
     def test_transform_to_model_format_from_dict_with_columns(self):
         data = [
-            {'col1': 11, 'col2': 21, 'col3': 31, 'col4': 41, 'col5': 51},
-            {'col1': 12, 'col2': 22, 'col3': 32, 'col4': 42, 'col5': 52},
-            {'col1': 13, 'col2': 23, 'col3': 33, 'col4': 43, 'col5': 53},
-            {'col1': 14, 'col2': 24, 'col3': 34, 'col4': 44, 'col5': 54},
-            {'col1': 15, 'col2': 25, 'col3': 35, 'col4': 45, 'col5': 55},
+            {'col1': 11, 'col2': 21, 'col3': 31, 'col4': 41, 'col5': 51, 'col6': [61, 71]},
+            {'col1': 12, 'col2': 22, 'col3': 32, 'col4': 42, 'col5': 52, 'col6': [62, 72]},
+            {'col1': 13, 'col2': 23, 'col3': 33, 'col4': 43, 'col5': 53, 'col6': [63, 73]},
+            {'col1': 14, 'col2': 24, 'col3': 34, 'col4': 44, 'col5': 54, 'col6': [64, 74]},
+            {'col1': 15, 'col2': 25, 'col3': 35, 'col4': 45, 'col5': 55, 'col6': [65, 75]},
         ]
         cols = [
             {'name': 'col1', 'type': 'int'},
@@ -105,6 +105,7 @@ class TestSrcDataTransformer:
             {'name': 'col3', 'type': 'int'},
             {'name': 'col4', 'type': 'int'},
             {'name': 'col5', 'type': 'int'},
+            {'name': 'col6', 'type': 'int', 'collection_type': 'List'},
         ]
         # Check create
         pred_d = self.transformer_class().transform_to_model_format(data, columns=cols)
@@ -168,13 +169,14 @@ class TestPandasDataFrameTransformer:
             {'name': 'col3', 'type': 'int'},
             {'name': 'colstr', 'type': 'str'},
             {'name': 'colbool', 'type': 'bool'},
+            {'name': 'collistfloat', 'type': 'float', 'collection_type': 'List'},
         ]
         data = [
-            [11, 21, 31, 'colstr', True],
-            [12, 22, 32, 'colstr', True],
-            [13, 23, 33, 'colstr', False],
-            [14, 24, 34, 'colstr', True],
-            [15, 25, 35, 'colstr', True],
+            [11, 21, 31, 'colstr', True, [41.0, 51.0]],
+            [12, 22, 32, 'colstr', True, [42.0, 52.0]],
+            [13, 23, 33, 'colstr', False, [43.0, 53.0]],
+            [14, 24, 34, 'colstr', True, [44.0, 54.0]],
+            [15, 25, 35, 'colstr', True, [45.0, 55.0]],
         ]
         df = self.transformer_class().transform_to_model_format(data, columns=cols)
 
@@ -187,11 +189,11 @@ class TestPandasDataFrameTransformer:
 
     def test_transform_to_json_format(self):
         data = [
-            {'col1': 11, 'col2': 21, 'col3': 31, 'colstr': 'colstr', 'colbool': True},
-            {'col1': 12, 'col2': 22, 'col3': 32, 'colstr': 'colstr', 'colbool': True},
-            {'col1': 13, 'col2': 23, 'col3': 33, 'colstr': 'colstr', 'colbool': False},
-            {'col1': 14, 'col2': 24, 'col3': 34, 'colstr': 'colstr', 'colbool': True},
-            {'col1': 15, 'col2': 25, 'col3': 35, 'colstr': 'colstr', 'colbool': True},
+            {'col1': 11, 'col2': 21, 'col3': 31, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [41.0, 51.0]},
+            {'col1': 12, 'col2': 22, 'col3': 32, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [42.0, 52.0]},
+            {'col1': 13, 'col2': 23, 'col3': 33, 'colstr': 'colstr', 'colbool': False, 'collistfloat': [43.0, 53.0]},
+            {'col1': 14, 'col2': 24, 'col3': 34, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [44.0, 54.0]},
+            {'col1': 15, 'col2': 25, 'col3': 35, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [45.0, 55.0]},
         ]
         df = pd.DataFrame(data=data)
         trans_data = self.transformer_class().transform_to_json_format(df)
@@ -200,11 +202,11 @@ class TestPandasDataFrameTransformer:
 
     def test_transform_to_json_format_from_list(self):
         data = [
-            [{'col1': 11, 'col2': 21, 'col3': 31, 'colstr': 'colstr', 'colbool': True}],
-            [{'col1': 12, 'col2': 22, 'col3': 32, 'colstr': 'colstr', 'colbool': True}],
-            [{'col1': 13, 'col2': 23, 'col3': 33, 'colstr': 'colstr', 'colbool': False}],
-            [{'col1': 14, 'col2': 24, 'col3': 34, 'colstr': 'colstr', 'colbool': True}],
-            [{'col1': 15, 'col2': 25, 'col3': 35, 'colstr': 'colstr', 'colbool': True}],
+            [{'col1': 11, 'col2': 21, 'col3': 31, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [41.0, 51.0]}],
+            [{'col1': 12, 'col2': 22, 'col3': 32, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [42.0, 52.0]}],
+            [{'col1': 13, 'col2': 23, 'col3': 33, 'colstr': 'colstr', 'colbool': False, 'collistfloat': [43.0, 53.0]}],
+            [{'col1': 14, 'col2': 24, 'col3': 34, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [44.0, 54.0]}],
+            [{'col1': 15, 'col2': 25, 'col3': 35, 'colstr': 'colstr', 'colbool': True, 'collistfloat': [45.0, 55.0]}],
         ]
         dfs = [pd.DataFrame(data=d) for d in data]
         trans_data = self.transformer_class().transform_to_json_format(dfs)
@@ -252,6 +254,26 @@ class TestNumpyDataFrameTransformer:
         ]
         pred_d = self.transformer_class().transform_to_model_format(data)
         assert np.array_equal(pred_d, np.array(data))
+
+    def test_transform_to_model_format_from_dict_with_list_columns(self):
+        data = [
+            {'col1': [11, 111], 'col2': [21, 221]},
+            {'col1': [12, 112], 'col2': [22, 222]},
+            {'col1': [13, 113], 'col2': [23, 223]},
+            {'col1': [14, 114], 'col2': [24, 224]},
+            {'col1': [15, 115], 'col2': [25, 225]},
+        ]
+        cols = [
+            {'name': 'col1', 'type': 'int', 'collection_type': 'List'},
+            {'name': 'col2', 'type': 'int', 'collection_type': 'List'},
+        ]
+        # Check create
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols)
+        assert np.array_equal(pred_d, np.array([list(v.values()) for v in data]))
+
+        # Check order by columns
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols[::-1])
+        assert np.array_equal(pred_d, np.array([list(v.values())[::-1] for v in data]))
 
     def test_transform_to_model_format_from_dict_with_columns(self):
         data = [
@@ -358,6 +380,26 @@ class TestTensorFlowTensorDataTransformer:
         ]
         pred_d = self.transformer_class().transform_to_model_format(data)
         assert_tf_tensors(pred_d, tensorflow.convert_to_tensor(data))
+
+    def test_transform_to_model_format_from_dict_with_list_columns(self):
+        data = [
+            {'col1': [11, 111], 'col2': [21, 221]},
+            {'col1': [12, 112], 'col2': [22, 222]},
+            {'col1': [13, 113], 'col2': [23, 223]},
+            {'col1': [14, 114], 'col2': [24, 224]},
+            {'col1': [15, 115], 'col2': [25, 225]},
+        ]
+        cols = [
+            {'name': 'col1', 'type': 'int', 'collection_type': 'List'},
+            {'name': 'col2', 'type': 'int', 'collection_type': 'List'},
+        ]
+        # Check create
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols)
+        assert_tf_tensors(pred_d, tensorflow.convert_to_tensor([list(v.values()) for v in data]))
+
+        # Check order by columns
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols[::-1])
+        assert_tf_tensors(pred_d, tensorflow.convert_to_tensor([list(v.values())[::-1] for v in data]))
 
     def test_transform_to_model_format_from_dict_with_columns(self):
         data = [
@@ -466,6 +508,26 @@ class TestTorchTensorDataTransformer:
         ]
         pred_d = self.transformer_class().transform_to_model_format(data)
         assert is_equal_torch_tensors(pred_d, torch.tensor(data))
+
+    def test_transform_to_model_format_from_dict_with_list_columns(self):
+        data = [
+            {'col1': [11, 111], 'col2': [21, 221]},
+            {'col1': [12, 112], 'col2': [22, 222]},
+            {'col1': [13, 113], 'col2': [23, 223]},
+            {'col1': [14, 114], 'col2': [24, 224]},
+            {'col1': [15, 115], 'col2': [25, 225]},
+        ]
+        cols = [
+            {'name': 'col1', 'type': 'int', 'collection_type': 'List'},
+            {'name': 'col2', 'type': 'int', 'collection_type': 'List'},
+        ]
+        # Check create
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols)
+        assert is_equal_torch_tensors(pred_d, torch.tensor([list(v.values()) for v in data]))
+
+        # Check order by columns
+        pred_d = self.transformer_class().transform_to_model_format(data, columns=cols[::-1])
+        assert is_equal_torch_tensors(pred_d, torch.tensor([list(v.values())[::-1] for v in data]))
 
     def test_transform_to_model_format_from_dict_with_columns(self):
         data = [

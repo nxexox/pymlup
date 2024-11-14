@@ -18,6 +18,7 @@ column_types_map = {
     'bool': bool,
     'str': str,
     'list': list,
+    'List': List,
 }
 src_columns = [
     {"name": "Float", "type": "float"},
@@ -26,6 +27,8 @@ src_columns = [
     {"name": "FloatNotRequired", "type": "float", "required": False},
     {"name": "FloatNotRequiredDefault", "type": "float", "required": False, "default": 1.4},
     {"name": "FloatRequiredDefault", "type": "float", "required": True, "default": 1.4},
+    {"name": "FloatList", "type": "float", "collection_type": "List"},
+    {"name": "FloatOptionalList", "type": "float", "collection_type": "List", "required": False},
 
     {"name": "Int", "type": "int"},
     {"name": "IntDefault", "type": "int", "default": 4},
@@ -33,6 +36,8 @@ src_columns = [
     {"name": "IntNotRequired", "type": "int", "required": False},
     {"name": "IntNotRequiredDefault", "type": "int", "required": False, "default": 4},
     {"name": "IntRequiredDefault", "type": "int", "required": True, "default": 4},
+    {"name": "IntList", "type": "int", "collection_type": "List"},
+    {"name": "IntOptionalList", "type": "int", "collection_type": "List", "required": False},
 
     {"name": "Str", "type": "str"},
     {"name": "StrDefault", "type": "str", "default": "str"},
@@ -40,6 +45,8 @@ src_columns = [
     {"name": "StrNotRequired", "type": "str", "required": False},
     {"name": "StrNotRequiredDefault", "type": "str", "required": False, "default": "str"},
     {"name": "StrRequiredDefault", "type": "str", "required": True, "default": "str"},
+    {"name": "StrList", "type": "str", "collection_type": "List"},
+    {"name": "StrOptionalList", "type": "str", "collection_type": "List", "required": False},
 
     {"name": "Bool", "type": "bool"},
     {"name": "BoolDefault", "type": "bool", "default": True},
@@ -47,6 +54,8 @@ src_columns = [
     {"name": "BoolNotRequired", "type": "bool", "required": False},
     {"name": "BoolNotRequiredDefault", "type": "bool", "required": False, "default": True},
     {"name": "BoolRequiredDefault", "type": "bool", "required": True, "default": True},
+    {"name": "BoolList", "type": "bool", "collection_type": "List"},
+    {"name": "BoolOptionalList", "type": "bool", "collection_type": "List", "required": False},
 ]
 
 
@@ -56,7 +65,10 @@ def test_make_map_pydantic_columns():
     for col_config in src_columns:
         pred_col_type, pred_field_info = cols_configs.pop(col_config["name"])
 
-        assert pred_col_type is column_types_map[col_config["type"]]
+        if "collection_type" in col_config:
+            assert pred_col_type is column_types_map[col_config["collection_type"]][column_types_map[col_config["type"]]]
+        else:
+            assert pred_col_type is column_types_map[col_config["type"]]
         assert pred_field_info.title == col_config["name"]
         if 'default' in col_config:
             assert pred_field_info.default is col_config["default"]
@@ -81,7 +93,10 @@ def test_make_map_pydantic_validation():
         )
 
         # Check valid type
-        _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
+        if "collection_type" in col_config:
+            _test_pydantic_model(**{col_config["name"]: [1]})
+        else:
+            _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
         # Check not valid type
         try:
             not_valid_value = list
@@ -94,12 +109,18 @@ def test_make_map_pydantic_validation():
             elif pred_col_type is bool:
                 assert msg_str == 'value could not be parsed to a boolean'
             else:
-                assert msg_str.startswith(f'value is not a valid {col_config["type"]}')
+                if "collection_type" in col_config:
+                    assert msg_str.startswith(f'value is not a valid {col_config["collection_type"].lower()}')
+                else:
+                    assert msg_str.startswith(f'value is not a valid {col_config["type"]}')
 
         # Check required
         if col_config.get("required", True):
             # Check valid value
-            _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
+            if "collection_type" in col_config:
+                _test_pydantic_model(**{col_config["name"]: [1]})
+            else:
+                _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
             # Check none value
             try:
                 _test_pydantic_model(**{col_config["name"]: None})
@@ -144,6 +165,8 @@ def test_make_map_pydantic_columns_with_IS_X(model_for_columns):
                 assert pred_col_type is List[model_for_columns]
             else:
                 assert pred_col_type is List[Any]
+        elif "collection_type" in col_config:
+            assert pred_col_type is List[column_types_map[col_config["type"]]]
         else:
             assert pred_col_type is column_types_map[col_config["type"]]
         assert pred_field_info.title == col_config["name"]
@@ -166,12 +189,12 @@ def test_make_map_pydantic_columns_with_IS_X(model_for_columns):
 @pytest.mark.parametrize(
     'column_validation, columns, data, expected_data',
     [
-        (False, src_columns, [1, 2, 3], [1, 2, 3]),
+        (False, src_columns, [1, [4, 5], 2, 3], [1, [4, 5], 2, 3]),
         (
             True,
-            [src_columns[0], src_columns[6], src_columns[12]],
-            [{'Float': 1.0, 'Int': 1, 'Str': '1', 'NotExistsKey': 10}],
-            [{'Float': 1.0, 'Int': 1, 'Str': '1'}]
+            [src_columns[0], src_columns[6], src_columns[8], src_columns[16]],
+            [{'Float': 1.0, 'FloatList': [1.0, 2.0], 'Int': 1, 'Str': '1', 'NotExistsKey': 10}],
+            [{'Float': 1.0, 'FloatList': [1.0, 2.0], 'Int': 1, 'Str': '1'}]
         ),
     ],
     ids=['column_validation=False', 'column_validation=True']

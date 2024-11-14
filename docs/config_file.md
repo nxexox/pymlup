@@ -34,11 +34,12 @@ Default is `ModelLibraryType.SKLEARN`.
 `columns (Optional[List[Dict[str, str]]])` - Columns description for model predict method.
     Format: List[Dict].
 
-    Example [{"name": "col1", "type": "str", "required": True, "default": None}]
+    Example [{"name": "col1", "type": "str", "required": True, "default": None, "collection_type": "List"}]
     name - Column name;
     type - Column type in string: int, str, float, bool.
     required - bool and optional field. By default is True.
-    Default - Any data and optional.
+    default - Any data and optional.
+    collection_type - Type of collection is optional field. Supported: List. Default is None.
     
 If you not set columns, then columns validation should be False. 
 
