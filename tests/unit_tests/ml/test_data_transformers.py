@@ -12,6 +12,15 @@ from mlup.utils.interspection import get_class_by_path
 
 logger = logging.getLogger('mlup.test')
 
+
+class _MissingLibraryStub:
+    """Stands in for an uninstalled library so module-level references
+    (e.g. in pytest.mark.parametrize argument lists or type annotations)
+    don't raise AttributeError before the test class is skipped."""
+    def __getattr__(self, item):
+        return None
+
+
 try:
     import numpy
     from mlup.ml.data_transformers.numpy_data_transformer import NumpyDataTransformer
@@ -32,7 +41,7 @@ try:
     assert_tf_tensors = tensorflow.test.TestCase().assertAllEqual
 except (ImportError, AttributeError) as e:
     logger.info(f'tensorflow not installed. Skip tests. {e}')
-    tensorflow, TFTensorDataTransformer = None, None
+    tensorflow, TFTensorDataTransformer = _MissingLibraryStub(), None
 
     def assert_tf_tensors(a, b, msg):
         assert False
@@ -43,7 +52,7 @@ try:
     is_equal_torch_tensors = torch.equal
 except (ImportError, AttributeError) as e:
     logger.info(f'PyTorch not installed. Skip tests. {e}')
-    torch, TorchTensorDataTransformer = None, None
+    torch, TorchTensorDataTransformer = _MissingLibraryStub(), None
 
     def is_equal_torch_tensors(a, b):
         return False

@@ -23,7 +23,7 @@ try:
     from mlup.ml.binarization.onnx import InferenceSessionBinarizer, InferenceSessionFullReturnBinarizer
 except (ModuleNotFoundError, AttributeError) as e:
     logger.info(f'onnxruntime library not installed. Skip test. {e}')
-    InferenceSessionBinarizer = None
+    InferenceSessionBinarizer, InferenceSessionFullReturnBinarizer = None, None
 try:
     from mlup.ml.binarization.tensorflow import TensorFlowBinarizer, TensorFlowSavedBinarizer
 except (ModuleNotFoundError, AttributeError) as e:

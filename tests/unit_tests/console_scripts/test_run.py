@@ -70,14 +70,18 @@ def test_run_from_config_not_valid_config(tmp_path_factory, config_type):
 )
 @pytest.mark.asyncio
 async def test_run_from_config_valid_config(request, pickle_print_model, config_fixture_name, conf_type):
-    config_path = request.getfixturevalue(config_fixture_name)
+    # config_fixture_name points to a session-scoped fixture shared with other test files
+    # (e.g. test_up.py). Write the modified config to a separate path instead of back to
+    # config_path, so we don't mutate that shared fixture file for the rest of the session.
+    src_config_path = request.getfixturevalue(config_fixture_name)
+    config_path = str(src_config_path) + '.run_test'
     if conf_type == 'json':
-        _up = mlup.UP.load_from_json(config_path, load_model=False)
+        _up = mlup.UP.load_from_json(src_config_path, load_model=False)
         _up.conf.uvicorn_kwargs['loop'] = 'none'
         _up.conf.storage_kwargs['path_to_files'] = str(pickle_print_model)
         _up.to_json(config_path)
     elif conf_type == 'yaml':
-        _up = mlup.UP.load_from_yaml(config_path, load_model=False)
+        _up = mlup.UP.load_from_yaml(src_config_path, load_model=False)
         _up.conf.uvicorn_kwargs['loop'] = 'none'
         _up.conf.storage_kwargs['path_to_files'] = str(pickle_print_model)
         _up.to_yaml(config_path)

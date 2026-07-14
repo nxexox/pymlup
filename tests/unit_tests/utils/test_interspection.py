@@ -1,10 +1,15 @@
 from typing import List, Optional, Union, Tuple, Dict
+import importlib.util
 import sys
 
 import pytest
 
 from mlup.constants import IS_X, LoadedFile
 from mlup.utils.interspection import analyze_method_params, auto_search_binarization_type
+
+
+def _is_installed(module_name: str) -> bool:
+    return importlib.util.find_spec(module_name) is not None
 
 
 def pred_func_with_X_List(wt, x: List, b: bool = False): pass
@@ -316,10 +321,22 @@ class TestAutoSearchBinarizationType:
         'loaded_file',
         [
             LoadedFile(path='pickle.pckl'),
-            LoadedFile(path='model.onnx'),
-            LoadedFile(b'PK\x03', path='model.h5'),
-            LoadedFile(b'PK\x03', path='model.pth'),
-            LoadedFile('\n\n\n\nversion=\n', path='.txt')
+            pytest.param(
+                LoadedFile(path='model.onnx'),
+                marks=pytest.mark.skipif(not _is_installed('onnxruntime'), reason='onnxruntime not installed.')
+            ),
+            pytest.param(
+                LoadedFile(b'PK\x03', path='model.h5'),
+                marks=pytest.mark.skipif(not _is_installed('tensorflow'), reason='tensorflow not installed.')
+            ),
+            pytest.param(
+                LoadedFile(b'PK\x03', path='model.pth'),
+                marks=pytest.mark.skipif(not _is_installed('torch'), reason='torch not installed.')
+            ),
+            pytest.param(
+                LoadedFile('\n\n\n\nversion=\n', path='.txt'),
+                marks=pytest.mark.skipif(not _is_installed('lightgbm'), reason='lightgbm not installed.')
+            ),
         ],
         ids=['pickle', 'onnx', 'tensorflow', 'torch', 'lightgbm'],
     )

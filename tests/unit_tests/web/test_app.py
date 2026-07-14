@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from mlup.constants import ModelDataTransformerType, ITEM_ID_COL_NAME, WebAppArchitecture
 from mlup.errors import WebAppLoadError
 from mlup.ml.model import MLupModel, ModelConfig
-from mlup.utils.loop import run_async, create_async_task
+from mlup.utils.loop import create_async_task
 from mlup.web.app import MLupWebApp, WebAppConfig
 
 
@@ -252,14 +252,12 @@ async def test_run_with_daemon_is_False(print_model):
             assert response.status_code == 200
             assert response.json() == {'status': 200}
     finally:
-        # Shutdown uvicorn not in main thread
+        # Shutdown uvicorn not in main thread.
+        # The thread's own serve() loop detects should_exit and performs its own
+        # graceful shutdown; calling shutdown() here would run it against a
+        # different event loop than the one the server is bound to, and crash.
         # https://stackoverflow.com/questions/58010119/are-there-any-better-ways-to-run-uvicorn-in-thread
         mlup_web_app._uvicorn_server.should_exit = True
-        run_async(
-            asyncio.wait_for,
-            mlup_web_app._uvicorn_server.shutdown(),
-            mlup_web_app.conf.timeout_for_shutdown_daemon
-        )
         web_app_thread.join(timeout=3)
 
 
