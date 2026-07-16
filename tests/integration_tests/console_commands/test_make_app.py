@@ -1,7 +1,6 @@
 import logging
 import os
 import pickle
-import signal
 import subprocess
 import sys
 import time
@@ -15,10 +14,6 @@ from mlup.constants import ModelDataTransformerType
 
 
 logger = logging.getLogger('mlup.test')
-
-
-# TODO: It hangs in CI tests
-pytestmark = pytest.mark.skip
 
 
 @pytest.mark.parametrize(
@@ -43,8 +38,7 @@ def test_run_maked_app_from_conf(
         force=True,
     )
     proc = subprocess.Popen(
-        sys.executable + ' ' + path_to_app,
-        shell=True,
+        [sys.executable, path_to_app],
         stderr=subprocess.PIPE,
         universal_newlines=True,
     )
@@ -70,11 +64,15 @@ def test_run_maked_app_from_conf(
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGKILL)
+    proc.kill()
+    try:
+        _, output = proc.communicate(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.wait()
+        output = ''
     if error:
         raise error
 
-    output = proc.stderr.read()
     logger.info(output)
     assert response.status_code == 200
     assert response.json() == {'predict_result': [scikit_learn_binary_cls_model.test_model_response_raw]}
@@ -107,8 +105,7 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_mod
         force=True,
     )
     proc = subprocess.Popen(
-        sys.executable + ' ' + path_to_app,
-        shell=True,
+        [sys.executable, path_to_app],
         stderr=subprocess.PIPE,
         universal_newlines=True,
     )
@@ -133,11 +130,15 @@ def test_run_maked_app_from_up_bin(tmp_path_factory, scikit_learn_binary_cls_mod
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGKILL)
+    proc.kill()
+    try:
+        _, output = proc.communicate(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.wait()
+        output = ''
     if error:
         raise error
 
-    output = proc.stderr.read()
     logger.info(output)
     assert response.status_code == 200
     assert response.json() == {'predict_result': [scikit_learn_binary_cls_model.test_model_response_raw]}
@@ -170,8 +171,7 @@ def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_
         force=True,
     )
     proc = subprocess.Popen(
-        sys.executable + ' ' + path_to_app,
-        shell=True,
+        [sys.executable, path_to_app],
         stderr=subprocess.PIPE,
         universal_newlines=True,
     )
@@ -200,11 +200,15 @@ def test_run_maked_app_from_model_bin(tmp_path_factory, scikit_learn_binary_cls_
         i += 1
 
     # SIGTERM
-    os.kill(proc.pid, signal.SIGKILL)
+    proc.kill()
+    try:
+        _, output = proc.communicate(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.wait()
+        output = ''
     if error:
         raise error
 
-    output = proc.stderr.read()
     logger.info(output)
     assert response.status_code == 200
     assert response.json() == {"predict_result": [scikit_learn_binary_cls_model.test_model_response_raw]}

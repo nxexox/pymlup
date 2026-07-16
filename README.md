@@ -19,21 +19,18 @@ PyMLup is a modern way to run machine learning models in production. The market 
 
 Work tested with machine learning model frameworks (links to tests):
 
-* [scikit-learn>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
-* [tensorflow>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
+* [scikit-learn>=1.2.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
+* [tensorflow>=2.0.0,<3.0.0, Python<3.14](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
 * [lightgbm>=4.0.0,<5.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py)
 * [torch>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_pytorch_model.py)
 * [onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
-* [onnxruntime>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+* [onnxruntime>=1.14.0,<1.26.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
 
 Support and tested with machine learning libraries:
 
-* [numpy>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
+* [numpy>=1.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
 * [pandas>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
-* [joblib>=1.2.0,<1.3.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
-* [tf2onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
-* [skl2onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
-* [jupyter==1.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/test_jupyter_notebook.py)
+* [joblib>=1.2.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
 
 **The easiest way to try:**
 ```bash
@@ -55,7 +52,7 @@ mlup run -m /path/to/my/model.onnx
 
 ## Requirements
 
-Python 3.7+
+Python 3.8+ (3.12, 3.13, 3.14 supported; the `tensorflow` extra requires Python <3.14 until TensorFlow publishes 3.14 wheels)
 
 * PyMLup stands on the shoulders of giants FastAPI for the web parts. 
 * Additionally, you need to install the libraries that your model uses.
