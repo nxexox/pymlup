@@ -1544,21 +1544,18 @@
 </ul>
 <p>Work tested with machine learning model frameworks (links to tests):</p>
 <ul>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py">scikit-learn&gt;=1.2.0,&lt;1.3.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py">tensorflow&gt;=2.0.0,&lt;3.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py">scikit-learn&gt;=1.2.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py">tensorflow&gt;=2.0.0,&lt;3.0.0, Python&lt;3.14</a></li>
 <li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py">lightgbm&gt;=4.0.0,&lt;5.0.0</a></li>
 <li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_pytorch_model.py">torch&gt;=2.0.0,&lt;3.0.0</a></li>
 <li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">onnx&gt;=1.0.0,&lt;2.0.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">onnxruntime&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">onnxruntime&gt;=1.14.0,&lt;1.26.0</a></li>
 </ul>
 <p>Support and tested with machine learning libraries:</p>
 <ul>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py">numpy&gt;=1.0.0,&lt;2.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py">numpy&gt;=1.0.0,&lt;3.0.0</a></li>
 <li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py">pandas&gt;=2.0.0,&lt;3.0.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">joblib&gt;=1.2.0,&lt;1.3.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">tf2onnx&gt;=1.0.0,&lt;2.0.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">skl2onnx&gt;=1.0.0,&lt;2.0.0</a></li>
-<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/test_jupyter_notebook.py">jupyter==1.0.0</a></li>
+<li><a href="https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py">joblib&gt;=1.2.0,&lt;2.0.0</a></li>
 </ul>
 <p><strong>The easiest way to try:</strong></p>
 <pre><code class="language-bash">pip install pymlup
@@ -1578,7 +1575,7 @@ mlup run -m /path/to/my/model.onnx
 <li>Run web app from your model or your config 🙃</li>
 </ol>
 <h2 id="requirements">Requirements</h2>
-<p>Python 3.7+</p>
+<p>Python 3.8+ (3.12, 3.13, 3.14 supported; the <code>tensorflow</code> extra requires Python &lt;3.14 until TensorFlow publishes 3.14 wheels)</p>
 <ul>
 <li>PyMLup stands on the shoulders of giants FastAPI for the web parts. </li>
 <li>Additionally, you need to install the libraries that your model uses.</li>
