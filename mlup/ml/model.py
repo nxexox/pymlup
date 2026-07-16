@@ -333,7 +333,7 @@ class MLupModel(ModelConfig):
 
         with TimeProfiler('Time to load binary model to memory:'):
             try:
-                loaded_files: list[LoadedFile] = storage.load()
+                loaded_files: List[LoadedFile] = storage.load()
             except Exception as e:
                 raise ModelLoadError(str(e))
 

@@ -1,4 +1,3 @@
-jupyter
 numpy
 pandas
 scikit-learn
@@ -6,5 +5,4 @@ tensorflow
 lightgbm
 torch
 onnxruntime
-tf2onnx
-skl2onnx
+onnxscript

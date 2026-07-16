@@ -2,14 +2,9 @@ import importlib
 import inspect
 import logging
 from enum import Enum
-from typing import Callable, Any, Union, Optional, Type, Generic, Sequence, Dict, Tuple
+from typing import Callable, Any, Union, Optional, Type, Sequence, Dict, Tuple
 
-try:
-    from typing import get_args as typing_get_args, get_origin as typing_get_origin
-# For Python <= 3.7
-except ImportError:
-    typing_get_args = lambda t: getattr(t, '__args__', ()) if t is not Generic else Generic  # noqa: E731
-    typing_get_origin = lambda t: getattr(t, '__origin__', None)  # noqa: E731
+from typing import get_args as typing_get_args, get_origin as typing_get_origin
 
 from mlup.constants import IS_X, THERE_IS_ARGS, DEFAULT_X_ARG_NAME, BinarizationType, LoadedFile
 from mlup.utils.profiling import TimeProfiler

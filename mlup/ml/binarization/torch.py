@@ -23,7 +23,9 @@ class TorchBinarizer(BaseBinarizer):
                     _data = open(data.path, 'rb')
                 elif not isinstance(data.raw_data, BufferedIOBase):
                     _data = BytesIO(data.raw_data)
-                model = torch.load(_data)
+                # weights_only=False: mlup deliberately loads whatever custom model class
+                # the user supplied (same trust model as PickleBinarizer), not just tensors.
+                model = torch.load(_data, weights_only=False)
                 model.eval()
                 return model
             except Exception as e:
