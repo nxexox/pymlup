@@ -162,7 +162,7 @@ up = mlup.UP(ml_model=EmptyModel())
 up.conf.storage_type = constants.StorageType.disk
 up.conf.storage_kwargs = {
     'path_to_files': 'path/to/model/file/in/model_name.modelextension',
-    'file_mask': 'model_name.modelextension',
+    'files_mask': 'model_name.modelextension',
 }
 up.to_yaml("path_to_yaml_config.yaml")
 up.to_json("path_to_json_config.json")
@@ -478,7 +478,7 @@ HTTP's methods: GET
     "columns": null
   },
   "web_app_info": {
-    "version": "1.0.0.0",
+    "version": "1.0.0.0"
   }
 }
 ```
@@ -488,7 +488,7 @@ If set in config `debug=True`, return another json, almost complete config. But 
 ```json
 {
   "web_app_config": {
-    "host": "localhost",
+    "host": "0.0.0.0",
     "port": 8009,
     "web_app_version": "1.0.0.0",
     "column_validation": false,
@@ -517,7 +517,7 @@ If set in config `debug=True`, return another json, almost complete config. But 
     "storage_type": "mlup.ml.storage.memory.MemoryStorage",
     "binarization_type": "auto",
     "use_thread_loop": true,
-    "max_thread_loop_workers": true,
+    "max_thread_loop_workers": null,
     "data_transformer_for_predict": "mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer",
     "data_transformer_for_predicted": "mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer",
     "dtype_for_predict": null

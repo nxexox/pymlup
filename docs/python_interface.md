@@ -175,7 +175,7 @@ The `mlup.UP.web` object is `mlup.web.app.MLupWebApp`.
 * `async http_health` - This is a handler for the `/health` request.
 * `async info` - This is the `/info` request handler in case of `debug=False`.
 * `async debug_info` - This is the `/info` request handler in the case of `debug=True`.
-* `async http_health` - This is the `/predict` request handler.
+* `async predict` - This is the `/predict` request handler.
 
 You can read about scenarios for using the `load`, `load_web_app_settings`, `run`, `stop` methods in [Description of the application life cycle](life_cycle.md#mlupweb).
 
