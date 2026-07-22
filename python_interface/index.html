@@ -11,25 +11,25 @@
         <link rel="canonical" href="https://mlup.org/python_interface/">
       
       
-        <link rel="prev" href="../life_cycle/">
+        <link rel="prev" href="../web_app_api/">
       
       
-        <link rel="next" href="../quickstart/">
+        <link rel="next" href="../bash_commands/">
       
       
         
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Description of the Python Interface - MLup</title>
+        <title>Python interface - MLup</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -148,7 +148,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Description of the Python Interface
+              Python interface
             
           </span>
         </div>
@@ -327,14 +327,95 @@
   
   
     <li class="md-nav__item">
-      <a href="../bash_commands/" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Description of the bash commands
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config_file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration file
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life_cycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application life cycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storages
   
 
     
@@ -381,33 +462,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../config_file/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Config file
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../data_transformers/" class="md-nav__link">
         
   
@@ -415,7 +469,7 @@
   <span class="md-ellipsis">
     
   
-    Data transformers
+    Data Transformers
   
 
     
@@ -435,14 +489,41 @@
   
   
     <li class="md-nav__item">
-      <a href="../life_cycle/" class="md-nav__link">
+      <a href="../web_app_architectures/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Life cycle
+    Web app architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web app API
   
 
     
@@ -478,7 +559,7 @@
   <span class="md-ellipsis">
     
   
-    Description of the Python Interface
+    Python interface
   
 
     
@@ -496,7 +577,7 @@
   <span class="md-ellipsis">
     
   
-    Description of the Python Interface
+    Python interface
   
 
     
@@ -569,95 +650,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../bash_commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Quickstart
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../storages/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Storages
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../web_app_api/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Web app API
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../web_app_architectures/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Web app architectures
+    Bash commands
   
 
     
@@ -898,7 +898,7 @@ print(model is up.ml.model_obj)
 <li><code>async http_health</code> - This is a handler for the <code>/health</code> request.</li>
 <li><code>async info</code> - This is the <code>/info</code> request handler in case of <code>debug=False</code>.</li>
 <li><code>async debug_info</code> - This is the <code>/info</code> request handler in the case of <code>debug=True</code>.</li>
-<li><code>async http_health</code> - This is the <code>/predict</code> request handler.</li>
+<li><code>async predict</code> - This is the <code>/predict</code> request handler.</li>
 </ul>
 <p>You can read about scenarios for using the <code>load</code>, <code>load_web_app_settings</code>, <code>run</code>, <code>stop</code> methods in <a href="../life_cycle/#mlupweb">Description of the application life cycle</a>.</p>
 <pre><code class="language-python">import numpy
@@ -1024,7 +1024,7 @@ print(isinstance(up.web.app, FastAPI))
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

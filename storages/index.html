@@ -11,17 +11,17 @@
         <link rel="canonical" href="https://mlup.org/storages/">
       
       
-        <link rel="prev" href="../quickstart/">
+        <link rel="prev" href="../life_cycle/">
       
       
-        <link rel="next" href="../web_app_api/">
+        <link rel="next" href="../binarizers/">
       
       
         
       
       
       <link rel="icon" href="../assets/img/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -327,41 +327,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../bash_commands/" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Description of the bash commands
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../binarizers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Binarizers
+    Quickstart
   
 
     
@@ -388,34 +361,7 @@
   <span class="md-ellipsis">
     
   
-    Config file
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../data_transformers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data transformers
+    Configuration file
   
 
     
@@ -442,61 +388,7 @@
   <span class="md-ellipsis">
     
   
-    Life cycle
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../python_interface/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Description of the Python Interface
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quickstart
+    Application life cycle
   
 
     
@@ -623,14 +515,41 @@
   
   
     <li class="md-nav__item">
-      <a href="../web_app_api/" class="md-nav__link">
+      <a href="../binarizers/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Web app API
+    Binarizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Transformers
   
 
     
@@ -658,6 +577,87 @@
     
   
     Web app architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_app_api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web app API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash commands
   
 
     
@@ -782,7 +782,7 @@ up = mlup.UP(ml_model=EmptyModel())
 <p>This storage has parameters for <code>storage_kwargs</code>:</p>
 <ul>
 <li><code>path_to_files: str</code> - Required. The path to the folder with the model file or to the model file itself on disk.</li>
-<li><code>file_mask: str</code> = Optional. By default <code>(\w.-_)*.pckl</code> is pickle. A regular expression that will be used to search for a file in <code>path_to_files</code>.</li>
+<li><code>files_mask: str</code> = Optional. By default <code>(\w.-_)*.pckl</code> is pickle. A regular expression that will be used to search for a file in <code>path_to_files</code>.</li>
 <li><code>need_load_file: bool</code> - Optional. Default is False. If False, the binary model data itself will not be loaded into memory and the binarizer will load it itself. If True, then the storage will load the raw data into memory and give it to the binarizer.</li>
 </ul>
 <p><strong>IMPORTANT!</strong></p>
@@ -813,7 +813,7 @@ up = mlup.UP(
             &quot;path_to_files&quot;: &quot;/path/to/my/model.onnx&quot;,
             # There may be several files in the folder. 
             # To uniquely identify your model file, you can use its full name in the mask.
-            &quot;file_mask&quot;: &quot;model.onnx&quot;,
+            &quot;files_mask&quot;: &quot;model.onnx&quot;,
         },
     )
 )
@@ -904,7 +904,7 @@ class MyStorage(BaseStorage):
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
