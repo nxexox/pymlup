@@ -39,5 +39,5 @@ if __name__ == "__main__":
 
     # You can load config and then change it
     up_for_change = up.load_from_yaml('example-config.yaml', load_model=True)
-    up_for_change.name = 'NewName'
+    up_for_change.conf.name = 'NewName'
     up_for_change.to_yaml('example-changed-config.yaml')

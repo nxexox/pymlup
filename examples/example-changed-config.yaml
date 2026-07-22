@@ -21,11 +21,11 @@ ml:
     type: float
   - name: Temp3pm
     type: float
-  data_transformer_for_predict: mlup.ml.data_transformers.pandas_data_transformer.PandasDataFrameTransformer
+  data_transformer_for_predict: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
   data_transformer_for_predicted: mlup.ml.data_transformers.numpy_data_transformer.NumpyDataTransformer
   dtype_for_predict: null
   max_thread_loop_workers: null
-  name: MyName
+  name: NewName
   predict_method_name: predict
   storage_kwargs:
     files_mask: scikit-learn-binary_cls_model.pckl

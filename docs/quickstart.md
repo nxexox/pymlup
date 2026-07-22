@@ -124,7 +124,7 @@ up = mlup.UP(
 ```
 
 mlup creates an object from `storage_type` and uses `storage_kwargs` as creation arguments.
-In the case of `mlup.constants.StorageType.disk`, you must specify the path to the `path_to_files` model and can specify `file_mask`.
-`file_mask` is a regular expression that will find your model in `path_to_files`.
+In the case of `mlup.constants.StorageType.disk`, you must specify the path to the `path_to_files` model and can specify `files_mask`.
+`files_mask` is a regular expression that will find your model in `path_to_files`.
 
 By default, mlup `storage_type=constants.StorageType.memory`.

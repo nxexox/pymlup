@@ -46,7 +46,7 @@ When you run a mlup application on the server, at that moment your model is not 
 This storage has parameters for `storage_kwargs`:
 
 * `path_to_files: str` - Required. The path to the folder with the model file or to the model file itself on disk.
-* `file_mask: str` = Optional. By default `(\w.-_)*.pckl` is pickle. A regular expression that will be used to search for a file in `path_to_files`.
+* `files_mask: str` = Optional. By default `(\w.-_)*.pckl` is pickle. A regular expression that will be used to search for a file in `path_to_files`.
 * `need_load_file: bool` - Optional. Default is False. If False, the binary model data itself will not be loaded into memory and the binarizer will load it itself. If True, then the storage will load the raw data into memory and give it to the binarizer.
 
 **IMPORTANT!**
@@ -80,7 +80,7 @@ up = mlup.UP(
             "path_to_files": "/path/to/my/model.onnx",
             # There may be several files in the folder. 
             # To uniquely identify your model file, you can use its full name in the mask.
-            "file_mask": "model.onnx",
+            "files_mask": "model.onnx",
         },
     )
 )

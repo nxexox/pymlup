@@ -98,7 +98,7 @@ if __name__ == '__main__':
 You can control which application will be generated using arguments:
 
 * `mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py` - will add model loading from disk to the application.
-* `mlup make-app -сs /path/to/your/config.yaml /path/to/your/app.py` - will add config loading from disk to the application.
+* `mlup make-app -cs /path/to/your/config.yaml /path/to/your/app.py` - will add config loading from disk to the application.
 * `mlup make-app -bs /path/to/your/mlupUP.pickle /path/to/your/app.py` - will add loading mlup.UP from disk and unpickle to the application.
 
 For example, the command `mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py` will create the file:

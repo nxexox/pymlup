@@ -20,7 +20,7 @@ This is a simple web application state API method. Allows monitoring to ensure t
 #### GET, OPTIONS
 
 * status_code: 200
-* body: `{"status_code": 200}`
+* body: `{"status": 200}`
 
 ### /info
 
@@ -40,8 +40,8 @@ If `debug=False` is specified in the application parameters (_by default `False`
     "columns": null
   },
   "web_app_info": {
-    "version": "1.0.0.0",
-  },
+    "version": "1.0.0.0"
+  }
 }
 ```
 
@@ -49,7 +49,7 @@ If `debug=True` is specified in the application parameters (the default is `Fals
 ```json
 {
   "web_app_config": {
-    "host": "localhost",
+    "host": "0.0.0.0",
     "port": 8009,
     "web_app_version": "1.0.0.0",
     "column_validation": false,

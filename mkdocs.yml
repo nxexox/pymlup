@@ -4,6 +4,19 @@ site_url: https://mlup.org/
 repo_url: https://github.com/nxexox/pymlup
 repo_name: PyMLup
 
+nav:
+  - Home: README.md
+  - Quickstart: quickstart.md
+  - Configuration file: config_file.md
+  - Application life cycle: life_cycle.md
+  - Storages: storages.md
+  - Binarizers: binarizers.md
+  - Data Transformers: data_transformers.md
+  - Web app architectures: web_app_architectures.md
+  - Web app API: web_app_api.md
+  - Python interface: python_interface.md
+  - Bash commands: bash_commands.md
+
 theme:
   name: material
   language: en
