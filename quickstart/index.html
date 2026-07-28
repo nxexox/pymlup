@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Turn Python objects and serialized machine learning models (scikit-learn, lightgbm, tensorflow, torch, onnx) into self-hosted FastAPI REST APIs without writing serving boilerplate.">
+      
       
       
         <link rel="canonical" href="https://mlup.org/quickstart/">
@@ -750,11 +752,40 @@
 
 
 <h1 id="quickstart">Quickstart</h1>
+<p>This page walks through the fastest path from a clean environment to a working prediction API, then covers other ways to run and configure mlup.</p>
 <h2 id="fast-run">Fast run</h2>
-<p>The easiest way to try to launch a web application with basic settings is to call the bash command:</p>
-<pre><code class="language-bash">mlup run -m /path/to/your/model.pckl
+<p><strong>1. Install pymlup with the scikit-learn extra:</strong></p>
+<pre><code class="language-bash">pip install &quot;pymlup[scikit-learn]&quot;
 </code></pre>
-<p>or you can do it directly in jupyter notebook, if your model is still in a variable:</p>
+<p><strong>2. Train and save a tiny model</strong>, e.g. in <code>train_model.py</code>:</p>
+<pre><code class="language-python">import pickle
+from sklearn.tree import DecisionTreeClassifier
+
+X = [[0, 0], [1, 1], [2, 2], [3, 3]]
+y = [0, 0, 1, 1]
+
+model = DecisionTreeClassifier().fit(X, y)
+
+with open(&quot;model.pkl&quot;, &quot;wb&quot;) as f:
+    pickle.dump(model, f)
+</code></pre>
+<pre><code class="language-bash">python train_model.py
+</code></pre>
+<p><strong>3. Run it:</strong></p>
+<pre><code class="language-bash">mlup run -m ./model.pkl
+</code></pre>
+<p><strong>4. Check it's alive and call it</strong> (in another terminal):</p>
+<pre><code class="language-bash">curl http://localhost:8009/health
+# {&quot;status&quot;:200}
+
+curl -X POST http://localhost:8009/predict \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;X&quot;: [[1, 1], [3, 3]]}'
+# {&quot;predict_result&quot;:[0,1]}
+</code></pre>
+<p><strong>5. Open the interactive API docs</strong> at http://localhost:8009/docs (Swagger UI, auto-generated from your model's <code>predict</code> signature) — you can try <code>/predict</code> right there.</p>
+<p>Stop the server with <code>Ctrl+C</code>, or with <code>up.stop_web_app()</code> if you started it from Python (see below).</p>
+<p>You can also load a model that's already in a Python variable instead of a file on disk — for example directly in a Jupyter notebook:</p>
 <pre><code class="language-python">import mlup
 
 model: YourModel
@@ -765,9 +796,6 @@ up.run_web_app(daemon=True)
 # Testing your web application
 up.stop_web_app()
 </code></pre>
-<p>After launching the web application, you can check how it works.
-Open http://0.0.0.0:8009/docs to view the documentation of your API.
-There, you can immediately try sending a request to <code>/predict</code>.</p>
 <p>You can pass your settings directly to the bash command:</p>
 <pre><code class="language-bash">mlup run -m /path/to/your/model.pckl --up.port=8011
 </code></pre>
@@ -831,7 +859,7 @@ from mlup.ml.empty import EmptyModel
 up = mlup.UP(ml_model=EmptyModel(), conf=mlup.Config(predict_method_name=&quot;__call__&quot;))
 </code></pre>
 <p>Also, models can be binarized in different ways: <code>pickle</code>, <code>joblib</code>, <code>onnx</code>, etc.
-By default, mlup tries the pickle binarizer (<a href="https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/pickle">mlup.ml.binarization.pickle.PickleBinarizer</a>).
+By default, <code>binarization_type="auto"</code>: mlup inspects the file's content and extension and picks the most likely binarizer for you automatically.
 This behavior can be changed by specifying the <code>binarization_type</code> parameter. You can specify one of the <a href="https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/">mlup binarizers</a> or specify your own (See <a href="../binarizers/">Binarizers</a>).</p>
 <h2 id="launch-on-servers">Launch on servers</h2>
 <p>There is one important difference between the local configuration and the server configuration.
