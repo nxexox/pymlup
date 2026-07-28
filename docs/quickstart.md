@@ -1,12 +1,52 @@
 # Quickstart
 
+This page walks through the fastest path from a clean environment to a working prediction API, then covers other ways to run and configure mlup.
+
 ## Fast run
 
-The easiest way to try to launch a web application with basic settings is to call the bash command:
+**1. Install pymlup with the scikit-learn extra:**
 ```bash
-mlup run -m /path/to/your/model.pckl
+pip install "pymlup[scikit-learn]"
 ```
-or you can do it directly in jupyter notebook, if your model is still in a variable:
+
+**2. Train and save a tiny model**, e.g. in `train_model.py`:
+```python
+import pickle
+from sklearn.tree import DecisionTreeClassifier
+
+X = [[0, 0], [1, 1], [2, 2], [3, 3]]
+y = [0, 0, 1, 1]
+
+model = DecisionTreeClassifier().fit(X, y)
+
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
+```
+```bash
+python train_model.py
+```
+
+**3. Run it:**
+```bash
+mlup run -m ./model.pkl
+```
+
+**4. Check it's alive and call it** (in another terminal):
+```bash
+curl http://localhost:8009/health
+# {"status":200}
+
+curl -X POST http://localhost:8009/predict \
+  -H "Content-Type: application/json" \
+  -d '{"X": [[1, 1], [3, 3]]}'
+# {"predict_result":[0,1]}
+```
+
+**5. Open the interactive API docs** at http://localhost:8009/docs (Swagger UI, auto-generated from your model's `predict` signature) — you can try `/predict` right there.
+
+Stop the server with `Ctrl+C`, or with `up.stop_web_app()` if you started it from Python (see below).
+
+You can also load a model that's already in a Python variable instead of a file on disk — for example directly in a Jupyter notebook:
 ```python
 import mlup
 
@@ -18,10 +58,6 @@ up.run_web_app(daemon=True)
 # Testing your web application
 up.stop_web_app()
 ```
-
-After launching the web application, you can check how it works.
-Open http://0.0.0.0:8009/docs to view the documentation of your API.
-There, you can immediately try sending a request to `/predict`.
 
 You can pass your settings directly to the bash command:
 ```bash
@@ -96,7 +132,7 @@ up = mlup.UP(ml_model=EmptyModel(), conf=mlup.Config(predict_method_name="__call
 ```
 
 Also, models can be binarized in different ways: `pickle`, `joblib`, `onnx`, etc.
-By default, mlup tries the pickle binarizer ([mlup.ml.binarization.pickle.PickleBinarizer](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/pickle)).
+By default, `binarization_type="auto"`: mlup inspects the file's content and extension and picks the most likely binarizer for you automatically.
 This behavior can be changed by specifying the `binarization_type` parameter. You can specify one of the [mlup binarizers](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization/) or specify your own (See [Binarizers](binarizers.md)).
 
 ## Launch on servers

@@ -11,6 +11,19 @@ license = {file = "LICENSE"}
 authors = [
   { name="Deys Timofey", email="nxexox@gmail.com" },
 ]
+keywords = [
+    "machine-learning",
+    "model-serving",
+    "inference",
+    "fastapi",
+    "rest-api",
+    "mlops",
+    "scikit-learn",
+    "pytorch",
+    "tensorflow",
+    "onnx",
+    "lightgbm",
+]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Developers",
@@ -20,6 +33,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python",
     "Topic :: Internet",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Software Development :: Code Generators",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -52,9 +66,11 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/nxexox/pymlup"
-Documentation = "https://github.com/nxexox/pymlup/docs"
-Repository = "https://github.com/nxexox/pymlup"
+Homepage = "https://mlup.org/"
+Documentation = "https://mlup.org/"
+Source = "https://github.com/nxexox/pymlup"
+Issues = "https://github.com/nxexox/pymlup/issues"
+Changelog = "https://github.com/nxexox/pymlup/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 scikit-learn = [

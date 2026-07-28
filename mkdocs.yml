@@ -1,5 +1,9 @@
 site_name: MLup
 site_url: https://mlup.org/
+site_description: >-
+  Turn Python objects and serialized machine learning models (scikit-learn, lightgbm,
+  tensorflow, torch, onnx) into self-hosted FastAPI REST APIs without writing serving
+  boilerplate.
 
 repo_url: https://github.com/nxexox/pymlup
 repo_name: PyMLup

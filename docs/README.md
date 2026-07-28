@@ -2,7 +2,7 @@
 
 # MLup
 
-MLup is framework for easy and fast run ML in production.
+MLup is a framework for easy and fast running of ML models in production.
 
 [![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
 [![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
@@ -24,7 +24,7 @@ MLup is framework for easy and fast run ML in production.
 
 ## Introduction
 
-MLup is library for easy and fast run ML in production. 
+MLup is a library for easy and fast running of ML models in production.
 
 All you need is to deliver the model file and config to the server (in fact, the config is not necessary) 🙃
 
@@ -109,6 +109,7 @@ up.ml.load()
 # You can open browser http://localhost:8009/docs
 up.run_web_app(daemon=True)
 
+# Calling it from the same script needs `pip install requests` separately — it's not a pymlup dependency.
 import requests
 response = requests.post('http://0.0.0.0:8009/predict', json={'X': [[1, 2, 3], [4, 5, 6]]})
 print(response.json())

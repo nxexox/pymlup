@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 0.3.1
+
+### Fixed
+
+* Reproducible `scikit-learn` Quick Start in `README.md`/`docs/quickstart.md` that doesn't
+  implicitly depend on `requests` being installed. The previous example crashed with
+  `ModuleNotFoundError: No module named 'requests'` right after the server started, on a
+  bare `pip install pymlup`; the new one uses `curl` for `/health` and `/predict`.
+* The `Documentation` project URL shown on PyPI (`https://github.com/nxexox/pymlup/docs`,
+  a 404) now points at `https://mlup.org/`.
+* The README logo used a relative image path, which rendered as a broken image on the PyPI
+  project page (GitHub resolves it, PyPI doesn't); it's now an absolute URL.
+* `docs/quickstart.md` inaccurately stated that mlup "tries the pickle binarizer" by
+  default; corrected to describe the actual `binarization_type="auto"` auto-detection
+  behavior, and a dead link to a non-existent binarizer file path was fixed alongside it.
+* Assorted first-page documentation errors: grammar in the opening paragraphs of
+  `docs/README.md`.
+
+### Added
+
+* PyPI `keywords`: `machine-learning`, `model-serving`, `inference`, `fastapi`, `rest-api`,
+  `mlops`, `scikit-learn`, `pytorch`, `tensorflow`, `onnx`, `lightgbm`.
+* `Topic :: Scientific/Engineering :: Artificial Intelligence` classifier.
+* Additional `project.urls` entries: `Source`, `Issues`, `Changelog`.
+* `site_description` for the MkDocs site.
+
 ## 0.3.0
 
 * Dropped Python 3.7 support, added 3.12/3.13/3.14 support. The `tensorflow` extra is
