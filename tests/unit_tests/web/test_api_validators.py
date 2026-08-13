@@ -20,6 +20,16 @@ column_types_map = {
     'list': list,
     'List': List,
 }
+# Pydantic v2 ValidationError "type" taxonomy for each mlup column type (see `.errors()`,
+# https://errors.pydantic.dev/2.13/migration/). Used to check errors structurally instead of
+# comparing full Pydantic v1 error message text (`raw_errors`/`msg_template`), which don't
+# exist in Pydantic v2.
+error_type_by_col_type = {
+    'int': 'int_type',
+    'float': 'float_type',
+    'bool': 'bool_type',
+    'str': 'string_type',
+}
 src_columns = [
     {"name": "Float", "type": "float"},
     {"name": "FloatDefault", "type": "float", "default": 1.4},
@@ -72,10 +82,12 @@ def test_make_map_pydantic_columns():
         assert pred_field_info.title == col_config["name"]
         if 'default' in col_config:
             assert pred_field_info.default is col_config["default"]
+            assert pred_field_info.is_required() is False
         elif col_config.get('required', True) is False:
             assert pred_field_info.default is None
+            assert pred_field_info.is_required() is False
         else:
-            assert pred_field_info.default is Ellipsis
+            assert pred_field_info.is_required() is True
 
     assert len(cols_configs) == 0
     assert len(validators) == 0
@@ -86,6 +98,9 @@ def test_make_map_pydantic_validation():
 
     for col_config in src_columns:
         pred_col_type, pred_field_info = cols_configs.pop(col_config["name"])
+        expected_type_error = (
+            'list_type' if "collection_type" in col_config else error_type_by_col_type[col_config["type"]]
+        )
 
         _test_pydantic_model = create_model(
             "_TestPydanticModel",
@@ -94,7 +109,7 @@ def test_make_map_pydantic_validation():
 
         # Check valid type
         if "collection_type" in col_config:
-            _test_pydantic_model(**{col_config["name"]: [1]})
+            _test_pydantic_model(**{col_config["name"]: [column_types_map[col_config["type"]](1)]})
         else:
             _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
         # Check not valid type
@@ -103,22 +118,13 @@ def test_make_map_pydantic_validation():
             _test_pydantic_model(**{col_config["name"]: not_valid_value})
             pytest.fail('Not raise error')
         except ValidationError as e:
-            msg_str = str(e.raw_errors[0].exc.msg_template)
-            if pred_col_type is str:
-                assert msg_str == 'str type expected'
-            elif pred_col_type is bool:
-                assert msg_str == 'value could not be parsed to a boolean'
-            else:
-                if "collection_type" in col_config:
-                    assert msg_str.startswith(f'value is not a valid {col_config["collection_type"].lower()}')
-                else:
-                    assert msg_str.startswith(f'value is not a valid {col_config["type"]}')
+            assert e.errors()[0]['type'] == expected_type_error
 
         # Check required
         if col_config.get("required", True):
             # Check valid value
             if "collection_type" in col_config:
-                _test_pydantic_model(**{col_config["name"]: [1]})
+                _test_pydantic_model(**{col_config["name"]: [column_types_map[col_config["type"]](1)]})
             else:
                 _test_pydantic_model(**{col_config["name"]: pred_col_type(1)})
             # Check none value
@@ -126,16 +132,22 @@ def test_make_map_pydantic_validation():
                 _test_pydantic_model(**{col_config["name"]: None})
                 pytest.fail('Not raise error')
             except ValidationError as e:
-                assert str(e.raw_errors[0].exc).startswith('none is not an allowed value')
+                assert e.errors()[0]['type'] == expected_type_error
         # Check not required
         else:
-            # Check not exists value
+            # Check not exists value: uses the default (None) as-is, without validation.
             _test_pydantic_model()
-            # Check None value
+            # Check explicit None value: mlup's not-required columns only set `default=None`,
+            # they don't widen the field type to `Optional[...]`. Pydantic v1 inferred implicit
+            # optionality from `default=None` and accepted an explicit `null`; Pydantic v2 does
+            # not do this anymore, so an explicit `null` is now rejected with the same
+            # structural type error as any other wrong-type value. This is a real, documented
+            # behavior change (see CHANGELOG), not a test artifact.
             try:
                 _test_pydantic_model(**{col_config["name"]: None})
+                pytest.fail('Not raise error')
             except ValidationError as e:
-                assert str(e.raw_errors[0].exc.msg_template) == 'none is not an allowed value'
+                assert e.errors()[0]['type'] == expected_type_error
 
     assert len(cols_configs) == 0
     assert len(validators) == 0
@@ -172,10 +184,12 @@ def test_make_map_pydantic_columns_with_IS_X(model_for_columns):
         assert pred_field_info.title == col_config["name"]
         if 'default' in col_config:
             assert pred_field_info.default is col_config["default"]
+            assert pred_field_info.is_required() is False
         elif col_config.get('required', True) is False:
             assert pred_field_info.default is None
+            assert pred_field_info.is_required() is False
         else:
-            assert pred_field_info.default is Ellipsis
+            assert pred_field_info.is_required() is True
 
     assert len(cols_configs) == 0
     assert len(validators) == 0
@@ -220,23 +234,25 @@ def test_create_pydantic_predict_model_valid(
     # Check valid value
     data_for_pred = {x_param_name: data}
     ddt = pred_pydantic_model(**data_for_pred)
-    assert ddt.dict() == {x_param_name: expected_data}
+    assert ddt.model_dump() == {x_param_name: expected_data}
 
     # Check empty value
     try:
-        pred_pydantic_model(not_exists_key=data).dict()
+        pred_pydantic_model(not_exists_key=data).model_dump()
         pytest.fail('Not raise error')
     except ValidationError as e:
-        assert str(e) == f'1 validation error for MLupRequestPredictPydanticModel\n{x_param_name}\n  ' \
-                         'field required (type=value_error.missing)'
+        error = e.errors()[0]
+        assert error['loc'] == (x_param_name,)
+        assert error['type'] == 'missing'
 
     # Check not valid value
     try:
-        pred_pydantic_model(**{x_param_name: 1}).dict()
+        pred_pydantic_model(**{x_param_name: 1}).model_dump()
         pytest.fail('Not raise error')
     except ValidationError as e:
-        assert str(e) == f'1 validation error for MLupRequestPredictPydanticModel\n{x_param_name}\n  ' \
-                         'value is not a valid list (type=type_error.list)'
+        error = e.errors()[0]
+        assert error['loc'] == (x_param_name,)
+        assert error['type'] == 'list_type'
 
 
 @pytest.mark.parametrize(
@@ -247,10 +263,14 @@ def test_create_pydantic_predict_model_valid(
 @pytest.mark.parametrize(
     'data, expected_data',
     [
-        ([{'test_column': 1}], [{'test_column': '1'}]),
-        ([{'test_column': 1, 'NotExistsKey': 10}], [{'test_column': '1'}]),
+        # Pydantic v1 silently coerced an int to str here (`1` -> `'1'`); Pydantic v2 no
+        # longer coerces non-str input for a `str` field, so the input must already be a
+        # string. Unknown keys (`NotExistsKey`) are still stripped by the default
+        # `extra='ignore'` model behavior, unchanged between v1 and v2.
+        ([{'test_column': '1'}], [{'test_column': '1'}]),
+        ([{'test_column': '1', 'NotExistsKey': 10}], [{'test_column': '1'}]),
     ],
-    ids=['data={"test_column": 1}', 'data={"test_column": 1, "not_exists_key": 1}']
+    ids=['data={"test_column": "1"}', 'data={"test_column": "1", "not_exists_key": 1}']
 )
 def test_create_pydantic_predict_model_custom_column_pydantic_model(
     model_with_x,
@@ -277,20 +297,46 @@ def test_create_pydantic_predict_model_custom_column_pydantic_model(
     # Check valid value
     data_for_pred = {x_param_name: data}
     ddt = pred_pydantic_model(**data_for_pred)
-    assert ddt.dict() == {x_param_name: expected_data}
+    assert ddt.model_dump() == {x_param_name: expected_data}
 
     # Check empty value
     try:
-        pred_pydantic_model(not_exists_key=data).dict()
+        pred_pydantic_model(not_exists_key=data).model_dump()
         pytest.fail('Not raise error')
     except ValidationError as e:
-        assert str(e) == f'1 validation error for MLupRequestPredictPydanticModel\n{x_param_name}\n  ' \
-                         'field required (type=value_error.missing)'
+        error = e.errors()[0]
+        assert error['loc'] == (x_param_name,)
+        assert error['type'] == 'missing'
 
     # Check not valid
     try:
-        pred_pydantic_model(**{x_param_name: 1}).dict()
+        pred_pydantic_model(**{x_param_name: 1}).model_dump()
         pytest.fail('Not raised error')
     except ValidationError as e:
-        assert str(e) == f'1 validation error for MLupRequestPredictPydanticModel\n{x_param_name}\n  ' \
-                         'value is not a valid list (type=type_error.list)'
+        error = e.errors()[0]
+        assert error['loc'] == (x_param_name,)
+        assert error['type'] == 'list_type'
+
+
+def test_create_pydantic_predict_model_rejects_pydantic_v1_custom_column_model(model_with_x):
+    # Regression test: mlup only supports Pydantic v2 models as `custom_column_pydantic_model`
+    # now. A model built on the `pydantic.v1` compatibility namespace (shipped inside Pydantic
+    # v2 installs) must not be silently accepted - mlup doesn't add a `pydantic.v1` dependency
+    # or a compatibility layer for it.
+    import pydantic.v1
+
+    class V1CustomColumnModel(pydantic.v1.BaseModel):
+        test_column: str
+
+    ml = MLupModel(
+        ml_model=model_with_x,
+        conf=ModelConfig(auto_detect_predict_params=True, columns=src_columns),
+    )
+    ml.load()
+
+    pred_pydantic_model = create_pydantic_predict_model(
+        ml, column_validation=False, custom_column_pydantic_model=V1CustomColumnModel
+    )
+
+    with pytest.raises(TypeError):
+        pred_pydantic_model(X=[{'test_column': 'a'}])

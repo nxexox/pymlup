@@ -61,10 +61,11 @@ def make_map_pydantic_columns(
     Use for creating pydantic models in WebApp.
 
     Future:
-        Example create custom validator:
-        __validators__[f'{col_config["name"]}_required_validator'] = validator(
-            col_config['name'], allow_reuse=True
-        )(validator_by_required)
+        Example create custom validator (Pydantic v2 API - `pydantic.validator` used by the
+        old v1-era version of this example doesn't exist anymore):
+        __validators__[f'{col_config["name"]}_required_validator'] = field_validator(
+            col_config['name']
+        )(classmethod(validator_by_required))
 
     :param List[Dict[str, Any]] src_columns: List columns from config.
     :param Optional[BaseModel] x_model: Col type from predict method in model.

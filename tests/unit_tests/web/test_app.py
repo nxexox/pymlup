@@ -340,6 +340,12 @@ async def test_api_docs(web_app_test_client, print_model, show_docs, expected_st
         assert response_docs.status_code == expected_status
         assert response_redoc.status_code == expected_status
 
+        # /openapi.json isn't tied to show_docs and must always be generated successfully by
+        # FastAPI/Pydantic v2 (regression check for the fastapi/pydantic v2 migration).
+        response_openapi = await api_test_client.get("/openapi.json")
+        assert response_openapi.status_code == 200
+        assert response_openapi.json()["openapi"].startswith("3.")
+
 
 @pytest.mark.asyncio
 async def test_predict_model_numpy_returned_valid(web_app_test_client, list_to_numpy_array_model):
@@ -436,13 +442,43 @@ async def test_predict_not_valid_request(web_app_test_client, print_model):
         response = await api_test_client.post("/predict", json={'not_exists_key': [[1, 2, 3]], 'test_param': 123})
         assert response.status_code == 422
         assert response.headers['x-predict-id']
-        assert response.json() == {
-            "detail": [
-                {"loc": ["X"], "msg": "field required", "type": "value_error.missing"},
-                {"loc": ["test_param"], "msg": "value could not be parsed to a boolean", "type": "type_error.bool"}
-            ],
-            "predict_id": response.headers['x-predict-id']
-        }
+        body = response.json()
+        assert body['predict_id'] == response.headers['x-predict-id']
+
+        # Check errors structurally (status, loc, type) rather than the full Pydantic v1
+        # message text, which no longer exists as-is in Pydantic v2 (see the "type" taxonomy
+        # at https://errors.pydantic.dev/2.13/migration/: "field required" -> "missing",
+        # "value could not be parsed to a boolean" -> "bool_parsing").
+        errors_by_loc = {tuple(error["loc"]): error for error in body["detail"]}
+        assert set(errors_by_loc) == {("X",), ("test_param",)}
+        assert errors_by_loc[("X",)]["type"] == "missing"
+        assert errors_by_loc[("X",)]["msg"]
+        assert errors_by_loc[("test_param",)]["type"] == "bool_parsing"
+        assert errors_by_loc[("test_param",)]["msg"]
+
+
+@pytest.mark.asyncio
+async def test_predict_not_valid_request_no_deprecation_warnings(recwarn, web_app_test_client, print_model):
+    # Regression test for the Pydantic v1 -> v2 migration: building the error response used to
+    # call the deprecated `BaseModel.dict()` (see `mlup/web/api_errors.py`). Make sure a real
+    # validation-error request doesn't emit `PydanticDeprecatedSince20` (or any other
+    # deprecation warning caused by pymlup's own code).
+    mlup_model = MLupModel(
+        ml_model=print_model,
+        conf=ModelConfig(data_transformer_for_predict=ModelDataTransformerType.NUMPY_ARR)
+    )
+    mlup_web_app = MLupWebApp(
+        ml=mlup_model,
+        conf=WebAppConfig(mode=WebAppArchitecture.directly_to_predict)
+    )
+    mlup_model.load()
+    mlup_web_app.load()
+    with web_app_test_client(mlup_web_app) as api_test_client:
+        response = await api_test_client.post("/predict", json={'not_exists_key': [[1, 2, 3]], 'test_param': 123})
+        assert response.status_code == 422
+
+    deprecation_warnings = [str(w.message) for w in recwarn.list if issubclass(w.category, DeprecationWarning)]
+    assert deprecation_warnings == []
 
 
 @pytest.mark.asyncio

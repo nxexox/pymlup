@@ -512,7 +512,7 @@ class MLupWebApp:
             predict_request_body = self._predict_inner_pydantic_model(**(await request.json()))
         except json.JSONDecodeError as e:
             raise PredictValidationInnerDataError(msg=f'Invalid json data: {e}', predict_id=predict_id)
-        data_for_predict = predict_request_body.dict()
+        data_for_predict = predict_request_body.model_dump()
 
         # Throttling
         if self.conf.throttling_max_request_len:

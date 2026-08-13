@@ -1,5 +1,69 @@
 # CHANGELOG
 
+## 0.4.0
+
+### Changed
+
+* Migrated the web layer to FastAPI `>=0.140.0,<0.141.0` and Pydantic v2 (`>=2.13.0,<3.0.0`).
+  Public classes, CLI commands, and endpoints (`/health`, `/info`, `/predict`, `/docs`,
+  `/openapi.json`) are unchanged.
+* Minimum supported Python version is now 3.10. Python 3.8/3.9 support and Pydantic v1
+  compatibility remain on the pymlup 0.3.x line.
+* Replaced the implicit `fastapi[all]` dependency with explicit `fastapi`, `pydantic`,
+  `uvicorn`, and `starlette>=0.48.0` (`starlette` is pinned only because
+  `status.HTTP_422_UNPROCESSABLE_CONTENT` doesn't exist before 0.48.0; `fastapi` alone would
+  allow an older, incompatible `starlette`). The test suite now depends on `httpx` directly,
+  since it's no longer pulled in transitively through `fastapi[all]`.
+* Validation error responses now follow Pydantic v2's error taxonomy. The response shape
+  (`{"detail": [...], "predict_id": ...}`) is unchanged, but `type`/`msg` values differ, e.g.
+  `"value_error.missing"` -> `"missing"`, `"type_error.bool"` -> `"bool_parsing"`.
+* **Behavior change:** predict columns/arguments marked as *not required* only ever got
+  `default=None` in the generated Pydantic model, never an `Optional[...]` type. Pydantic v1
+  inferred implicit optionality from a `None` default and accepted an explicit JSON `null` for
+  such a field; Pydantic v2 does not infer this anymore, so sending an explicit `null` for a
+  not-required column now returns a 422 (omitting the key entirely still works as before).
+* **Behavior change:** a custom `str`-typed column no longer silently coerces a non-string
+  input (e.g. a JSON number) into a string; Pydantic v2 rejects it with a `string_type` error
+  instead of the implicit `str(value)` coercion Pydantic v1 performed.
+* The OpenAPI schema for optional fields (e.g. `predict_id` in the error response) now uses
+  Pydantic v2's `anyOf: [{"type": ...}, {"type": "null"}]` nullable representation instead of a
+  plain typed field.
+* `status.HTTP_422_UNPROCESSABLE_ENTITY` replaced with `status.HTTP_422_UNPROCESSABLE_CONTENT`
+  in error responses (same `422` status code; the old name is deprecated in current Starlette).
+
+### Fixed
+
+* `mlup/web/api_docs.py` raised `KeyError: None` when generating the OpenAPI schema for a
+  predict parameter that has neither a type annotation nor a default value mapping to a
+  supported primitive type (e.g. `def predict(self, X, tag=None)`). Such fields now get a
+  schema without an explicit `type` (valid JSON Schema for "any type") instead of crashing.
+* Deprecated Pydantic v1 serialization calls (`.dict()`) in `mlup/web/api_errors.py` and
+  `mlup/web/app.py` replaced with `.model_dump()`.
+* The `run_easy.ipynb`/`run_worker_and_queue.ipynb`/`run_batching.ipynb` integration test
+  notebooks all hardcoded the same port (`8009`) also used by dozens of unrelated unit tests,
+  and never stopped their web server if the predict request failed - an earlier failure could
+  leave an orphaned server squatting the port for later tests. Each notebook now uses its own
+  dedicated port, polls `/health` before calling `/predict`, and always calls
+  `up.stop_web_app()` in a `finally` block.
+* `tests/unit_tests/console_scripts/test_run.py` started a real server process and then did a
+  fixed `time.sleep(10)`/`time.sleep(20)` followed by an unguarded `requests.get(.../health)`
+  (no timeout). Under a slow/loaded machine this could hang the test run indefinitely instead
+  of failing. Replaced with a bounded `/health`-polling helper (same fix pattern as the
+  notebook tests above), and its subprocess cleanup now joins with a timeout and escalates to
+  `kill()` instead of a bare `terminate()` + fixed sleep, so the next test can't be blocked by
+  a not-yet-released port.
+* `tests/integration_tests/console_commands/test_run_cli_overrides.py`'s `_wait_for()` helper
+  called `requests.get`/`.post` without a per-request timeout; a server that accepted the
+  connection but never responded could hang the test run indefinitely despite the retry loop
+  being bounded by attempt count. Added `timeout=5` to the request call.
+
+### Removed
+
+* Python 3.8 and 3.9 support (`requires-python` is now `>=3.10`).
+* Pydantic v1 support. No `pydantic.v1` compatibility layer was added - dual v1/v2 support
+  isn't viable on current FastAPI (confirmed experimentally; see
+  `research/fastapi-pydantic-v2-spike.md`).
+
 ## 0.3.1
 
 ### Fixed

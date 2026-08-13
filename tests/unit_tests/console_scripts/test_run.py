@@ -19,6 +19,32 @@ import mlup
 from mlup.console_scripts.run import run, run_from_up_bin, run_from_config, run_from_model, InputArgsError
 
 
+def _wait_for_health(port: int, timeout: float = 20.0) -> requests.Response:
+    # Poll /health with a bounded per-request timeout instead of a fixed sleep + an unguarded
+    # requests.get(): under a slow/loaded machine, a fixed sleep can be too short and an
+    # unguarded request can hang the test run indefinitely if the server process never comes up.
+    deadline = time.monotonic() + timeout
+    last_error = None
+    while time.monotonic() < deadline:
+        try:
+            return requests.get(f'http://0.0.0.0:{port}/health', timeout=1)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            last_error = e
+            time.sleep(0.2)
+    raise TimeoutError(f'Server on port {port} did not become ready within {timeout}s') from last_error
+
+
+def _stop_process(proc: 'Process', timeout: float = 5.0) -> None:
+    # A plain terminate() + fixed sleep doesn't guarantee the process (and the port it bound)
+    # is actually gone before the next test starts, which can make the next test hang trying
+    # to bind the same port. Join with a timeout and escalate to kill() if it's still alive.
+    proc.terminate()
+    proc.join(timeout)
+    if proc.is_alive():
+        proc.kill()
+        proc.join(timeout)
+
+
 @pytest.mark.parametrize(
     'config_path, config_type',
     [('not_exists_path.json', 'json'), ('not_exists_path.yaml', 'yaml')],
@@ -95,14 +121,11 @@ async def test_run_from_config_valid_config(request, pickle_print_model, config_
     )
     try:
         proc.start()
-        time.sleep(10)
-
-        resp = requests.get('http://0.0.0.0:8009/health')
+        resp = _wait_for_health(8009)
         assert resp.status_code == 200
         assert resp.json() == {'status': 200}
     finally:
-        proc.terminate()
-        time.sleep(3)
+        _stop_process(proc)
 
 
 @pytest.mark.parametrize(
@@ -167,14 +190,11 @@ async def test_run_from_up_bin_valid_binary_pickle(tmp_path_factory, print_model
     )
     try:
         proc.start()
-        time.sleep(10)
-
-        resp = requests.get('http://0.0.0.0:8009/health')
+        resp = _wait_for_health(8009)
         assert resp.status_code == 200
         assert resp.json() == {'status': 200}
     finally:
-        proc.terminate()
-        time.sleep(3)
+        _stop_process(proc)
 
 
 @pytest.mark.skipif(joblib is None, reason='joblib library not installed.')
@@ -195,14 +215,11 @@ async def test_run_from_up_bin_valid_binary_joblib(tmp_path_factory, print_model
     )
     try:
         proc.start()
-        time.sleep(10)
-
-        resp = requests.get('http://0.0.0.0:8009/health')
+        resp = _wait_for_health(8009)
         assert resp.status_code == 200
         assert resp.json() == {'status': 200}
     finally:
-        proc.terminate()
-        time.sleep(3)
+        _stop_process(proc)
 
 
 def test_run_from_model_not_exists_model():
@@ -236,14 +253,11 @@ async def test_run_from_model_valid_binary_pickle(pickle_print_model):
     )
     try:
         proc.start()
-        time.sleep(20)
-
-        resp = requests.get('http://0.0.0.0:8011/health')
+        resp = _wait_for_health(8011)
         assert resp.status_code == 200
         assert resp.json() == {'status': 200}
     finally:
-        proc.terminate()
-        time.sleep(3)
+        _stop_process(proc)
 
 
 def test_run_with_conf_and_bin():

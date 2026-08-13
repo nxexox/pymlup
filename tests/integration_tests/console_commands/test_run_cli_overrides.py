@@ -31,8 +31,11 @@ def _wait_for(url: str, method: str = 'get', json=None, attempts: int = 15):
     response, error = None, None
     for i in range(attempts):
         try:
-            response = getattr(requests, method)(url, json=json)
-        except requests.ConnectionError as e:
+            # A per-request timeout is required here: without one, a server that accepts the
+            # TCP connection but never responds would hang this call (and the whole test run)
+            # indefinitely, regardless of the bounded `attempts` retry count.
+            response = requests.request(method, url, json=json, timeout=5)
+        except (requests.ConnectionError, requests.Timeout) as e:
             logger.error(f'Attempt number {i}. Request error {e}.')
             time.sleep(i)
         except Exception as e:

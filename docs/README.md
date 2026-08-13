@@ -68,7 +68,10 @@ mlup run -m /path/to/my/model.onnx
 
 ## Requirements
 
-Python 3.8+ (3.12, 3.13, 3.14 supported; the `tensorflow` extra requires Python <3.14 until TensorFlow publishes 3.14 wheels)
+Python 3.10+ (3.11, 3.12, 3.13, 3.14 supported; the `tensorflow` extra requires Python <3.14 until TensorFlow publishes 3.14 wheels)
+
+pymlup 0.4.0 runs on FastAPI and Pydantic v2. Python 3.8/3.9 and Pydantic v1 are still supported
+on the pymlup 0.3.x line.
 
 * PyMLup stands on the shoulders of giants FastAPI for the web parts. 
 * Additionally, you need to install the libraries that your model uses.

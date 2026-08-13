@@ -1,5 +1,5 @@
 import copy
-from typing import Optional
+from typing import List, Optional
 from unittest import TestCase
 
 from pydantic import BaseModel as PydanticBaseModel
@@ -238,7 +238,7 @@ openapi_full_scheme = {
                     },
                     'predict_id': {
                         'title': 'Predict Id',
-                        'type': 'string'
+                        'anyOf': [{'type': 'string'}, {'type': 'null'}],
                     }
                 },
             },
@@ -473,7 +473,7 @@ def test_generate_openapi_scheme_with_add_custom_handler(print_model):
         b: Optional[bool] = False
 
     async def test_api_handler(item_id: int, data: CustomRequestData):
-        return data.dict()
+        return data.model_dump()
 
     up = UP(
         ml_model=print_model,
@@ -537,11 +537,33 @@ def test_generate_openapi_scheme_with_add_custom_handler(print_model):
         'type': 'object',
         'properties': {
             'i': {'title': 'I', 'type': 'integer'},
-            'f': {'title': 'F', 'type': 'number'},
+            'f': {'title': 'F', 'anyOf': [{'type': 'number'}, {'type': 'null'}]},
             's': {'title': 'S', 'type': 'string', 'default': 'test string'},
-            'b': {'title': 'B', 'type': 'boolean', 'default': False}
+            'b': {'title': 'B', 'anyOf': [{'type': 'boolean'}, {'type': 'null'}], 'default': False}
         }
     }
 
     _openapi_full_scheme['openapi'] = generated_scheme['openapi']
     assertDictEqual(generated_scheme, _openapi_full_scheme)
+
+
+def test_generate_openapi_scheme_with_untyped_optional_predict_param():
+    # Regression test: a predict param with no type annotation and a default value that
+    # isn't a supported primitive (e.g. `tag=None`) used to crash schema generation with
+    # `KeyError: None` in `make_columns_object_openapi_scheme`.
+    class ModelWithUntypedOptionalParam:
+        def predict(self, X: List, tag=None):
+            return X
+
+    up = UP(
+        ml_model=ModelWithUntypedOptionalParam(),
+        conf=Config(auto_detect_predict_params=True),
+    )
+    up.ml.load()
+    up.web.load()
+
+    generated_scheme = generate_openapi_schema(up.web.app, up.ml)
+
+    predict_items = generated_scheme['components']['schemas']['PredictItems']
+    assert predict_items['properties']['tag'] == {'title': 'Optional Any'}
+    assert 'tag' not in predict_items['required']

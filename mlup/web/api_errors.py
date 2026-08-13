@@ -40,11 +40,11 @@ def api_exception_handler(request: Request, exc: Union[ValidationError, ApiReque
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
 
-    logger.debug(f'Response error. Status: {status.HTTP_422_UNPROCESSABLE_ENTITY}. Body: {error_res.dict()}.')
+    logger.debug(f'Response error. Status: {status.HTTP_422_UNPROCESSABLE_CONTENT}. Body: {error_res.model_dump()}.')
 
     return JSONResponse(
-        content=jsonable_encoder(error_res.dict()),
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content=jsonable_encoder(error_res.model_dump()),
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         headers=headers,
     )
 
@@ -56,10 +56,10 @@ def api_request_error_handler(request: Request, exc: ApiRequestError):
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
 
-    logger.debug(f'Response error. Status: {exc.status_code}. Body: {error_res.dict()}.')
+    logger.debug(f'Response error. Status: {exc.status_code}. Body: {error_res.model_dump()}.')
 
     return JSONResponse(
-        content=jsonable_encoder(error_res.dict()),
+        content=jsonable_encoder(error_res.model_dump()),
         status_code=exc.status_code,
         headers=headers,
     )
@@ -75,10 +75,10 @@ def predict_errors_handler(
         error_res.predict_id = exc.predict_id
         headers[PREDICT_ID_HEADER] = exc.predict_id
 
-    logger.debug(f'Response error. Status: {exc.http_status}. Body: {error_res.dict()}.')
+    logger.debug(f'Response error. Status: {exc.http_status}. Body: {error_res.model_dump()}.')
 
     return JSONResponse(
-        content=jsonable_encoder(error_res.dict()),
+        content=jsonable_encoder(error_res.model_dump()),
         status_code=exc.http_status,
         headers=headers,
     )

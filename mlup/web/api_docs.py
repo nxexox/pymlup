@@ -45,8 +45,11 @@ def make_columns_object_openapi_scheme(src_columns: List[Dict]) -> Tuple[Dict, L
                 _col_config["items"] = {"type": _openapi_types_map[col_type.lower()]}
             _col_config["type"] = _openapi_types_map[col_config["collection_type"].lower()]
             col_type = "list"
-        else:
+        elif col_type is not None:
             _col_config["type"] = _openapi_types_map[col_type].lower() or "string"
+        # else: predict param has no type annotation and no default value with a supported
+        # primitive type, so `col_type` is unknown. Leave the schema without an explicit
+        # "type" (valid JSON Schema meaning "any type") instead of guessing one.
 
         title = []
         if col_default is not None:
@@ -57,7 +60,7 @@ def make_columns_object_openapi_scheme(src_columns: List[Dict]) -> Tuple[Dict, L
         else:
             title.append("Optional")
 
-        title.append(col_type.capitalize())
+        title.append(col_type.capitalize() if col_type else "Any")
 
         if col_config.get(IS_X, False):
             _col_config["items"] = {"$ref": "#/components/schemas/ColumnsForPredict"}
