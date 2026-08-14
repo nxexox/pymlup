@@ -2,6 +2,11 @@
 
 This page walks through the fastest path from a clean environment to a working prediction API, then covers other ways to run and configure mlup.
 
+## Requirements
+
+* Python 3.10+
+* pymlup 0.4.x uses Pydantic v2
+
 ## Fast run
 
 **1. Install pymlup with the scikit-learn extra:**

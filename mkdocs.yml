@@ -11,6 +11,7 @@ repo_name: PyMLup
 nav:
   - Home: README.md
   - Quickstart: quickstart.md
+  - Migrating from 0.3.x: migration/v0.4.md
   - Configuration file: config_file.md
   - Application life cycle: life_cycle.md
   - Storages: storages.md

@@ -8,9 +8,9 @@
 
 ## Introduction
 
-MLup is a library for easy and fast running of ML models in production.
+MLup turns Python objects and serialized machine learning models into self-hosted FastAPI REST APIs without writing serving boilerplate.
 
-All you need is to deliver the model file to the server (a config is optional) — pymlup turns it into a FastAPI web application with one CLI command. No web app code to write or maintain.
+Serve sklearn, PyTorch, TensorFlow, ONNX, and custom Python models through a generated FastAPI application with validation, OpenAPI docs, and health endpoints.
 
 * Pure Python, no required framework-specific glue code;
 * Uses FastAPI for the web layer;
@@ -138,7 +138,7 @@ Support and tested with machine learning libraries:
 
 ## Documentation
 
-The full documentation — Python API, CLI reference, config file format, storages, binarizers, data transformers, web app architectures/API, application life cycle — lives at **[mlup.org](https://mlup.org/)** (source: [docs/](docs/)).
+The full documentation — Python API, CLI reference, config file format, storages, binarizers, data transformers, web app architectures/API, application life cycle — lives at **[mlup.org](https://mlup.org/)** (source: [docs/](https://github.com/nxexox/pymlup/tree/main/docs)).
 
 ## Useful links
 * [Full documentation](https://mlup.org/)
