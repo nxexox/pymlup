@@ -676,6 +676,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="mlup run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-pickle-file-for-mlup-run-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the pickle file for mlup run -b
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -743,6 +760,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="mlup run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-pickle-file-for-mlup-run-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the pickle file for mlup run -b
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -800,6 +834,25 @@ Config is valid
 <li>according to the config - <code>mlup run -c /path/to/my/config.yaml</code>;</li>
 <li>according to the pickle file with mlup.UP - <code>mlup run -b /path/to/my/binary.pickle</code>;</li>
 </ul>
+<h3 id="creating-the-pickle-file-for-mlup-run-b">Creating the pickle file for <code>mlup run -b</code></h3>
+<p>If you pickle/joblib your <code>mlup.UP</code> together with the model, you don't need to set a storage
+type — the model is already inside the pickle/joblib file.</p>
+<pre><code class="language-python">import pickle
+import mlup
+from mlup.ml.empty import EmptyModel  # This stub class
+
+up = mlup.UP(ml_model=EmptyModel())
+
+# You can create pickle file
+with open('path_to_pickle_file.pckl', 'wb') as f:
+    pickle.dump(up, f)
+
+# After in server
+with open('path_to_pickle_file.pckl', 'rb') as f:
+    up = pickle.load(f)
+up.ml.load()
+up.run_web_app()
+</code></pre>
 <p>Also, you can replace any config value on the fly, directly in the arguments.</p>
 <pre><code class="language-bash">mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
 </code></pre>
