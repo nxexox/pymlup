@@ -1,86 +1,40 @@
-![MLup logo](https://raw.githubusercontent.com/nxexox/pymlup/main/docs/assets/img/logo_with_name_blue.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nxexox/pymlup/main/docs/assets/img/logo_with_name_blue.png" alt="MLup logo" width="500">
+</p>
 
-----
-
-[![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
-[![PyPI version](https://badge.fury.io/py/pymlup.svg)](https://badge.fury.io/py/pymlup)
-[![Downloads](https://img.shields.io/pypi/dm/pymlup.svg)](https://pypistats.org/packages/pymlup)
-
-## Introduction
-
-MLup turns Python objects and serialized machine learning models into self-hosted FastAPI REST APIs without writing serving boilerplate.
+**MLup turns Python objects and serialized machine learning models into self-hosted FastAPI REST APIs without writing serving boilerplate.**
 
 Serve sklearn, PyTorch, TensorFlow, ONNX, and custom Python models through a generated FastAPI application with validation, OpenAPI docs, and health endpoints.
 
-* Pure Python, no required framework-specific glue code;
-* Uses FastAPI for the web layer;
-* Works with any Python object that exposes a `predict`-like method, plus native (de)serialization support for scikit-learn, lightgbm, tensorflow, torch and onnx models.
+[![Linters and testing](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml/badge.svg)](https://github.com/nxexox/pymlup/actions/workflows/python-package.yml)
+[![PyPI version](https://img.shields.io/pypi/v/pymlup.svg)](https://pypi.org/project/pymlup/)
+[![Downloads](https://img.shields.io/pypi/dm/pymlup.svg)](https://pypistats.org/packages/pymlup)
 
-## Requirements
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nxexox/pymlup/main/docs/assets/img/demo.gif" alt="MLup demo: mlup run, curl /predict, Swagger UI">
+</p>
 
-Python 3.10+ (3.11, 3.12, 3.13, 3.14 supported; the `tensorflow` extra requires Python <3.14 until TensorFlow publishes 3.14 wheels).
-
-pymlup 0.4.0 runs on FastAPI and Pydantic v2. Python 3.8/3.9 and Pydantic v1 are still supported
-on the pymlup 0.3.x line.
-
-## Installation
+## Quick example
 
 ```bash
-pip install pymlup
-```
-
-With an ML backend extra:
-```bash
-pip install "pymlup[scikit-learn]"  # For scikit-learn
-pip install "pymlup[lightgbm]"      # For microsoft lightgbm
-pip install "pymlup[tensorflow]"    # For tensorflow
-pip install "pymlup[torch]"         # For torch
-pip install "pymlup[onnx]"          # For onnx models: torch, tensorflow, sklearn, etc...
-```
-
-## Quick start
-
-From a clean environment to a working prediction API in about five minutes, using scikit-learn as the example.
-
-**1. Create a virtual environment and install pymlup with the scikit-learn extra:**
-```bash
-python3 -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install "pymlup[scikit-learn]"
 ```
 
-**2. Train and save a tiny model.** Save this as `train_model.py` and run it:
 ```python
-# train_model.py
+# model.py
 import pickle
 from sklearn.tree import DecisionTreeClassifier
 
-X = [[0, 0], [1, 1], [2, 2], [3, 3]]
-y = [0, 0, 1, 1]
-
-model = DecisionTreeClassifier().fit(X, y)
-
+model = DecisionTreeClassifier().fit([[0, 0], [1, 1], [2, 2], [3, 3]], [0, 0, 1, 1])
 with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
 ```
+
 ```bash
-python train_model.py
+python model.py
+mlup run -m model.pkl
 ```
 
-**3. Start the API:**
-```bash
-mlup run -m ./model.pkl
-```
-
-**4. Check it's alive** (in another terminal):
-```bash
-curl http://localhost:8009/health
-```
-```json
-{"status":200}
-```
-
-**5. Call the model:**
 ```bash
 curl -X POST http://localhost:8009/predict \
   -H "Content-Type: application/json" \
@@ -90,65 +44,111 @@ curl -X POST http://localhost:8009/predict \
 {"predict_result":[0,1]}
 ```
 
-**6. Explore the interactive API docs.** Open **http://localhost:8009/docs** in your browser for the Swagger UI, auto-generated from your model's `predict` signature — you can try `/predict` right there.
+Interactive API docs (Swagger UI): **http://localhost:8009/docs**
 
-Stop the server with `Ctrl+C`.
+Full walkthrough, config options, and every supported model format: **[mlup.org/quickstart](https://mlup.org/quickstart/)**.
 
-Already have a serialized model (onnx, joblib, lightgbm, torch, tensorflow, ...) instead of training a new one? Point `mlup run -m` at it directly (install the matching extra from [Installation](#installation)) — see the [full documentation](https://mlup.org/) for every supported format and config option.
+## What you get
 
-### Any Python object, no ML framework required
+* A generated FastAPI application — `up.web.app` is a real `fastapi.FastAPI` instance;
+* `POST /predict`, with request validation built from your model's signature or a column config;
+* Auto-generated OpenAPI schema and Swagger UI at `/docs`;
+* `GET /health` and `GET /info`;
+* Loading from serialized models (pickle, joblib, and framework-native formats) or from a plain Python object with a `predict`-like method — `pip install pymlup` alone, no extra, covers the latter;
+* Optional `worker_and_queue` and `batching` execution modes for the prediction call.
 
-pymlup doesn't require a serialized model file at all — any Python object with a `predict`-like method works:
+## Why MLup
+
+FastAPI isn't the problem — it's a solid, well-designed web framework. MLup exists because serving an existing model usually means rewriting the same boilerplate around it: a request schema, a `/predict` route, validation, a health check, an app object to run.
+
+**Manual FastAPI:**
 ```python
-import mlup
+import pickle
+from fastapi import FastAPI
+from pydantic import BaseModel
 
-class MyAnyModelForExample:
-    def predict(self, X):
-        return X
+with open("model.pkl", "rb") as f:
+    model = pickle.load(f)
 
-up = mlup.UP(ml_model=MyAnyModelForExample())
-up.ml.load()
-up.run_web_app(daemon=True)
-```
-Open **http://localhost:8009/docs** to try it, or call it from the same script — this needs `pip install requests` separately, it's not a pymlup dependency:
-```python
-import requests
-response = requests.post('http://localhost:8009/predict', json={'X': [[1, 2, 3], [4, 5, 6]]})
-print(response.json())
+class PredictRequest(BaseModel):
+    X: list
 
-up.stop_web_app()
+app = FastAPI()
+
+@app.post("/predict")
+def predict(body: PredictRequest):
+    return {"predict_result": model.predict(body.X).tolist()}
 ```
 
-## Supported ML frameworks
+**MLup:**
+```bash
+mlup run -m model.pkl
+```
 
-Work tested with machine learning model frameworks (links to tests):
+Use FastAPI directly when your API contains substantial custom application logic. Use MLup when you already have a model and mostly need a clean HTTP serving layer around it.
 
-* [scikit-learn>=1.2.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_scikit_learn_model.py)
-* [tensorflow>=2.0.0,<3.0.0, Python<3.14](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_tensorflow_model.py)
-* [lightgbm>=4.0.0,<5.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_lightgbm_model.py)
-* [torch>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks/test_pytorch_model.py)
-* [onnx>=1.0.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
-* [onnxruntime>=1.14.0,<1.26.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+## When to use MLup
 
-Support and tested with machine learning libraries:
+* You already have a trained scikit-learn, LightGBM, PyTorch, TensorFlow, or ONNX model, or a plain Python object with a `predict`-like method;
+* You need an internal API or a small, self-hosted model service;
+* You're moving a prototype out of a notebook and just need it reachable over HTTP;
+* You don't need a full MLOps platform for this — just a clean serving layer.
 
-* [numpy>=1.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
-* [pandas>=2.0.0,<3.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_data_transformers.py)
-* [joblib>=1.2.0,<2.0.0](https://github.com/nxexox/pymlup/tree/main/tests/unit_tests/ml/test_binarization.py)
+## When MLup probably isn't the right fit
+
+* Kubernetes-native autoscaling;
+* Highly optimized multi-GPU inference;
+* Distributed serving graphs;
+* Managed cloud deployment;
+* A full MLOps lifecycle / model registry;
+* A complex, application-specific HTTP API with substantial custom logic beyond serving a model.
+
+For those, look at [FastAPI](https://fastapi.tiangolo.com/) directly, or dedicated model-serving platforms like [BentoML](https://www.bentoml.com/), [Ray Serve](https://docs.ray.io/en/latest/serve/index.html), [KServe](https://kserve.github.io/website/), or [Triton Inference Server](https://github.com/triton-inference-server/server).
+
+## Supported models
+
+| Type / framework | Typical formats | Installation extra |
+| --- | --- | --- |
+| Any Python object | in-memory object with a `predict`-like method — no file needed | *(none, core install)* |
+| scikit-learn | pickle / joblib — via mlup's generic binarizers, not a dedicated adapter | `pymlup[scikit-learn]` |
+| LightGBM | native LightGBM format, pickle, joblib | `pymlup[lightgbm]` |
+| PyTorch | native torch formats (including TorchScript), pickle | `pymlup[torch]` |
+| TensorFlow | SavedModel, `.h5`, `.keras`, pickle — Python <3.14 only | `pymlup[tensorflow]` |
+| ONNX | `.onnx` | `pymlup[onnx]` |
+
+Binarizer implementations: [`mlup/ml/binarization/`](https://github.com/nxexox/pymlup/tree/main/mlup/ml/binarization). Framework integration tests: [`tests/integration_tests/frameworks/`](https://github.com/nxexox/pymlup/tree/main/tests/integration_tests/frameworks).
+
+## Examples
+
+* [`examples/from_config.py`](https://github.com/nxexox/pymlup/blob/main/examples/from_config.py) — load a saved YAML config and run it;
+* [`examples/configs.py`](https://github.com/nxexox/pymlup/blob/main/examples/configs.py) — build a `mlup.Config` with explicit columns in code;
+* [`examples/daemon.py`](https://github.com/nxexox/pymlup/blob/main/examples/daemon.py) — load a model from disk storage and expose the FastAPI `app` object (for `uvicorn`/`gunicorn`);
+* [`examples/gunicorn_run.py`](https://github.com/nxexox/pymlup/blob/main/examples/gunicorn_run.py) — run under `uvicorn`/`gunicorn` instead of `mlup run`.
+
+Browse all: [github.com/nxexox/pymlup/tree/main/examples](https://github.com/nxexox/pymlup/tree/main/examples).
 
 ## Documentation
 
-The full documentation — Python API, CLI reference, config file format, storages, binarizers, data transformers, web app architectures/API, application life cycle — lives at **[mlup.org](https://mlup.org/)** (source: [docs/](https://github.com/nxexox/pymlup/tree/main/docs)).
+Full documentation: **[mlup.org](https://mlup.org/)**
 
-## Useful links
-* [Full documentation](https://mlup.org/)
-* [Examples](https://github.com/nxexox/pymlup/tree/main/examples)
-* [Test models](https://github.com/nxexox/pymlup/tree/main/mldata)
+* [Quick Start](https://mlup.org/quickstart/)
+* [Configuration file](https://mlup.org/config_file/)
+* [Python interface](https://mlup.org/python_interface/)
+* [Bash commands (CLI)](https://mlup.org/bash_commands/)
+* [Migrating from 0.3.x](https://mlup.org/migration/v0.4/)
 
-## Metrics
+## Downloads
 
-MLup PyPi download statistics: https://pepy.tech/project/pymlup
+MLup PyPI download statistics: https://pepy.tech/project/pymlup
 
 [![Downloads](https://static.pepy.tech/badge/pymlup)](https://pepy.tech/project/pymlup)
 [![Downloads](https://static.pepy.tech/badge/pymlup/month)](https://pepy.tech/project/pymlup)
 [![Downloads](https://static.pepy.tech/badge/pymlup/week)](https://pepy.tech/project/pymlup)
+
+## Contributing
+
+Contributions are welcome — see [CONTRIBUTING.md](https://github.com/nxexox/pymlup/blob/main/CONTRIBUTING.md).
+
+---
+
+If MLup is useful to you, consider starring the repository — it helps other developers discover the project.

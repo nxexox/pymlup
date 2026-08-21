@@ -34,6 +34,29 @@ But this team is much broader. It can run the application:
 * according to the config - `mlup run -c /path/to/my/config.yaml`;
 * according to the pickle file with mlup.UP - `mlup run -b /path/to/my/binary.pickle`;
 
+### Creating the pickle file for `mlup run -b`
+
+If you pickle/joblib your `mlup.UP` together with the model, you don't need to set a storage
+type — the model is already inside the pickle/joblib file.
+
+```python
+import pickle
+import mlup
+from mlup.ml.empty import EmptyModel  # This stub class
+
+up = mlup.UP(ml_model=EmptyModel())
+
+# You can create pickle file
+with open('path_to_pickle_file.pckl', 'wb') as f:
+    pickle.dump(up, f)
+
+# After in server
+with open('path_to_pickle_file.pckl', 'rb') as f:
+    up = pickle.load(f)
+up.ml.load()
+up.run_web_app()
+```
+
 Also, you can replace any config value on the fly, directly in the arguments.
 ```bash
 mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
