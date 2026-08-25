@@ -21,6 +21,10 @@ nav:
   - Web app API: web_app_api.md
   - Python interface: python_interface.md
   - Bash commands: bash_commands.md
+  - Examples:
+      - Sklearn model: examples/sklearn.md
+      - Custom Python model: examples/custom-python-model.md
+      - ONNX model: examples/onnx.md
 
 theme:
   name: material
