@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://mlup.org/bash_commands/">
+        <link rel="canonical" href="https://mlup.org/examples/sklearn/">
       
       
-        <link rel="prev" href="../python_interface/">
+        <link rel="prev" href="../../bash_commands/">
       
       
-        <link rel="next" href="../examples/sklearn/">
+        <link rel="next" href="../custom-python-model/">
       
       
         
       
       
-      <link rel="icon" href="../assets/img/favicon.png">
+      <link rel="icon" href="../../assets/img/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Bash commands - MLup</title>
+        <title>Sklearn model - MLup</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#description-of-the-bash-commands" class="md-skip">
+        <a href="#example-scikit-learn-model" class="md-skip">
           Skip to content
         </a>
       
@@ -133,7 +133,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://mlup.org" title="MLup" class="md-header__button md-logo" aria-label="MLup" data-md-component="logo">
       
-  <img src="../assets/img/logo_without_text_grey_with_background.png" alt="logo">
+  <img src="../../assets/img/logo_without_text_grey_with_background.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -150,7 +150,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bash commands
+              Sklearn model
             
           </span>
         </div>
@@ -275,7 +275,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://mlup.org" title="MLup" class="md-nav__button md-logo" aria-label="MLup" data-md-component="logo">
       
-  <img src="../assets/img/logo_without_text_grey_with_background.png" alt="logo">
+  <img src="../../assets/img/logo_without_text_grey_with_background.png" alt="logo">
 
     </a>
     MLup
@@ -302,7 +302,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -329,7 +329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../../quickstart/" class="md-nav__link">
         
   
   
@@ -356,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../migration/v0.4/" class="md-nav__link">
+      <a href="../../migration/v0.4/" class="md-nav__link">
         
   
   
@@ -383,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../config_file/" class="md-nav__link">
+      <a href="../../config_file/" class="md-nav__link">
         
   
   
@@ -410,7 +410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../life_cycle/" class="md-nav__link">
+      <a href="../../life_cycle/" class="md-nav__link">
         
   
   
@@ -437,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storages/" class="md-nav__link">
+      <a href="../../storages/" class="md-nav__link">
         
   
   
@@ -464,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../binarizers/" class="md-nav__link">
+      <a href="../../binarizers/" class="md-nav__link">
         
   
   
@@ -491,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data_transformers/" class="md-nav__link">
+      <a href="../../data_transformers/" class="md-nav__link">
         
   
   
@@ -518,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../web_app_architectures/" class="md-nav__link">
+      <a href="../../web_app_architectures/" class="md-nav__link">
         
   
   
@@ -545,7 +545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../web_app_api/" class="md-nav__link">
+      <a href="../../web_app_api/" class="md-nav__link">
         
   
   
@@ -572,7 +572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python_interface/" class="md-nav__link">
+      <a href="../../python_interface/" class="md-nav__link">
         
   
   
@@ -596,6 +596,82 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bash_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
     
   
   
@@ -615,7 +691,7 @@
   <span class="md-ellipsis">
     
   
-    Bash commands
+    Sklearn model
   
 
     
@@ -633,7 +709,7 @@
   <span class="md-ellipsis">
     
   
-    Bash commands
+    Sklearn model
   
 
     
@@ -659,10 +735,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mlup-validate-config" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup validate-config
+        Requirements
       
     </span>
   </a>
@@ -670,38 +746,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mlup-run" class="md-nav__link">
+  <a href="#run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup run
+        Run
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="mlup run">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-the-pickle-file-for-mlup-run-b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating the pickle file for mlup run -b
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mlup-make-app" class="md-nav__link">
+  <a href="#test-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup make-app
+        Test API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected result
       
     </span>
   </a>
@@ -715,80 +785,6 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
-        
-          
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Examples
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Examples
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../examples/sklearn/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sklearn model
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -798,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/custom-python-model/" class="md-nav__link">
+      <a href="../custom-python-model/" class="md-nav__link">
         
   
   
@@ -826,7 +822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/onnx/" class="md-nav__link">
+      <a href="../onnx/" class="md-nav__link">
         
   
   
@@ -881,10 +877,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mlup-validate-config" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup validate-config
+        Requirements
       
     </span>
   </a>
@@ -892,38 +888,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mlup-run" class="md-nav__link">
+  <a href="#run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup run
+        Run
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="mlup run">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-the-pickle-file-for-mlup-run-b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating the pickle file for mlup run -b
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mlup-make-app" class="md-nav__link">
+  <a href="#test-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        mlup make-app
+        Test API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected result
       
     </span>
   </a>
@@ -950,163 +940,33 @@
   
 
 
-<h1 id="description-of-the-bash-commands">Description of the bash commands</h1>
-<h2 id="mlup-validate-config">mlup validate-config</h2>
-<p>This command allows you to validate your config file for correctness.</p>
-<pre><code class="language-bash">mlup validate-config /path/to/your/config/file.yaml
-Load config from /path/to/your/config/file.yaml
-Config is valid
-
-mlup validate-config --type json /path/to/your/config/file.json
-Load config from /path/to/your/config/file.json
-Config is valid
-</code></pre>
-<p>So far, this command cannot check the validity of the values in the configuration file. The command simply checks that mlup can read and load this config.</p>
-<p>This is due to the fact that not everything can be validated without running the code to load the model. But I'm working on creating full validation for each field, its valid values, and the cumulative values throughout the entire config.</p>
-<p>If the config is not valid, this command will exit with exit code 1.</p>
-<h2 id="mlup-run">mlup run</h2>
-<p>Perhaps the most interesting command, which allows you to run the application directly according to the model without a config.</p>
-<pre><code class="language-bash">mlup run -m /path/to/my/model.onnx
-</code></pre>
-<p>But this team is much broader. It can run the application:</p>
+<h1 id="example-scikit-learn-model">Example: scikit-learn model</h1>
+<p>Trains a tiny scikit-learn model, saves it to disk, and serves it as a REST API with a single
+<code>mlup run</code> command - no serving code written.</p>
+<p>Source: <a href="https://github.com/nxexox/pymlup/tree/main/examples/sklearn"><code>examples/sklearn/</code></a></p>
+<h2 id="requirements">Requirements</h2>
 <ul>
-<li>by model - <code>mlup run -m /path/to/my/model.onnx</code>;</li>
-<li>according to the config - <code>mlup run -c /path/to/my/config.yaml</code>;</li>
-<li>according to the pickle file with mlup.UP - <code>mlup run -b /path/to/my/binary.pickle</code>;</li>
+<li>Python 3.8+</li>
+<li><code>pymlup[scikit-learn]</code></li>
 </ul>
-<h3 id="creating-the-pickle-file-for-mlup-run-b">Creating the pickle file for <code>mlup run -b</code></h3>
-<p>If you pickle/joblib your <code>mlup.UP</code> together with the model, you don't need to set a storage
-type — the model is already inside the pickle/joblib file.</p>
-<pre><code class="language-python">import pickle
-import mlup
-from mlup.ml.empty import EmptyModel  # This stub class
+<h2 id="run">Run</h2>
+<pre><code class="language-bash">git clone https://github.com/nxexox/pymlup.git
+cd pymlup/examples/sklearn
 
-up = mlup.UP(ml_model=EmptyModel())
-
-# You can create pickle file
-with open('path_to_pickle_file.pckl', 'wb') as f:
-    pickle.dump(up, f)
-
-# After in server
-with open('path_to_pickle_file.pckl', 'rb') as f:
-    up = pickle.load(f)
-up.ml.load()
-up.run_web_app()
+pip install -r requirements.txt
+bash run.sh
 </code></pre>
-<p>Also, you can replace any config value on the fly, directly in the arguments.</p>
-<pre><code class="language-bash">mlup run -c /path/to/my/config.yaml --up.port=8010 --up.use_thread_loop=False
+<p><code>run.sh</code> trains a <code>DecisionTreeClassifier</code> (<a href="https://github.com/nxexox/pymlup/blob/main/examples/sklearn/train.py"><code>train.py</code></a>), saves it to <code>model.pkl</code>, and starts the API with
+<code>mlup run -m model.pkl</code>.</p>
+<h2 id="test-api">Test API</h2>
+<pre><code class="language-bash">curl -X POST http://localhost:8009/predict \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;X&quot;: [[1, 1], [3, 3]]}'
 </code></pre>
-<p>The order of using the config in this case:</p>
-<ul>
-<li>The most priority config from the arguments <code>--up.&lt;conf_name&gt;</code>;</li>
-<li>Config from your configuration file;</li>
-<li>Default config value;</li>
-</ul>
-<p>Examples for different data types:</p>
-<pre><code class="language-bash"> mlup run -m /path/tomy/model.onnx \
-  --up.port=8011 \
-  --up.batch_worker_timeout=10.0 \
-  --up.predict_method_name=\&quot;__call__\&quot; \
-  --up.use_thread_loop=False \
-  --up.columns='[{&quot;name&quot;: &quot;col&quot;, &quot;type&quot;: &quot;list&quot;}]' \
-  --up.uvicorn_kwargs='{&quot;workers&quot;: 4, &quot;timeout_graceful_shutdown&quot;: 10}'
+<h2 id="expected-result">Expected result</h2>
+<pre><code class="language-json">{&quot;predict_result&quot;: [0, 1]}
 </code></pre>
-<p>You can specify <code>--verbose</code> to get full logging with debug loggers for debugging.</p>
-<pre><code class="language-bash">mlup run -m /path/to/my/model.onnx --verbose
-</code></pre>
-<h2 id="mlup-make-app">mlup make-app</h2>
-<p>If the <code>mlup run</code> command is not enough for you, you can create a <code>.py</code> file with your mlup application.
-In which you can add any of your Python code. For example: add your own API handlers for a web application.</p>
-<pre><code class="language-bash">mlup make-app /path/to/your/app.py
-App success created: /path/to/your/app.py
-</code></pre>
-<p>This command will generate the following code in the file <code>/path/to/your/app.py</code>:</p>
-<pre><code class="language-python">import mlup
-
-
-# You can load the model yourself and pass it to the &quot;ml_model&quot; argument.
-# up = mlup.UP(ml_model=my_model, conf=mlup.Config())
-up = mlup.UP(
-    conf=mlup.Config(
-        # Set your config, for work model and get model.
-        # You can use storage_type and storage_kwargs for auto_load model from storage.
-    )
-)
-up.ml.load()
-up.web.load()
-
-# If you want to run the application yourself, or add something else to it, use this variable.
-# Example with uvicorn: uvicorn test-app2:app --host 0.0.0.0 --port 80
-app = up.web.app
-
-if __name__ == '__main__':
-    up.run_web_app()
-</code></pre>
-<p>You can control which application will be generated using arguments:</p>
-<ul>
-<li><code>mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py</code> - will add model loading from disk to the application.</li>
-<li><code>mlup make-app -cs /path/to/your/config.yaml /path/to/your/app.py</code> - will add config loading from disk to the application.</li>
-<li><code>mlup make-app -bs /path/to/your/mlupUP.pickle /path/to/your/app.py</code> - will add loading mlup.UP from disk and unpickle to the application.</li>
-</ul>
-<p>For example, the command <code>mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py</code> will create the file:</p>
-<pre><code class="language-python">import mlup
-from mlup import constants
-
-
-up = mlup.UP(
-    conf=mlup.Config(
-        # Set your config, for work model and get model.
-        storage_type=constants.StorageType.disk,
-        storage_kwargs={
-            'path_to_files': '/path/to/your/model.onnx',
-            'files_mask': 'model.onnx',
-        },
-    )
-)
-up.ml.load()
-up.web.load()
-
-# If you want to run the application yourself, or add something else to it, use this variable.
-# Example with uvicorn: uvicorn test-app2:app --host 0.0.0.0 --port 80
-app = up.web.app
-
-if __name__ == '__main__':
-    up.run_web_app()
-</code></pre>
-<p>If the file <code>/path/to/your/app.py</code> already exists, you can specify <code>--force</code> to overwrite it. Then the existing file will be deleted and a new one will be created.</p>
-<p>Just like in <code>mlup run</code>, you can specify your own configuration options via the <code>--up.&lt;conf_name&gt;</code> argument.</p>
-<pre><code class="language-bash">mlup make-app -ms /path/to/your/model.onnx /path/to/your/app.py --up.port=8010 --up.use_thread_loop=False`
-</code></pre>
-<p>Will create the following file:</p>
-<pre><code class="language-python">import mlup
-from mlup import constants
-
-
-up = mlup.UP(
-    conf=mlup.Config(
-        # Set your config, for work model and get model.
-        storage_type=constants.StorageType.disk,
-        storage_kwargs={
-            'path_to_files': '/path/to/your/model.onnx',
-            'files_mask': 'model.onnx',
-        },
-        port=8010,
-        use_thread_loop=False,
-    )
-)
-up.ml.load()
-up.web.load()
-
-# If you want to run the application yourself, or add something else to it, use this variable.
-# Example with uvicorn: uvicorn test-app2:app --host 0.0.0.0 --port 80
-app = up.web.app
-
-if __name__ == '__main__':
-    up.run_web_app()
-</code></pre>
-<p>You can launch the application through the created file with one command:</p>
-<pre><code class="language-bash">python /path/to/your/app.py
-</code></pre>
+<p>See the <a href="https://github.com/nxexox/pymlup/blob/main/examples/sklearn/README.md">full README for this example</a> on GitHub.</p>
 
 
 
@@ -1158,10 +1018,10 @@ if __name__ == '__main__':
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "search.suggest", "search.highlight", "search.share", "offline"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
