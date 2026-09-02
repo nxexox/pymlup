@@ -120,6 +120,9 @@ Binarizer implementations: [`mlup/ml/binarization/`](https://github.com/nxexox/p
 
 ## Examples
 
+* [`examples/sklearn/`](https://github.com/nxexox/pymlup/blob/main/examples/sklearn/) — train, save, and serve a scikit-learn model, start to finish;
+* [`examples/custom-python-model/`](https://github.com/nxexox/pymlup/blob/main/examples/custom-python-model/) — serve a plain Python object with a `predict`-like method, no ML framework;
+* [`examples/onnx/`](https://github.com/nxexox/pymlup/blob/main/examples/onnx/) — serve an ONNX model;
 * [`examples/from_config.py`](https://github.com/nxexox/pymlup/blob/main/examples/from_config.py) — load a saved YAML config and run it;
 * [`examples/configs.py`](https://github.com/nxexox/pymlup/blob/main/examples/configs.py) — build a `mlup.Config` with explicit columns in code;
 * [`examples/daemon.py`](https://github.com/nxexox/pymlup/blob/main/examples/daemon.py) — load a model from disk storage and expose the FastAPI `app` object (for `uvicorn`/`gunicorn`);
